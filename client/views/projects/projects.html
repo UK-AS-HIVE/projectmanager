@@ -1,0 +1,61 @@
+<template name="projects">
+        <table class="table table-bordered table-striped table-hover projectTable pagination-sm" id="projectTable">
+                <thead>
+                    <tr>
+                        <th id="name">Name</th>
+                        <th>Owner</th>
+                        <th>Status</th>
+                        <th>Priority</th>
+                        <th>Due/Launch Date</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                   {{#each projectList}}
+                   {{> projectRow}}
+                    {{/each}}
+                </tbody>
+            </table>
+</template>
+
+<template name="projectRow">
+                <tr class="parent">
+                        <td>{{name}}<br/>
+                        {{#if description}}
+                        "{{description}}"
+                        {{/if}}
+                        {{#if imagePath}}
+                        <div>
+                            <img href="{{imagePath}}" src= "{{imagePath}}" class = "thumb-wrapper" >
+                        </div>
+                        {{/if}}
+                            </td>
+                            <td>{{owner}}</td>
+                            <td>{{status}}</td>
+                            <td>{{priority}}</td>
+                            <td>{{date}}</td>
+                </tr>
+                        <tr style="display:none" class ="details">
+                        <td colspan="10">
+                        <table>
+                        <tr>
+                        <td valign="top">
+                            <label for="date" class="{{url}}">URL: </label> <a href="{{formattedUrl}}" target="_blank"> {{formattedUrl}}</a> <br />
+                            <label for="date">Tags: </label><br />
+                        </td>
+                        {{#if imagePath}}
+                        <td>
+                        <div STYLE="height:480px; width: 640px; font-size: 12px; overflow: auto;">
+                            <img href="{{imagePath}}" src= "{{imagePath}}" class="screenshot-wrapper" align="right"><br />
+                        </div>
+                        </td>
+                        {{/if}}
+                    </tr>
+                    </table>
+                            <a href="#" class="btn btn-danger btn-large pull-center deleteProject"><i class="icon-white icon-trash"></i> Delete Project</a><br/><br/>
+                        </td>
+                    </tr>
+</template>
+
+
+
