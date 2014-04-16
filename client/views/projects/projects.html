@@ -2,11 +2,11 @@
         <table class="table table-bordered table-striped table-hover projectTable pagination-sm" id="projectTable">
                 <thead>
                     <tr>
-                        <th id="name">Name</th>
+                        <th id="name" width='auto'>Name</th>
                         <th>Owner</th>
-                        <th>Status</th>
-                        <th>Priority</th>
-                        <th>Due/Launch Date</th>
+                        <th width='80px'>Status</th>
+                        <th width='80px'>Priority</th>
+                        <th width='40px'>Due/Launch Date</th>
                     </tr>
                 </thead>
 
@@ -25,13 +25,13 @@
                         "{{description}}"
                         {{/if}}
                         {{#if imagePath}}
-                        <div>
+                        <div style="height:60px; width:80px">
                             <img href="{{imagePath}}" src= "{{imagePath}}" class = "thumb-wrapper" >
                         </div>
                         {{/if}}
                             </td>
                             <td>{{owner}}</td>
-                            <td><a class="editableStatus">{{status}}</a></td>
+                            <td colspan="1"><a href='#' class="editableStatus">{{status}}</a></td>
                             <td>{{priority}}</td>
                             <td>{{date}}</td>
                 </tr>

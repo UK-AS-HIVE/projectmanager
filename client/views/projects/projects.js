@@ -1,5 +1,5 @@
 // set all inline edits to inline, and not popup.
-//$.fn.editable.defaults.mode = 'inline';
+$.fn.editable.defaults.mode = 'inline';
 
 
 Template.projects.projectList = function(mySort){
@@ -21,8 +21,9 @@ Template.projects.events({
     'click .editableName' : function inlineedit(e, tmpl){
         var projectId = this._id;
         console.log(projectId);
-        $('#projectTable a').editable({
+        $('.editableName').editable({
             type: 'text',
+            showbuttons: false,
             success: function(response, newValue) {
                 Projects.update(projectId, {$set:{name: newValue}});
             }
@@ -30,11 +31,18 @@ Template.projects.events({
     },
         'click .editableStatus' : function inlineedit(e, tmpl){
         var projectId = this._id;
-        console.log(projectId);
-        $('#projectTable a').editable({
-            type: 'text',
+        $('.editableStatus').editable({
+            type: 'select',   
+            showbuttons: false,
+            source: [
+              {value: 'In Progress', text: 'In Progress'},
+              {value: 'Not Scheduled', text: 'Not Scheduled'},
+              {value: 'On Hold', text: 'On Hold'},
+              {value: 'Done', text: 'Done'}
+           ],
             success: function(response, newValue) {
-                Projects.update(projectId, {$set:{name: newValue}});
+                Projects.update(projectId, {$set:{status: newValue}});
+                $(e).hide();
             }
             });
     }
@@ -45,8 +53,7 @@ Template.projectRow.events({
 	'click .parent':function(e, tmpl)
 	{
         var element = e.target.tagName;
-        console.log(element);
-        if (element!="A"){
+        if (element == 'TD'){
 		var e = tmpl.find('.details');
         $(e).toggle();
     }
@@ -73,13 +80,16 @@ Template.projectRow.imagePath = function(e, tpl){
 
 Template.projectRow.helpers({
     formattedUrl : function(e, tpl) {
-        var url = this.url;
+        /*
+        var url = tpl.find('.url').value;
         if (this.url.substr(0,7) != "http://"){
-            var url = "http://" + this.url;
-            return url;
+            url = "http://" + url;
         } 
-            return this.url;
+           return url;
+           */
+           return this.url;
     }
+
 })
 
 
