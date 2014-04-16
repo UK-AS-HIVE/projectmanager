@@ -7,5 +7,6 @@ standard-app-packages
 autopublish
 insecure
 bootstrap-3
-npm
 bootstrap-datepicker
+npm
+x-editable-bootstrap3

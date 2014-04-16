@@ -3,7 +3,8 @@
   "dependencies": {
     "basePackages": {
       "bootstrap-3": {},
-      "bootstrap-datepicker": {}
+      "bootstrap-datepicker": {},
+      "x-editable-bootstrap3": {}
     },
     "packages": {
       "bootstrap-3": {
@@ -15,6 +16,11 @@
         "git": "https://github.com/acidsound/bootstrap-datepicker.git",
         "tag": "v0.5.1",
         "commit": "578d0bad1b5b5120c1abc333e449b8d0256969b4"
+      },
+      "x-editable-bootstrap3": {
+        "git": "https://github.com/JustinSGray/meteor-x-editable-bootstrap.git",
+        "tag": "v1.5.2",
+        "commit": "1e5e6d7bddf0b17cc6ea2fc1f50c3f9fd2cfc3f3"
       }
     }
   }

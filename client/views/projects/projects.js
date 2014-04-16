@@ -1,3 +1,7 @@
+// set all inline edits to inline, and not popup.
+//$.fn.editable.defaults.mode = 'inline';
+
+
 Template.projects.projectList = function(mySort){
 	//return Projects.find({sort:{mySort:-1}});
     return Projects.find();
@@ -13,6 +17,26 @@ Template.projects.events({
         console.log(Meteor.call("getScreenshot", currentUrl, URLs[i]._id));
         console.log( currentUrl );
         }
+    },
+    'click .editableName' : function inlineedit(e, tmpl){
+        var projectId = this._id;
+        console.log(projectId);
+        $('#projectTable a').editable({
+            type: 'text',
+            success: function(response, newValue) {
+                Projects.update(projectId, {$set:{name: newValue}});
+            }
+            });
+    },
+        'click .editableStatus' : function inlineedit(e, tmpl){
+        var projectId = this._id;
+        console.log(projectId);
+        $('#projectTable a').editable({
+            type: 'text',
+            success: function(response, newValue) {
+                Projects.update(projectId, {$set:{name: newValue}});
+            }
+            });
     }
  })
 
@@ -20,8 +44,13 @@ Template.projects.events({
 Template.projectRow.events({
 	'click .parent':function(e, tmpl)
 	{
+        var element = e.target.tagName;
+        console.log(element);
+        if (element!="A"){
 		var e = tmpl.find('.details');
         $(e).toggle();
+    }
+    
 	},
     'click .deleteProject':function(e, tmpl)
 {
@@ -52,8 +81,6 @@ Template.projectRow.helpers({
             return this.url;
     }
 })
-
-
 
 
 

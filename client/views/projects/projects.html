@@ -20,7 +20,7 @@
 
 <template name="projectRow">
                 <tr class="parent">
-                        <td>{{name}}<br/>
+                        <td><a href='#' class="editableName">{{name}}</a><br/>
                         {{#if description}}
                         "{{description}}"
                         {{/if}}
@@ -31,7 +31,7 @@
                         {{/if}}
                             </td>
                             <td>{{owner}}</td>
-                            <td>{{status}}</td>
+                            <td><a class="editableStatus">{{status}}</a></td>
                             <td>{{priority}}</td>
                             <td>{{date}}</td>
                 </tr>

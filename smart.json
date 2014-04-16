@@ -1,6 +1,7 @@
 {
   "packages": {
     "bootstrap-3": {},
-    "bootstrap-datepicker": {}
+    "bootstrap-datepicker": {},
+    "x-editable-bootstrap3": {}
   }
 }
