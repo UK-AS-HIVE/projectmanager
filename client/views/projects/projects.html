@@ -20,11 +20,11 @@
 
 <template name="projectRow">
                 <tr class="parent">
-                        <td><a href='#' class="editableName">{{name}}</a><br/>
+                        <td><a href='#' class="editableName editable-click">{{name}}</a><br/>
                         {{#if description}}
-                        Description:<a class="editableDescription">{{description}}</a>
+                        Description: <a class="editableDescription" href='#'>{{description}}</a>
                         {{else}}
-                        <a class="editableDescription">Enter a Description:</a>
+                        Description: <a class="editableDescription" href='#'>Enter a Description:</a>
                         {{/if}}
                         {{#if imagePath}}
                         <table>
@@ -38,7 +38,7 @@
                             {{#if owner}}
                             <td> <a href='#' class="editableOwner">{{owner}}</a></td>
                             {{else}}
-                            <td> <a href='#' class="editableOwner"> No Owner</a></td>
+                            <td> <a href='#' class="editableOwner">No Owner</a></td>
                             {{/if}}
                             <td colspan="1"><a href='#' class="editableStatus">{{status}}</a></td>
                             <td>{{priority}}</td>

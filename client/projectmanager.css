@@ -50,6 +50,15 @@
   z-index:1050;
 }
 
+.descriptionInput{
+  width: 500px;
+}
+
+
+form[editable-form] > div {margin: 10px 0;}
+.editable-wrap {
+    width: 100%;
+}
 
 /* ---------- Overall Specifications ---------- */
 

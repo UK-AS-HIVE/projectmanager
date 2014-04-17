@@ -1,12 +1,6 @@
 // set all inline edits to inline, and not popup.
 $.fn.editable.defaults.mode = 'inline';
-
-Template.projects.rendered = function(){
-    $('.editableName').editable({
-        type: 'text',
-        showbuttons: false,
-        });
-}
+$.fn.editable.defaults.showbuttons = false;
 
 
 Template.projects.projectList = function(mySort){
@@ -26,50 +20,73 @@ Template.projects.events({
         }
     },
     'click .editableName' : function(e, tmpl){
-        e.stopPropagation();
         var projectId = this._id;
-        var name = tmpl.find('.editableName');
-        $(name).editable({sucess: function(response, newValue){
-            Projects.update(projectId, {$set:{status: newValue}});
-        }});
-        $(name).editable('show');
-
+        $(e.target).editable({
+        type: 'text',
+        showbuttons: false,
+        success: function(response, newValue){
+            Projects.update(projectId, {$set:{name: newValue}});
+        }
+    });
+        $(e.target).editable('show');
     },
         'click .editableStatus' : function(e, tmpl){
         var projectId = this._id;
-        $('.editableStatus').editable({
-            type: 'select',   
-            showbuttons: false,
-            source: [
-              {value: 'In Progress', text: 'In Progress'},
-              {value: 'Not Scheduled', text: 'Not Scheduled'},
-              {value: 'On Hold', text: 'On Hold'},
-              {value: 'Done', text: 'Done'}
-           ],
-            success: function(response, newValue) {
-                Projects.update(projectId, {$set:{status: newValue}});
-                $(e).hide();
-            }
-            });
+        var currentStatus = e.target.text;
+        $(e.target).editable({
+        type: 'select',
+        show:true, 
+        value: currentStatus,  
+        showbuttons: false,
+        source: [
+          {value: 'In Progress', text: 'In Progress'},
+          {value: 'Not Scheduled', text: 'Not Scheduled'},
+          {value: 'On Hold', text: 'On Hold'},
+          {value: 'Done', text: 'Done'}
+       ],
+        success: function(response, newValue) {
+            Projects.update(projectId, {$set:{status: newValue}});
+
+    }
+    });
+        $(e.target).editable('show');
+
     },
         'click .editableDescription' : function(e, tmpl){
         var projectId = this._id;
-        $('.editableDescription').editable({
+        var currentDescription = e.target.text;
+        if (currentDescription=="Enter a Description:")
+        {
+            currentDescription = ''
+        }
+        $(e.target).editable({
             type: 'textarea',
+            value : currentDescription,
+            showbuttons:true,
+            cols: 20,
+            rows: 3,
             success: function(response, newValue) {
                 Projects.update(projectId, {$set:{description: newValue}});
             }
             });
+            $(e.target).editable('show');
     },
         'click .editableOwner' : function(e, tmpl){
         var projectId = this._id;
-        $('.editableOwner').editable({
+        var currentOwner = e.target.text;
+        console.log(currentOwner);
+        if (currentOwner=="No Owner")
+        {
+            currentOwner = '';
+        }
+        $(e.target).editable({
             type: 'text',
-            value: '',
+            value: currentOwner,
             success: function(response, newValue) {
                 Projects.update(projectId, {$set:{owner: newValue}});
             }
             });
+            $(e.target).editable('show');
     },
 
  })
@@ -117,10 +134,3 @@ Template.projectRow.helpers({
     }
 
 })
-
-
-
-
-
-
-
