@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "exec": {
+      "version": "0.1.1"
+    }
+  }
+}

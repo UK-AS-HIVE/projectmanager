@@ -20,7 +20,6 @@ Template.projects.events({
     },
     'click .editableName' : function inlineedit(e, tmpl){
         var projectId = this._id;
-        console.log(projectId);
         $('.editableName').editable({
             type: 'text',
             showbuttons: false,
@@ -45,7 +44,26 @@ Template.projects.events({
                 $(e).hide();
             }
             });
-    }
+    },
+        'click .editableDescription' : function inlineedit(e, tmpl){
+        var projectId = this._id;
+        $('.editableDescription').editable({
+            type: 'textarea',
+            success: function(response, newValue) {
+                Projects.update(projectId, {$set:{description: newValue}});
+            }
+            });
+    },
+        'click .editableOwner' : function inlineedit(e, tmpl){
+        var projectId = this._id;
+        $('.editableOwner').editable({
+            type: 'text',
+            value: '',
+            success: function(response, newValue) {
+                Projects.update(projectId, {$set:{owner: newValue}});
+            }
+            });
+    },
  })
 
 
@@ -91,6 +109,8 @@ Template.projectRow.helpers({
     }
 
 })
+
+
 
 
 
