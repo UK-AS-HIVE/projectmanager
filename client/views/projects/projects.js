@@ -1,6 +1,13 @@
 // set all inline edits to inline, and not popup.
 $.fn.editable.defaults.mode = 'inline';
 
+Template.projects.rendered = function(){
+    $('.editableName').editable({
+        type: 'text',
+        showbuttons: false,
+        });
+}
+
 
 Template.projects.projectList = function(mySort){
 	//return Projects.find({sort:{mySort:-1}});
@@ -18,17 +25,17 @@ Template.projects.events({
         console.log( currentUrl );
         }
     },
-    'click .editableName' : function inlineedit(e, tmpl){
+    'click .editableName' : function(e, tmpl){
+        e.stopPropagation();
         var projectId = this._id;
-        $('.editableName').editable({
-            type: 'text',
-            showbuttons: false,
-            success: function(response, newValue) {
-                Projects.update(projectId, {$set:{name: newValue}});
-            }
-            });
+        var name = tmpl.find('.editableName');
+        $(name).editable({sucess: function(response, newValue){
+            Projects.update(projectId, {$set:{status: newValue}});
+        }});
+        $(name).editable('show');
+
     },
-        'click .editableStatus' : function inlineedit(e, tmpl){
+        'click .editableStatus' : function(e, tmpl){
         var projectId = this._id;
         $('.editableStatus').editable({
             type: 'select',   
@@ -45,7 +52,7 @@ Template.projects.events({
             }
             });
     },
-        'click .editableDescription' : function inlineedit(e, tmpl){
+        'click .editableDescription' : function(e, tmpl){
         var projectId = this._id;
         $('.editableDescription').editable({
             type: 'textarea',
@@ -54,7 +61,7 @@ Template.projects.events({
             }
             });
     },
-        'click .editableOwner' : function inlineedit(e, tmpl){
+        'click .editableOwner' : function(e, tmpl){
         var projectId = this._id;
         $('.editableOwner').editable({
             type: 'text',
@@ -64,6 +71,7 @@ Template.projects.events({
             }
             });
     },
+
  })
 
 
