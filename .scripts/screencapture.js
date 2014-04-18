@@ -32,7 +32,6 @@ console.log("Output File: " + output);
 
 
 page.open(address, function() {
-//  page.clipRect = { left: 0, top: 0, width: size.width, height: size.height };
   page.render(output);
   console.log("Done");
   phantom.exit();

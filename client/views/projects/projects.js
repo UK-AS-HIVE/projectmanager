@@ -3,9 +3,8 @@ $.fn.editable.defaults.mode = 'inline';
 $.fn.editable.defaults.showbuttons = false;
 
 
-Template.projects.projectList = function(mySort){
-	//return Projects.find({sort:{mySort:-1}});
-    return Projects.find();
+Template.projects.projectList = function(){
+	return Projects.find({},{sort:{time:-1}});
 }
 
 
@@ -23,7 +22,6 @@ Template.projects.events({
         var projectId = this._id;
         $(e.target).editable({
         type: 'text',
-        showbuttons: false,
         success: function(response, newValue){
             Projects.update(projectId, {$set:{name: newValue}});
         }
@@ -88,6 +86,20 @@ Template.projects.events({
             });
             $(e.target).editable('show');
     },
+        'click #name-header' : function()
+        {
+            console.log("clicked");
+            var sortField = 'name';
+            Session.set('sortField', sortField);
+            console.log(Session.get('sortField'))
+        },
+        'click #owner-header' : function()
+        {
+            console.log("clicked");
+            var sortField = 'owner';
+            Session.set('sortField', sortField);
+            console.log(Session.get('sortField'));
+        }
 
  })
 
@@ -123,14 +135,23 @@ Template.projectRow.imagePath = function(e, tpl){
 
 Template.projectRow.helpers({
     formattedUrl : function(e, tpl) {
-        /*
-        var url = tpl.find('.url').value;
-        if (this.url.substr(0,7) != "http://"){
+        
+        var url = this.url;
+        if (url.substr(0,7) != "http://" && this.url!=''){
             url = "http://" + url;
         } 
            return url;
-           */
-           return this.url;
+           
     }
 
 })
+
+$(document).keyup(function(e) {
+  if (e.keyCode == 27) { 
+    var details = document.getElementsByClassName("details");
+    for (var i=0; i<details.length; i++)
+    {
+        $(details[i]).hide()
+    }
+  }   
+});

@@ -27,8 +27,11 @@ Template.projectForm.events({
     var date = tmpl.find('#datepicker').value;        
     var url = tmpl.find('#url').value;
     var description = tmpl.find('#description').value;
-    var _id = Projects.insert({name:name,owner:owner,status:status,priority:priority,date:date, url:url, description:description});
+    var timeSubmitted = (new Date()).getTime();
+    var _id = Projects.insert({name:name,owner:owner,status:status,priority:priority,date:date, url:url, description:description, time:timeSubmitted});
+    if(url != ''){
     console.log(Meteor.call("getScreenshot", url, _id));
+    }
     console.log("project added");
     }
 }

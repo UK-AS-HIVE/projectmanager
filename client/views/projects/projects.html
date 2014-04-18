@@ -2,8 +2,8 @@
         <table class="table table-bordered table-striped table-hover projectTable pagination-sm" id="projectTable">
                 <thead>
                     <tr>
-                        <th id="name" width='auto'>Name</th>
-                        <th>Owner</th>
+                        <th id="name-header" width='auto'>Name</th>
+                        <th id="owner-header">Owner</th>
                         <th width='80px'>Status</th>
                         <th width='80px'>Priority</th>
                         <th width='40px'>Due/Launch Date</th>
@@ -20,11 +20,11 @@
 
 <template name="projectRow">
                 <tr class="parent">
-                        <td><a href='#' class="editableName editable-click">{{name}}</a><br/>
+                        <td><a class="editableName editable-click">{{name}}</a><br/>
                         {{#if description}}
-                        Description: <a class="editableDescription" href='#'>{{description}}</a>
+                        Description: <a class="editableDescription">{{description}}</a>
                         {{else}}
-                        Description: <a class="editableDescription" href='#'>Enter a Description:</a>
+                        Description: <a class="editableDescription">Enter a Description:</a>
                         {{/if}}
                         {{#if imagePath}}
                         <table>
@@ -36,11 +36,11 @@
                         {{/if}}
                             </td>
                             {{#if owner}}
-                            <td> <a href='#' class="editableOwner">{{owner}}</a></td>
+                            <td> <a class="editableOwner">{{owner}}</a></td>
                             {{else}}
-                            <td> <a href='#' class="editableOwner">No Owner</a></td>
+                            <td> <a class="editableOwner">No Owner</a></td>
                             {{/if}}
-                            <td colspan="1"><a href='#' class="editableStatus">{{status}}</a></td>
+                            <td colspan="1"><a class="editableStatus">{{status}}</a></td>
                             <td>{{priority}}</td>
                             <td>{{date}}</td>
                 </tr>
@@ -49,7 +49,11 @@
                         <table>
                         <tr>
                         <td valign="top">
-                            <label for="date" class="{{url}}">URL: </label> <a href="{{formattedUrl}}" target="_blank"> {{formattedUrl}}</a> <br />
+                            {{#if url}}
+                            <label for="date" class="{{url}}">URL: </label> <a href="{{formattedUrl}}" target="_blank"> {{formattedUrl}} </a><a class="editableURL">edit</a> <br />
+                            {{else}}
+                             URL: <a class="editableURL">Enter a URL:</a><br />
+                             {{/if}}
                             <label for="date">Tags: </label><br />
                         </td>
                         {{#if imagePath}}
@@ -61,7 +65,7 @@
                         {{/if}}
                     </tr>
                     </table>
-                            <a href="#" class="btn btn-danger btn-large pull-center deleteProject"><i class="icon-white icon-trash"></i> Delete Project</a><br/><br/>
+                            <a class="btn btn-danger btn-large pull-center deleteProject"><i class="icon-white icon-trash"></i> Delete Project</a><br/><br/>
                         </td>
                     </tr>
 </template>
