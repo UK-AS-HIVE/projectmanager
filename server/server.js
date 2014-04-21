@@ -6,9 +6,7 @@ if (Meteor.isServer) {
 	process.chdir('../../../../../');
 	appPath = process.cwd()+'/';
 	})
-
-
-
+	var fs = Meteor.require('fs-extra');
 
 
 	Meteor.methods({
@@ -16,7 +14,6 @@ if (Meteor.isServer) {
 	getScreenshot : function(url, id){
 	var Future = Npm.require('fibers/future');
 	var exec = Meteor.require('exec');
-	var fs = Meteor.require('fs'),
 	screenshotsPath = appPath+'public'+'/screenshots/',
 	myFuture = new Future();
     fs.mkdir(screenshotsPath+id, function(error) 
@@ -35,6 +32,15 @@ if (Meteor.isServer) {
 	});
 	console.log("done");
 	return myFuture;
+	},
+
+
+	deleteScreenshot : function(id){
+		fs.remove(appPath + 'public' + '/screenshots/' + id, function (err) {
+  			if (err) {
+    					console.error(err);
+  					}
+		});
 	}
 
 })

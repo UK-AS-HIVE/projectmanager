@@ -41,8 +41,8 @@
                             <td> <a class="editableOwner">No Owner</a></td>
                             {{/if}}
                             <td colspan="1"><a class="editableStatus">{{status}}</a></td>
-                            <td>{{priority}}</td>
-                            <td>{{date}}</td>
+                            <td><a class="editablePriority">{{priority}}</a></td>
+                            <td><a class="editableDate">{{date}}</a></td>
                 </tr>
                         <tr style="display:none" class ="details">
                         <td colspan="10">
@@ -50,7 +50,7 @@
                         <tr>
                         <td valign="top">
                             {{#if url}}
-                            <label for="date" class="{{url}}">URL: </label> <a href="{{formattedUrl}}" target="_blank"> {{formattedUrl}} </a><a class="editableURL">edit</a> <br />
+                            <label for="date" class="{{url}}">URL: </label> <a href="{{url}}" target="_blank"> {{url}} </a><a class="editableURL">edit</a> <br />
                             {{else}}
                              URL: <a class="editableURL">Enter a URL:</a><br />
                              {{/if}}

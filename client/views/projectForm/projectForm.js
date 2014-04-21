@@ -28,6 +28,10 @@ Template.projectForm.events({
     var url = tmpl.find('#url').value;
     var description = tmpl.find('#description').value;
     var timeSubmitted = (new Date()).getTime();
+    if (url.substr(0,7) != "http://" && url!=''){
+            url = "http://" + url;
+            console.log(url);
+        } 
     var _id = Projects.insert({name:name,owner:owner,status:status,priority:priority,date:date, url:url, description:description, time:timeSubmitted});
     if(url != ''){
     console.log(Meteor.call("getScreenshot", url, _id));
@@ -40,7 +44,7 @@ Template.projectForm.events({
 Template.projectForm.rendered=function() {
 
     $('.datepicker').datepicker({
-    format: "dd/mm/yyyy",
+    format: "mm/dd/yyyy",
     autoclose: true
 });
 }

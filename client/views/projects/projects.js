@@ -86,20 +86,40 @@ Template.projects.events({
             });
             $(e.target).editable('show');
     },
-        'click #name-header' : function()
-        {
-            console.log("clicked");
-            var sortField = 'name';
-            Session.set('sortField', sortField);
-            console.log(Session.get('sortField'))
-        },
-        'click #owner-header' : function()
-        {
-            console.log("clicked");
-            var sortField = 'owner';
-            Session.set('sortField', sortField);
-            console.log(Session.get('sortField'));
-        }
+        'click .editablePriority' : function(e, tmpl){
+            var projectId = this._id;
+            var currentPriority = e.target.text;
+            $(e.target).editable({
+            type: 'select',
+            show:true, 
+            value: currentPriority,  
+            showbuttons: false,
+            source: [
+              {value: 'Low Priority', text: 'Low Priority'},
+              {value: 'High Priority', text: 'High Priority'}
+           ],
+            success: function(response, newValue) {
+                Projects.update(projectId, {$set:{priority: newValue}});
+            }
+    });
+        $(e.target).editable('show');
+
+     },
+
+        'click .editableDate' : function(e, tmpl){
+            var projectId = this._id;
+            var currentDate = e.target.text;
+            $(e.target).editable({
+                    format: 'mm-dd-yyyy',    
+                    viewformat: 'mm/dd/yyyy',    
+                    datepicker: {format: "mm/dd/yyyy",
+                                    weekStart: 1, autoclose:true},
+                    success : function(response, newValue) {
+                        Projects.update(proejctId,{$set:{date:newValue}});
+                }
+            });
+            $(e.target).editable("show");
+        } 
 
  })
 
@@ -116,6 +136,7 @@ Template.projectRow.events({
 	},
     'click .deleteProject':function(e, tmpl)
 {
+    Meteor.call("deleteScreenshot", this._id);
     Projects.remove(this._id);
 }
 
@@ -133,18 +154,6 @@ Template.projectRow.imagePath = function(e, tpl){
 }
 
 
-Template.projectRow.helpers({
-    formattedUrl : function(e, tpl) {
-        
-        var url = this.url;
-        if (url.substr(0,7) != "http://" && this.url!=''){
-            url = "http://" + url;
-        } 
-           return url;
-           
-    }
-
-})
 
 $(document).keyup(function(e) {
   if (e.keyCode == 27) { 
