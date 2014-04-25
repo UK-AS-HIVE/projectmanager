@@ -8,6 +8,9 @@ Template.projects.projectList = function(){
 }
 
 
+
+
+
 Template.projects.events({
     'click #screenShot' : function doScreenshot(){
         console.log("clicked screenshot");
@@ -53,7 +56,7 @@ Template.projects.events({
         'click .editableDescription' : function(e, tmpl){
         var projectId = this._id;
         var currentDescription = e.target.text;
-        if (currentDescription=="Enter a Description:")
+        if (currentDescription=="Enter a Description")
         {
             currentDescription = ''
         }
@@ -119,7 +122,57 @@ Template.projects.events({
                 }
             });
             $(e.target).editable("show");
-        } 
+        },
+        'click .editableNotes' : function(e, tmpl){
+            var projectId = this._id;
+            var currentNotes = e.target.text;
+            if (currentNotes=="Add Notes")
+            {
+                currentNotes = '';
+            }
+            $(e.target).editable({
+                type: 'textarea',
+                value : currentNotes,
+                showbuttons:true,
+                cols: 20,
+                rows: 3,
+                success: function(response, newValue) {
+                    Projects.update(projectId, {$set:{notes: newValue}});
+                }
+                });
+                $(e.target).editable('show');
+            },
+            'click .editURL' : function(e, tmpl){
+                e.preventDefault();
+                e.stopPropagation();
+                var projectId = this._id;
+                var currentURL = this.url;
+                if (currentURL!=''){
+                    URL = $(e.target).closest('td').find('.editableURL');
+                    $(URL).editable({
+                    type: 'text', 
+                    value: currentURL,  
+                    showbuttons: false,
+                    success: function(response, newValue){
+                        Projects.update(projectId, {$set:{url: newValue}});
+                    }
+                    });
+                }
+                else{
+                    URL = $(e.target)
+                    $(URL).editable({
+                        type: 'text', 
+                        value: "http://",  
+                        showbuttons: false,
+                        success: function(response, newValue) {
+                            Projects.update(projectId, {$set:{url: newValue}});
+                        }
+                        });
+                    }
+                (URL).editable('toggle');
+                (URL).off('click');
+
+        }
 
  })
 
@@ -154,7 +207,7 @@ Template.projectRow.imagePath = function(e, tpl){
 }
 
 
-
+// ESCAPE to collapse all rows.
 $(document).keyup(function(e) {
   if (e.keyCode == 27) { 
     var details = document.getElementsByClassName("details");

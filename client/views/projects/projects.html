@@ -24,7 +24,7 @@
                         {{#if description}}
                         Description: <a class="editableDescription">{{description}}</a>
                         {{else}}
-                        Description: <a class="editableDescription">Enter a Description:</a>
+                        Description: <a class="editableDescription">Enter a Description</a>
                         {{/if}}
                         {{#if imagePath}}
                         <table>
@@ -50,11 +50,18 @@
                         <tr>
                         <td valign="top">
                             {{#if url}}
-                            <label for="date" class="{{url}}">URL: </label> <a href="{{url}}" target="_blank"> {{url}} </a><a class="editableURL">edit</a> <br />
+                            <label for="date" class="{{url}}">URL: </label> <a href="{{url}}" class="editableURL" target="_blank"> {{url}}</a><a class="editURL"><btn class="glyphicon glyphicon-edit"></btn></a> <br />
                             {{else}}
-                             URL: <a class="editableURL">Enter a URL:</a><br />
+                             URL: <a class="editURL">Enter a URL</a>
                              {{/if}}
+                            <input type="checkbox" name="screenshots" value="true">Screenshot<br>
                             <label for="date">Tags: </label><br />
+                            <label for="notes">Notes: </label>
+                            {{#if notes}}
+                                <a class="editableNotes">{{notes}}</a>
+                            {{else}}
+                                <a class="editableNotes">Add Notes</a>
+                            {{/if}}
                         </td>
                         {{#if imagePath}}
                         <td>
