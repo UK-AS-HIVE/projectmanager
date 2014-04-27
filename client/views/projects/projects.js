@@ -196,7 +196,7 @@ Template.projectRow.events({
 })
 
 
-Template.projectRow.imagePath = function(e, tpl){
+Template.projectRow.imagePath = function(){
 	var url = this.url;
 	if (url == '')
 		return false;
@@ -204,6 +204,10 @@ Template.projectRow.imagePath = function(e, tpl){
     var dateString = (date.getMonth() + 1) + "-" + date.getDate() + "-" + date.getFullYear().toString().substr(2,2);
     var path = "/screenshots/"+this._id+"/"+dateString+".png";
     return path;
+}
+
+Template.projectRow.validImage = function(){
+    return false;
 }
 
 
