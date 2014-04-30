@@ -5,7 +5,7 @@ Template.projectForm.events({
         $('#responsive').modal('toggle');
     },
 
-    'click #screenShot' : function doScreenshot(){
+   /* 'click #screenShot' : function doScreenshot(){
         console.log("clicked screenshot");
         var  URLs = Projects.find().fetch();
         for (var i=0; i<URLs.length; i++) {
@@ -13,7 +13,7 @@ Template.projectForm.events({
         console.log(Meteor.call("getScreenshot", currentUrl, URLs[i]._id));
         console.log( currentUrl );
         }
-    },
+    },*/
     'click #submitProject':function(evt,tmpl){
     var name = tmpl.find('.name').value;
     if (name.length == ''){
