@@ -1,6 +1,15 @@
 var appPath;
 
 if (Meteor.isServer) {
+
+	Projects.allow({
+		'update': function(userId){
+			return true;
+		},
+		'remove': function(userId){
+			return true;
+		}
+	})
 	//get the current meteor app path.
 	Meteor.startup(function(){
 	process.chdir('../../../../../');
@@ -22,7 +31,7 @@ if (Meteor.isServer) {
 	});
 	console.log("Getting screenshots for: " + url);
     var date = new Date();        
-    var dateString = (date.getMonth() + 1) + "-" + date.getDate() + "-" + date.getFullYear().toString().substr(2,2);
+    var dateString = ( date.getFullYear().toString().substr(2,2) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
     console.log(appPath+'phantomjs');
 	exec([appPath +'phantomjs', appPath +'.scripts/' + 'screencapture.js', url, screenshotsPath+ id +'/'+dateString+'.png'], function(err, out, code) {
   	if (err instanceof Error)
@@ -41,6 +50,23 @@ if (Meteor.isServer) {
     					console.error(err);
   					}
 		});
+	},
+
+	findScreenshot : function(id)
+	{
+		//console.log(id);
+		var date = new Date();        
+    	var dateString = (date.getMonth() + 1) + "-" + date.getDate() + "-" + date.getFullYear().toString().substr(2,2);
+    	var path = appPath+"public/screenshots/"+id+"/";
+		var Finder = Meteor.require('fs-finder');
+		var files = Finder.in(path).findFiles();
+		if (files.length>0){
+		screenshot = files[files.length-1].toString();
+		var index = screenshot.indexOf("/screenshots");
+		screenshot = screenshot.substr(index);
+        Projects.update(id, {$set:{screenshotPath: screenshot}});
+    	}
+
 	}
 
 })

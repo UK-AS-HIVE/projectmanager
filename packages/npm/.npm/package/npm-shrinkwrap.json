@@ -19,6 +19,26 @@
           "version": "2.2.6"
         }
       }
+    },
+    "fs-finder": {
+      "version": "1.8.0",
+      "dependencies": {
+        "moment": {
+          "version": "2.5.1"
+        },
+        "operator-compare": {
+          "version": "1.0.1"
+        },
+        "escape-regexp": {
+          "version": "0.0.1"
+        },
+        "q": {
+          "version": "1.0.1"
+        },
+        "async": {
+          "version": "0.2.10"
+        }
+      }
     }
   }
 }

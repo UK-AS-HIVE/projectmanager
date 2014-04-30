@@ -155,6 +155,8 @@ Template.projects.events({
                     showbuttons: false,
                     success: function(response, newValue){
                         Projects.update(projectId, {$set:{url: newValue}});
+                        Meteor.call("getScreenshot", newValue, projectId);
+
                     }
                     });
                 }
@@ -197,14 +199,11 @@ Template.projectRow.events({
 
 
 Template.projectRow.imagePath = function(){
-	var url = this.url;
-	if (url == '')
-		return false;
-    var date = new Date();        
-    var dateString = (date.getMonth() + 1) + "-" + date.getDate() + "-" + date.getFullYear().toString().substr(2,2);
-    var path = "/screenshots/"+this._id+"/"+dateString+".png";
-    return path;
+    Meteor.call("findScreenshot", this._id);
+    return this.screenshotPath;
 }
+
+
 
 Template.projectRow.validImage = function(){
     return false;
