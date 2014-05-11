@@ -64,7 +64,7 @@ Template.projects.events({
             type: 'textarea',
             value : currentDescription,
             showbuttons:true,
-            cols: 20,
+            width: 200,
             rows: 3,
             success: function(response, newValue) {
                 Projects.update(projectId, {$set:{description: newValue}});
@@ -153,6 +153,7 @@ Template.projects.events({
                     type: 'text', 
                     value: currentURL,  
                     showbuttons: false,
+                    inputclass:'URLinput',
                     success: function(response, newValue){
                         Projects.update(projectId, {$set:{url: newValue}});
                         Meteor.call("getScreenshot", newValue, projectId);
@@ -193,17 +194,25 @@ Template.projectRow.events({
 {
     Meteor.call("deleteScreenshot", this._id);
     Projects.remove(this._id);
-}
+},
+    'click .screenshotToggle' : function(e, tmpl)
+    {
+        var e = tmpl.find(".screenshotToggle");
+        var enabled = e.checked;
+        console.log(enabled);
+        Projects.update(this._id, {$set:{screenshotEnabled: enabled}});
+        if (enabled == true)
+        {
+            Meteor.call("getScreenshot", this.url, this._id)
+        }
+    }
 
 })
-
 
 Template.projectRow.imagePath = function(){
     Meteor.call("findScreenshot", this._id);
     return this.screenshotPath;
 }
-
-
 
 Template.projectRow.validImage = function(){
     return false;

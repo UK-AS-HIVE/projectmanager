@@ -4,6 +4,9 @@
                     <tr>
                         <th id="name-header" width='auto'>Name</th>
                         <th id="owner-header">Owner</th>
+                        <th id="url-header">URL</th>
+                        <th>Platform</th>
+                        <th>Type</th>
                         <th width='80px'>Status</th>
                         <th width='80px'>Priority</th>
                         <th width='40px'>Due/Launch Date</th>
@@ -20,29 +23,52 @@
 
 <template name="projectRow">
                 <tr class="parent">
+
                         <td><a class="editableName editable-click">{{name}}</a><br/>
                         {{#if description}}
-                        Description: <a class="editableDescription">{{description}}</a>
+                        Description: <br /><a class="editableDescription">{{description}}</a>
                         {{else}}
-                        Description: <a class="editableDescription">Enter a Description</a>
+                        Description: <br /><a class="editableDescription">Enter a Description</a>
                         {{/if}}
-                        {{#if imagePath}}
+                        {{#if screenshotEnabled}}{{#if imagePath}}
                         <table>
                         <tr><td width="80"><div style="height:60px; width:80px;">
                             <img href="{{imagePath}}" src= "{{imagePath}}" class = "thumb-wrapper" align="left"> </div></td>
                         <td> Tags: </td>
-                    </tr>
-                    </table>
-                        {{/if}}
-                            </td>
+                        </tr>
+                        </table>
+                        {{/if}}{{/if}}
+                        </td>
+
+
+
                             {{#if owner}}
                             <td> <a class="editableOwner">{{owner}}</a></td>
                             {{else}}
                             <td> <a class="editableOwner">No Owner</a></td>
+
+
+                            <td>
+                            {{#if url}}
+                            <a href="{{url}}" class="editableURL" target="_blank"> {{url}}</a><a class="editURL"><btn class="glyphicon glyphicon-edit"></btn></a> <br />
+                            {{else}}
+                            <a class="editURL">Enter a URL</a><br/>
+                             {{/if}}
+                            </td>
+
                             {{/if}}
+
+                            <td></td>
+                            <td></td>
+
                             <td colspan="1"><a class="editableStatus">{{status}}</a></td>
+
+
                             <td><a class="editablePriority">{{priority}}</a></td>
+
+
                             <td><a class="editableDate">{{date}}</a></td>
+
                 </tr>
                         <tr style="display:none" class ="details">
                         <td colspan="10">
@@ -52,9 +78,13 @@
                             {{#if url}}
                             <label for="date" class="{{url}}">URL: </label> <a href="{{url}}" class="editableURL" target="_blank"> {{url}}</a><a class="editURL"><btn class="glyphicon glyphicon-edit"></btn></a> <br />
                             {{else}}
-                             URL: <a class="editURL">Enter a URL</a>
+                             <br/>URL: <a class="editURL">Enter a URL</a><br/>
                              {{/if}}
-                            <input type="checkbox" name="screenshots" value="true">Screenshot<br>
+                            {{#if screenshotEnabled}}
+                            <input type="checkbox" class="screenshotToggle" checked>Screenshot Tracking<br>
+                            {{else}}
+                            <input type="checkbox" class="screenshotToggle">Screenshot Tracking<br>
+                            {{/if}}
                             <label for="date">Tags: </label><br />
                             <label for="notes">Notes: </label>
                             {{#if notes}}
@@ -64,15 +94,17 @@
                             {{/if}}
                         </td>
                         <td>
+                        {{#if screenshotEnabled}}
                         {{#if imagePath}}
                         <div STYLE="height:480px; width: 640px; font-size: 12px; overflow: auto;">
-                            <img href="{{imagePath}}" src= "{{imagePath}}" class="screenshot-wrapper" align="right"><br />
+                            <img href="{{imagePath}}" src= "{{imagePath}}" class="screenshot-wrapper" align="left"><br />
                         </div>
+                        {{/if}}
                         {{/if}}
                         </td>
                     </tr>
                     </table>
-                            <a class="btn btn-danger btn-large pull-center deleteProject"><i class="icon-white icon-trash"></i> Delete Project</a><br/><br/>
+                            <a class="btn btn-danger btn-large pull-center deleteProject" href="/"><i class="icon-white icon-trash"></i> Delete Project</a><br/><br/>
                         </td>
                     </tr>
 </template>

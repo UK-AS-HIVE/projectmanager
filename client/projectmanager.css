@@ -60,6 +60,12 @@ form[editable-form] > div {margin: 10px 0;}
     width: 100%;
 }
 
+
+.URLinput{
+   width: 350px;
+}
+
+
 /* ---------- Overall Specifications ---------- */
 
 body {
