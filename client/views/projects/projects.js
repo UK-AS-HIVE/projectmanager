@@ -12,15 +12,6 @@ Template.projects.projectList = function(){
 
 
 Template.projects.events({
-    'click #screenShot' : function doScreenshot(){
-        console.log("clicked screenshot");
-        var  URLs = Projects.find().fetch();
-        for (var i=0; i<URLs.length; i++) {
-        var currentUrl= URLs[i].url;
-        console.log(Meteor.call("getScreenshot", currentUrl, URLs[i]._id));
-        console.log( currentUrl );
-        }
-    },
     'click .editableName' : function(e, tmpl){
         var projectId = this._id;
         $(e.target).editable({
@@ -142,6 +133,27 @@ Template.projects.events({
                 });
                 $(e.target).editable('show');
             },
+            'click .addTag' : function(e, tmpl){
+                var projectId = this._id;
+                $(e.target).editable({
+                    value: '', // need to make value always blank
+                    deftaulValue: '',
+                    display:false,
+                    success: function(response, newValue){
+                        var tags = Projects.findOne(projectId).tags;
+                        if (tags == undefined){
+                           var tags = [newValue];
+                        }
+                        else{
+                            tags.push(newValue);
+                        }
+                        Projects.update(projectId, {$set:{tags: tags}});
+
+                    }
+                });
+                $(e.target).editable('show');
+            },
+
             'click .editURL' : function(e, tmpl){
                 e.preventDefault();
                 e.stopPropagation();
@@ -175,6 +187,14 @@ Template.projects.events({
                 (URL).editable('toggle');
                 (URL).off('click');
 
+        },
+        'click .deleteTag': function(e, tmpl){
+            var projectId = $(e.target).closest('td').attr('id').toString().substr(5);
+            var currentTag = e.target.text;
+            Projects.update({"_id": projectId }, {"$pull": { "tags" : currentTag}});
+
+
+
         }
 
  })
@@ -201,10 +221,12 @@ Template.projectRow.events({
         var enabled = e.checked;
         console.log(enabled);
         Projects.update(this._id, {$set:{screenshotEnabled: enabled}});
-        if (enabled == true)
+        /*if (enabled == true)
         {
             Meteor.call("getScreenshot", this.url, this._id)
         }
+        Need to implement if !screenshotExists -> take a screenshot
+        */
     }
 
 })
