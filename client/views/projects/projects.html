@@ -68,7 +68,7 @@
                     <!--Editable URL-->
                     <td>
                         {{#if url}}
-                            <a href="{{url}}" class="editableURL" target="_blank"> {{url}}</a><a class="editURL"><btn class="glyphicon glyphicon-edit"></btn></a> <br />
+                            <a href="{{formattedUrl}}" class="editableURL" target="_blank"> {{formattedUrl}}</a><a class="editURL"><btn class="glyphicon glyphicon-edit"></btn></a> <br />
                         {{else}}
                             <a class="editURL">Enter a URL</a><br/>
                         {{/if}}
@@ -117,7 +117,7 @@
                         <tr>
                         <td valign="top">
                             {{#if url}}
-                            <label for="date" class="{{url}}">URL: </label> <a href="{{formattedUrl}}" class="editableURL" target="_blank"> {{formattedUrl}}</a><a class="editURL"><btn class="glyphicon glyphicon-edit"></btn></a> <br />
+                            <label for="url">URL: </label> <a href="{{formattedUrl}}" class="editableURL" target="_blank"> {{formattedUrl}}</a><a class="editURL"> <btn class="glyphicon glyphicon-edit"></btn></a> <br />
                             {{else}}
                              <br/>URL: <a class="editURL">Enter a URL</a><br/>
                              {{/if}}
@@ -172,14 +172,16 @@
 <template name="filters">
   <div class="btn-group">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-      Filter By: {{getFilterBy}}
+      Status: {{getFilterBy}}
       <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
-      <li><a href="#" class = "changeFilter">In Progress</a></li>
-      <li><a href="#" class = "changeFilter">Not Scheduled</a></li>      
-      <li><a href="#" class = "changeFilter">Done</a></li>
-    <li><a href="#" class = "changeFilter">All</a></li>
+      <li><a href="#" class = "changeFilter" value = "In Progress">In Progress</a></li>
+      <li><a href="#" class = "changeFilter" value = "Not Scheduled">Not Scheduled</a></li>      
+      <li><a href="#" class = "changeFilter" value = "Done">Done</a></li>
+      <li><a href="#" class = "changeFilter" value = null>No Status</a></li>
+      <li><a href="#" class = "changeFilter" value="">All</a></li>
+
 
 
     </ul>

@@ -4,13 +4,17 @@ $.fn.editable.defaults.showbuttons = false;
 
 Session.setDefault("filterBy", "In Progress" )
 
+var notDone = ["In Progress", "Not Scheduled", "On Hold", ""]
+
 Template.projects.projectList = function(){
     var filterBy = Session.get('filterBy');
     if (filterBy == 'All')
         return Projects.find();
+    else if (filterBy == "No Status")
+        return Projects.find({status: ""});
     else if (filterBy == 'Done')
     {
-        return Projects.find({status: $or [{$ne:"In Progress"}, {$ne:"Not Scheduled"}]})
+        return Projects.find({status: {$nin: notDone}})
     }
     else
 	   return Projects.find({status: filterBy});
@@ -231,7 +235,7 @@ Template.projects.events({
 
         },
         'click .deleteTag': function(e, tmpl){
-            var projectId = $(e.target).closest('td').attr('id').toString().substr(15,24);
+            var projectId = $(e.target).closest('td').attr('id').toString().substr(5);
             console.log(projectId);
             var currentTag = this.toString();
             console.log(currentTag);
@@ -309,7 +313,7 @@ Template.filters.helpers({
 
 Template.filters.events({
     'click .changeFilter' : function(e){
-        var newFilter = e.target.text
+        var newFilter = e.target.text;
         Session.set("filterBy", newFilter);
     }
 })
