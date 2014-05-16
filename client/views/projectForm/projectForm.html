@@ -1,7 +1,9 @@
 <template name="projectForm">
 <div class="container-fluid">
     <div class="row-fluid">
-        <button class="btn btn-success addProject filterable" id="addProjectBtn">Add Project</button><br /><br/>
+        <button class="btn btn-success addProjectBtn">Add Project</button>
+                <button class="btn btn-success " id ="screenShot">Shoot!</button>
+
         <div class="modal fade" id='responsive'>
           <div class="modal-dialog">
             <div class="modal-content">
@@ -10,25 +12,56 @@
                 <h4 class="modal-title">Add Project</h4>
               </div>
               <div class="modal-body">
-                <label for="name">Project Name:</label><input type="text" class="input input-xlarge name" name="name" value="{{project.name}}" id="name"><br />
-                <label for="owner">Project Owner:</label><input type="text" class="input input-xlarge owner" name="owner" value="{{project.owner}}" id="owner"><br />
-                <label>Status: </label>
-                <select class="selectpicker status " name="status" id="status">
-                    <option value="In Progress">In Progress</option>
-                    <option value="Not Scheduled">Not Scheduled</option>
-                    <option value="On Hold">On Hold</option>
-                </select><br />
-                <label>Priority: </label>
-                <select class="priority" name="priority" id="priority">
-                    <option value="High Priority">High Priority</option>
-                    <option value="Low Priority">Low Priority</option>
-                </select><br />
-                <label for="date">Date: </label><input type="text" class="datepicker" id="datepicker">
-                <br />
-                <label for="url">URL: </label><input type="text" class="input input-xlarge ur;" name="url" value="{{project.url}}" id="url"><br />
-                <label for="description">Description: </label><br/><input type="textarea" class="form-control description" rows="3" name="description" value="{{project.description}}" id="description"><br />
-                <input type="checkbox" class="screenshotToggle" id="screenshotToggle" value="false">Screenshot Tracking?<br>
+                <table>
+                <th width="15%"></th>
+                <th></th>
 
+                <tr>
+                    <td><label for="name">Project Name:</label></td>
+                    <td><input type="text" class="input input-xlarge name projectInput" name="name" value="{{project.name}}" id="name"> *</td>
+                </tr>
+                <tr>
+                    <td><label for="owner">Project Owner:</label></td>
+                    <td><input type="text" class="input input-xlarge owner projectInput" name="owner" value="{{project.owner}}" id="owner"></td>
+                </tr>
+                <tr>
+                    <td><label>Status: </label></td>
+                    <td><select class="selectpicker status " name="status" id="status">
+                        <option value="In Progress">In Progress</option>
+                        <option value="Not Scheduled">Not Scheduled</option>
+                        <option value="On Hold">On Hold</option>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td><label>Priority: </label></td>
+                    <td><select class="priority" name="priority" id="priority">
+                        <option value="High Priority">High Priority</option>
+                        <option value="Low Priority">Low Priority</option>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td><label for="date">Date: </label></td>
+                    <td><input type="text" class="datepicker projectInput" id="datepicker"></td>
+                </tr>
+                <tr>
+                    <td><label for="url">URL: </label></td>
+                    <td><input type="text" class="input input-xlarge url projectInput" name="url" value="{{project.url}}" id="url"></td>
+                </tr>
+                                <tr>
+                    <td><label for="url">Type: </label></td>
+                    <td><input type="text" class="input input-xlarge url projectInput" name="type" value="{{project.type}}" id="type"></td>
+                </tr>
+                <tr>
+                    <td><label for="url">Platform: </label></td>
+                    <td><input type="text" class="input input-xlarge url projectInput" name="platform" value="{{project.platform}}" id="platform"></td>
+                </tr>
+
+                <tr>
+                    <td><label for="description">Description: </label></td>
+                    <td><input type="textarea" class="form-control description projectInput" rows="3" name="description" value="{{project.description}}" id="description"></td>
+                </tr>
+                    <input type="checkbox" class="screenshotToggle" id="screenshotToggle" value="false">Screenshot Tracking?<br>
+            </table>
 
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -41,4 +74,5 @@
         </div>
     </div>
 </div>
+
         </template>

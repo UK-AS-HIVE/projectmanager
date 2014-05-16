@@ -2,9 +2,18 @@
 $.fn.editable.defaults.mode = 'inline';
 $.fn.editable.defaults.showbuttons = false;
 
+Session.setDefault("filterBy", "In Progress" )
 
 Template.projects.projectList = function(){
-	return Projects.find({},{sort:{time:-1}});
+    var filterBy = Session.get('filterBy');
+    if (filterBy == 'All')
+        return Projects.find();
+    else if (filterBy == 'Done')
+    {
+        return Projects.find({status: $or [{$ne:"In Progress"}, {$ne:"Not Scheduled"}]})
+    }
+    else
+	   return Projects.find({status: filterBy});
 }
 
 
@@ -80,6 +89,39 @@ Template.projects.events({
             });
             $(e.target).editable('show');
     },
+        'click .editablePlatform' : function(e, tmpl){
+            var projectId = this._id;
+            var currentPlatform = e.target.text;
+            if (currentPlatform=="Add Platform")
+            {
+                currentPlatform = '';
+            }
+            $(e.target).editable({
+                type: 'text',
+                value: currentPlatform,
+                success: function(response, newValue) {
+                    Projects.update(projectId, {$set:{platform: newValue}});
+                }
+                });
+                $(e.target).editable('show');
+    },
+            'click .editableType' : function(e, tmpl){
+            var projectId = this._id;
+            var currentType = e.target.text;
+            if (currentType=="Add Platform")
+            {
+                currentType = '';
+            }
+            $(e.target).editable({
+                type: 'text',
+                value: currentType,
+                success: function(response, newValue) {
+                    Projects.update(projectId, {$set:{type: newValue}});
+                }
+                });
+                $(e.target).editable('show');
+    },
+
         'click .editablePriority' : function(e, tmpl){
             var projectId = this._id;
             var currentPriority = e.target.text;
@@ -189,9 +231,11 @@ Template.projects.events({
 
         },
         'click .deleteTag': function(e, tmpl){
-            var projectId = $(e.target).closest('td').attr('id').toString().substr(5);
-            var currentTag = e.target.text;
-            Projects.update({"_id": projectId }, {"$pull": { "tags" : currentTag}});
+            var projectId = $(e.target).closest('td').attr('id').toString().substr(15,24);
+            console.log(projectId);
+            var currentTag = this.toString();
+            console.log(currentTag);
+            Projects.update( projectId , {"$pull": { "tags" : currentTag}});
 
 
 
@@ -221,12 +265,12 @@ Template.projectRow.events({
         var enabled = e.checked;
         console.log(enabled);
         Projects.update(this._id, {$set:{screenshotEnabled: enabled}});
-        /*if (enabled == true)
+        if (enabled == true)
         {
             Meteor.call("getScreenshot", this.url, this._id)
         }
-        Need to implement if !screenshotExists -> take a screenshot
-        */
+        //Need to implement if !screenshotExists -> take a screenshot
+        //*/
     }
 
 })
@@ -240,6 +284,35 @@ Template.projectRow.validImage = function(){
     return false;
 }
 
+Template.tags.tagUrl = function(){
+    var currentTag = this.value;
+    return "/"+currentTag;
+}
+
+Template.projectRow.formattedUrl = function(){
+    var url = this.url;
+    if (url.substring(0,7) != "http://")
+    {
+        url = "http://" + url;
+    }
+    return url;
+}
+
+
+
+Template.filters.helpers({
+    getFilterBy : function(){
+        return Session.get('filterBy');
+    }
+
+})
+
+Template.filters.events({
+    'click .changeFilter' : function(e){
+        var newFilter = e.target.text
+        Session.set("filterBy", newFilter);
+    }
+})
 
 // ESCAPE to collapse all rows.
 $(document).keyup(function(e) {

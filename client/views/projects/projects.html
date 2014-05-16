@@ -1,4 +1,5 @@
 <template name="projects">
+    <br/>{{> filters}}
         <table class="table table-bordered table-striped table-hover projectTable pagination-sm" id="projectTable">
                 <thead>
                     <tr>
@@ -23,6 +24,7 @@
 
 <template name="projectRow">
                 <tr class="parent">
+                        
                         <td><a class="editableName editable-click">{{name}}</a><br/>
                         {{#if description}}
                         Description: <br /><a class="editableDescription">{{description}}</a>
@@ -30,48 +32,83 @@
                         Description: <br /><a class="editableDescription">Enter a Description</a>
                         {{/if}}
                         {{#if screenshotEnabled}}{{#if imagePath}}
-                        <table>
-                        <tr><td width="80"><div style="height:60px; width:80px;">
-                            <img href="{{imagePath}}" src= "{{imagePath}}" class = "thumb-wrapper" align="left"> </div></td>
-                        <td class="tags" id = "tags-{{_id}}"> Tags: 
-                            {{#if tags}}
-                            {{#each tags}}
-                            <a href="#" class="btn btn-default btn-xs deleteTag glyphicon glyphicon-remove">{{this}}</a>
-                            {{/each}}
-                            {{/if}}
-                            <btn class="addTag glyphicon glyphicon-plus" href=''></btn>
+                        
+
+                <table>
+                    <tr>
+                    
+                        <td width="80">
+                            <div style="height:60px; width:80px;">
+                            <img href="{{imagePath}}" src= "{{imagePath}}" class = "thumb-wrapper" align="left"> 
+                            </div>
                         </td>
-                        </tr>
-                        </table>
+                            {{>tags}}
+                    </tr>
+                </table>
+
                         {{/if}}
+                        {{else}}
+                        {{>tags}}
                         {{/if}}
-                        </td>
-                            {{#if owner}}
-                            <td> <a class="editableOwner">{{owner}}</a></td>
-                            {{else}}
-                            <td> <a class="editableOwner">No Owner</a></td>
+
+                    </td>
 
 
-                            <td>
-                            {{#if url}}
+                    <!--Editable Owner-->
+                    <td>
+                        {{#if owner}}
+                            <a class="editableOwner">{{owner}}</a>
+                        {{else}}
+                            <a class="editableOwner">No Owner</a>
+                        {{/if}}
+                    </td>
+                    <!--/Editable Owner-->
+
+
+                    <!--Editable URL-->
+                    <td>
+                        {{#if url}}
                             <a href="{{url}}" class="editableURL" target="_blank"> {{url}}</a><a class="editURL"><btn class="glyphicon glyphicon-edit"></btn></a> <br />
-                            {{else}}
+                        {{else}}
                             <a class="editURL">Enter a URL</a><br/>
-                             {{/if}}
-                            </td>
+                        {{/if}}
+                    </td>
+                    <!--/Editable-->
 
+
+                    <!--Editable Platform-->
+                    <td>
+                        {{#if platform}}
+                            <a class="editablePlatform">{{platform}}</a>
+                        {{else}}
+                            <a class="editablePlatform">Add Platform</a>
+                        {{/if}}
+                    </td>
+                    <!--/Editable Platform-->
+
+                    <!--Editable Type-->
+                    <td>
+                        {{#if type}}
+                            <a class="editableType">{{type}}</a>
+                        {{else}}
+                            <a class="editableType">Add Type</a>
+                        {{/if}}
+                    </td>
+                    <!--/Editable Type-->
+
+                    <!--Editable Status-->
+                    <td>
+                            {{#if status}}
+                                <a class="editableStatus">{{status}}</a>
+                            {{else}}
+                                <a class="editableStatus">Add Status</a>
                             {{/if}}
-
-                            <td></td>
-                            <td></td>
-
-                            <td colspan="1"><a class="editableStatus">{{status}}</a></td>
-
-
+                    </td>
                             <td><a class="editablePriority">{{priority}}</a></td>
 
 
                             <td><a class="editableDate">{{date}}</a></td>
+                    <!--/Editable-->
 
                 </tr>
                         <tr style="display:none" class ="details">
@@ -80,7 +117,7 @@
                         <tr>
                         <td valign="top">
                             {{#if url}}
-                            <label for="date" class="{{url}}">URL: </label> <a href="{{url}}" class="editableURL" target="_blank"> {{url}}</a><a class="editURL"><btn class="glyphicon glyphicon-edit"></btn></a> <br />
+                            <label for="date" class="{{url}}">URL: </label> <a href="{{formattedUrl}}" class="editableURL" target="_blank"> {{formattedUrl}}</a><a class="editURL"><btn class="glyphicon glyphicon-edit"></btn></a> <br />
                             {{else}}
                              <br/>URL: <a class="editURL">Enter a URL</a><br/>
                              {{/if}}
@@ -90,11 +127,16 @@
                             {{else}}
                                 <a class="editableNotes">Add Notes</a><br/>
                             {{/if}}
+
+
+                            {{#if url}}
                             {{#if screenshotEnabled}}
                             <input type="checkbox" class="screenshotToggle" checked>Screenshot Tracking<br/>
                             {{else}}
                             <input type="checkbox" class="screenshotToggle">Screenshot Tracking<br/>
                             {{/if}}
+                            {{/if}}
+
                         </td>
                         <td>
                         {{#if screenshotEnabled}}
@@ -110,6 +152,36 @@
                             <a class="btn btn-danger btn-large pull-center deleteProject" href="/"><i class="icon-white icon-trash"></i> Delete Project</a><br/><br/>
                         </td>
                     </tr>
+    <td>
+
+    </td>
+</template>
+
+<template name="tags">
+                        <td text-align="left" class="tags" id = "tags-{{_id}}"> Tags:
+                            {{#if tags}}
+                            {{#each tags}}
+                            <a href="{{tagUrl}}" class="currentTag btn btn-xs btn-default">{{this}}</a><span class="btn btn-default btn-xs deleteTag glyphicon glyphicon-remove"></span>
+                            {{/each}}
+                            {{/if}}
+                        <btn class="addTag glyphicon glyphicon-plus" href=''></btn>
+                        </td>
 </template>
 
 
+<template name="filters">
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+      Filter By: {{getFilterBy}}
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li><a href="#" class = "changeFilter">In Progress</a></li>
+      <li><a href="#" class = "changeFilter">Not Scheduled</a></li>      
+      <li><a href="#" class = "changeFilter">Done</a></li>
+    <li><a href="#" class = "changeFilter">All</a></li>
+
+
+    </ul>
+  </div>
+</template>
