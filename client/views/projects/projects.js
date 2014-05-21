@@ -27,6 +27,7 @@ Template.projects.projectList = function(){
 Template.projects.events({
     'click .editableName' : function(e, tmpl){
         var projectId = this._id;
+        console.log(projectId);
         $(e.target).editable({
         type: 'text',
         success: function(response, newValue){

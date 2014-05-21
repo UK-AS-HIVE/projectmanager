@@ -60,8 +60,19 @@ addProject = function(e,tmpl){
         } 
     var screenshotEnabled = tmpl.find('#screenshotToggle').checked;
     var _id = Projects.insert(
-        {name:name,owner:owner,status:status,priority:priority,date:date, url:url, description:description,
-        notes: notes , platform:platform, type:type , time:timeSubmitted, screenshotEnabled:screenshotEnabled});
+        {name:name,
+            owner:owner,
+            status:status,
+            priority:priority,
+            date:date,
+            url:url, 
+            description:description,
+            notes: notes ,
+            platform:platform,
+            type:type ,
+            time:timeSubmitted, 
+            screenshotEnabled:screenshotEnabled});
+    
     if(url != ''){
     console.log(Meteor.call("getScreenshot", url, _id));
     }
