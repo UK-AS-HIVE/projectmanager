@@ -8,7 +8,6 @@ page.viewportSize = { width: 800, height: 600 };
 
 page.settings.userAgent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:25.0) Gecko/20100101 Firefox/25.0';
 
-console.log("starting screencapture script")
 
 if (system.args.length!=3)
 {
@@ -27,12 +26,9 @@ if (address.substring(0,7)!='http://')
 		address = "http://" + address;
 	}
 
-console.log("URL: " + address);
-console.log("Output File: " + output);
 
 
 page.open(address, function() {
   page.render(output);
-  console.log("Done");
   phantom.exit();
 });

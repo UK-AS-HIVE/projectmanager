@@ -1,10 +1,9 @@
 {
   "packages": {
     "bootstrap-3": {},
-    "bootstrap-datepicker": {},
     "x-editable-bootstrap3": {},
     "simple-schema": {},
     "collection2": {},
-    "imagemagick": {}
+    "bootstrap3-datepicker": {}
   }
 }

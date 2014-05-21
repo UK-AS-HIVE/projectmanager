@@ -282,7 +282,9 @@ Template.projectRow.events({
 
 Template.projectRow.imagePath = function(){
     Meteor.call("findScreenshot", this._id);
-    return this.screenshotPath;
+    var path = this.screenshotPath;
+    path = path.substr(0, path.lastIndexOf('.'))
+    return path;
 }
 
 Template.projectRow.validImage = function(){
