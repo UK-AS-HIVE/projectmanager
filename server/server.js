@@ -15,13 +15,11 @@ fetchScreenshot = function(url, id)
 	console.log("Getting screenshots for: " + url);
     var date = new Date();        
 	exec(['phantomjs', appPath +'.scripts/' + 'screencapture.js', url, screenshotsPath+ id +'/'+dateString+'.png'], function(err, out, code) {
-  	if (err instanceof Error)
-    	throw err;
   	process.stderr.write(err);
   	process.stdout.write(out);
-  	myFuture.return(console.log("Done!"))
+  	myFuture.return("success");
 	});
-	return myFuture.wait();
+	return myFuture.wait()
 
 }
 
@@ -85,7 +83,13 @@ if (Meteor.isServer) {
     	var dateString = (date.getMonth() + 1) + "-" + date.getDate() + "-" + date.getFullYear().toString().substr(2,2);
     	var path = appPath+"public/screenshots/"+id+"/";
 		var Finder = Meteor.require('fs-finder');
-		var files = Finder.in(path).findFiles();
+		try{
+			var files = Finder.in(path).findFiles();
+		}
+		catch(err){
+			Projects.update(id, {$set:{screenshotPath: ""}});
+			return ;
+		}
 		if (files.length>0){
 		screenshot = files[files.length-1].toString();
 		var index = screenshot.indexOf("/screenshots");

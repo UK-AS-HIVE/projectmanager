@@ -202,6 +202,7 @@ Template.projects.events({
             },
 
             'click .editURL' : function(e, tmpl){
+                console.log("clicked");
                 e.preventDefault();
                 e.stopPropagation();
                 var projectId = this._id;
@@ -220,8 +221,8 @@ Template.projects.events({
                     }
                     });
                 }
-                else{
-                    URL = $(e.target)
+                if (!currentURL){
+                    URL = $(e.target);
                     $(URL).editable({
                         type: 'text', 
                         value: "http://",  
@@ -270,12 +271,13 @@ Template.projectRow.events({
         var enabled = e.checked;
         console.log(enabled);
         Projects.update(this._id, {$set:{screenshotEnabled: enabled}});
-        if (enabled == true)
+        var path = this.screenshotPath;
+        console.log(path);
+        if (path == undefined)
         {
             Meteor.call("getScreenshot", this.url, this._id)
         }
-        //Need to implement if !screenshotExists -> take a screenshot
-        //*/
+
     }
 
 })
@@ -283,8 +285,11 @@ Template.projectRow.events({
 Template.projectRow.imagePath = function(){
     Meteor.call("findScreenshot", this._id);
     var path = this.screenshotPath;
+    if (path){
     path = path.substr(0, path.lastIndexOf('.'))
     return path;
+    }
+    return "";
 }
 
 Template.projectRow.validImage = function(){
@@ -298,6 +303,10 @@ Template.tags.tagUrl = function(){
 
 Template.projectRow.formattedUrl = function(){
     var url = this.url;
+    if (!url)
+    {
+        return ""
+    }
     if (url.substring(0,7) != "http://")
     {
         url = "http://" + url;
