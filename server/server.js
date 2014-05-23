@@ -75,7 +75,7 @@ Meteor.methods({
 		}
 		if (files.length>0){
 		screenshot = files[files.length-1].toString();
-		var index = screenshot.indexOf("/screenshots");
+		var index = screenshot.indexOf("/.screenshots");
 		screenshot = screenshot.substr(index);
 		console.log(screenshot);
         Projects.update(id, {$set:{screenshotPath: screenshot}});
