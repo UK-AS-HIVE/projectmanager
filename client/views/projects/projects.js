@@ -2,22 +2,29 @@
 $.fn.editable.defaults.mode = 'inline';
 $.fn.editable.defaults.showbuttons = false;
 
-Session.setDefault("filterBy", "In Progress" )
+Session.setDefault("statusFilter", "In Progress");
+Session.setDefault("priorityFilter", "Any" );
 
 var notDone = ["In Progress", "Not Scheduled", "On Hold", ""]
 
 Template.projects.projectList = function(){
-    var filterBy = Session.get('filterBy');
-    if (filterBy == 'All')
-        return Projects.find();
-    else if (filterBy == "No Status")
-        return Projects.find({status: ""});
-    else if (filterBy == 'Done')
+    var statusFilter = Session.get('statusFilter');
+    var priorityFilter = [Session.get('priorityFilter')];
+    if (priorityFilter.indexOf("Any") != -1)
     {
-        return Projects.find({status: {$nin: notDone}})
+        priorityFilter = ["High Priority", "Low Priority", "", undefined];
+    }
+    console.log(priorityFilter);
+    if (statusFilter == 'All')
+        return Projects.find({priority:{$in: priorityFilter}});
+    else if (statusFilter == "No Status")
+        return Projects.find({status: ""});
+    else if (statusFilter == 'Done')
+    {
+        return Projects.find({status: {$nin: notDone}, priority:{$in: priorityFilter}})
     }
     else
-	   return Projects.find({status: filterBy});
+	   return Projects.find({status: statusFilter, priority: {$in: priorityFilter}});
 }
 
 
@@ -275,7 +282,7 @@ Template.projectRow.events({
         console.log(path);
         if (path == undefined)
         {
-            Meteor.call("getScreenshot", this.url, this._id)
+           // Meteor.call("getScreenshot", this.url, this._id)
         }
 
     }
@@ -313,16 +320,25 @@ Template.projectRow.formattedUrl = function(){
 
 
 Template.filters.helpers({
-    getFilterBy : function(){
-        return Session.get('filterBy');
+    getStatusFilter : function(){
+        return Session.get('statusFilter');
+    },
+    getPriorityFilter : function(){
+        var priorityFilter = Session.get('priorityFilter');
+        return priorityFilter;
     }
 
 })
 
 Template.filters.events({
-    'click .changeFilter' : function(e){
+    'click .changeStatusFilter' : function(e){
         var newFilter = e.target.text;
-        Session.set("filterBy", newFilter);
+        Session.set("statusFilter", newFilter);
+    },
+    'click .changePriorityFilter' : function(e){
+        var newFilter = e.target.text;
+        Session.set("priorityFilter", newFilter);
+
     }
 })
 

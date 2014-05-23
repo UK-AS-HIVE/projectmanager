@@ -172,18 +172,32 @@
 <template name="filters">
   <div class="btn-group">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-      Status: {{getFilterBy}}
+      Status: {{getStatusFilter}}
       <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
-      <li><a href="#" class = "changeFilter" value = "In Progress">In Progress</a></li>
-      <li><a href="#" class = "changeFilter" value = "Not Scheduled">Not Scheduled</a></li>      
-      <li><a href="#" class = "changeFilter" value = "Done">Done</a></li>
-      <li><a href="#" class = "changeFilter" value = null>No Status</a></li>
-      <li><a href="#" class = "changeFilter" value="">All</a></li>
-
-
-
+      <li><a href="#" class = "changeStatusFilter" value = "In Progress">In Progress</a></li>
+      <li><a href="#" class = "changeStatusFilter" value = "Not Scheduled">Not Scheduled</a></li> 
+      <li><a href="#" class = "changeStatusFilter" value = null>On Hold</a></li>     
+      <li><a href="#" class = "changeStatusFilter" value = "Done">Done</a></li>
+      <li><a href="#" class = "changeStatusFilter" value = null>No Status</a></li>
+      <li><a href="#" class = "changeStatusFilter" value="">All</a></li>
     </ul>
   </div>
+
+
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+      Priority: {{getPriorityFilter}}
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li><a href="#" class = "changePriorityFilter" value = "">Any</a></li>
+      <li><a href="#" class = "changePriorityFilter" value = "High Priority">High Priority</a></li>
+      <li><a href="#" class = "changePriorityFilter" value = "Low Priority">Low Priority</a></li>      
+    </ul>
+  </div>
+
+
+
 </template>
