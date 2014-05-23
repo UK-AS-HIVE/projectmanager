@@ -1,13 +1,10 @@
 {
   "packages": {
-    "bootstrap-3": {},
     "x-editable-bootstrap3": {},
     "simple-schema": {},
     "collection2": {},
     "bootstrap3-datepicker": {},
-    "iron-router": {},
-    "accounts-linkblue": {
-	  "path": "/home/aly/hive/meteor-packages/accounts-linkblue"
-	}
+    "accounts-linkblue": {},
+    "bootstrap-3": {}
   }
 }

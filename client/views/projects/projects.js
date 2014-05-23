@@ -292,10 +292,6 @@ Template.projectRow.imagePath = function(){
     return "";
 }
 
-Template.projectRow.validImage = function(){
-    return false;
-}
-
 Template.tags.tagUrl = function(){
     var currentTag = this.value;
     return "/"+currentTag;
