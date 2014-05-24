@@ -40,6 +40,10 @@ form[editable-form] > div {margin: 10px 0;}
    width: 350px;
 }
 
+.notes-input{
+  width : 460px !important;
+}
+
 
 /* ---------- Overall Specifications ---------- */
 

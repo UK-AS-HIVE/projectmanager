@@ -181,6 +181,7 @@ Template.projects.events({
                 showbuttons:true,
                 cols: 20,
                 rows: 3,
+                inputclass: 'notes-input',
                 success: function(response, newValue) {
                     Projects.update(projectId, {$set:{notes: newValue}});
                 }

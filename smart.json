@@ -4,8 +4,8 @@
     "simple-schema": {},
     "collection2": {},
     "bootstrap3-datepicker": {},
-    "accounts-linkblue": {},
     "bootstrap-3": {},
-    "npm" : {}
+    "npm": {},
+    "accounts-linkblue": {}
   }
 }
