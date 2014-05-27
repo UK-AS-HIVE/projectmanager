@@ -44,6 +44,11 @@ form[editable-form] > div {margin: 10px 0;}
   width : 460px !important;
 }
 
+a.editable-click { 
+    color: blue !important;
+    border-bottom: none !important;
+}
+
 
 /* ---------- Overall Specifications ---------- */
 

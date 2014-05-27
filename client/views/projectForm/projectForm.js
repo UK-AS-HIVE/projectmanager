@@ -73,7 +73,7 @@ addProject = function(e,tmpl){
             time:timeSubmitted, 
             screenshotEnabled:screenshotEnabled});
     
-    if(url != ''){
+    if(url != '' && screenshotEnabled){
     console.log(Meteor.call("getScreenshot", url, _id));
     }
     console.log("project added");

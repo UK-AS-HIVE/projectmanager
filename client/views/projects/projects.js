@@ -16,15 +16,15 @@ Template.projects.projectList = function(){
     }
     console.log(priorityFilter);
     if (statusFilter == 'All')
-        return Projects.find({priority:{$in: priorityFilter}});
+        return Projects.find({priority:{$in: priorityFilter}}, {sort: {time:-1}});
     else if (statusFilter == "No Status")
         return Projects.find({status: ""});
     else if (statusFilter == 'Done')
     {
-        return Projects.find({status: {$nin: notDone}, priority:{$in: priorityFilter}})
+        return Projects.find({status: {$nin: notDone}, priority:{$in: priorityFilter}}, {sort: {time:-1}})
     }
     else
-	   return Projects.find({status: statusFilter, priority: {$in: priorityFilter}});
+	   return Projects.find({status: statusFilter, priority: {$in: priorityFilter}}, {sort: {time:-1}});
 }
 
 
