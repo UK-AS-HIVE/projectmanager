@@ -31,26 +31,23 @@
                         {{else}}
                         Description: <br /><a class="editableDescription">Enter a Description</a>
                         {{/if}}
-                        {{#if screenshotEnabled}}{{#if imagePath}}
-                        
 
                 <table>
                     <tr>
-                    
+                        {{#if screenshotEnabled}}
                         <td width="80">
                             <div style="height:60px; width:80px;">
-                            <img href="{{imagePath}}-small.png" src= "{{imagePath}}-small.png" align="left"> 
+                            {{#each thumbnailPath this._id}}
+                            <img href="{{this.url}}" src= "{{this.url}}" align="left"> 
+                            {{/each}}
                             </div>
                         </td>
+                        {{/if}}
                             {{>tags}}
+                        
+                        
                     </tr>
                 </table>
-
-                        {{/if}}
-                        {{else}}
-                        {{>tags}}
-                        {{/if}}
-
                     </td>
 
 
@@ -140,11 +137,11 @@
                         </td>
                         <td>
                         {{#if screenshotEnabled}}
-                        {{#if imagePath}}
+                        {{#each imagePath this._id}}
                         <div STYLE="height:480px; width: 640px; font-size: 12px; overflow: auto; float:right;">
-                            <img href="{{imagePath}}.png" src= "{{imagePath}}.png" class="screenshot-wrapper" align="left"><br />
+                            <img href="{{this.url}}" src= "{{this.url}}" class="screenshot-wrapper" align="left"><br />
                         </div>
-                        {{/if}}
+                        {{/each}}
                         {{/if}}
                         </td>
                     </tr>
@@ -200,4 +197,12 @@
 
 
 
+</template>
+
+
+<template name="imageList">
+{{#each images}}
+<li><p>{{this.metadata.projectId}}</p>
+<img src="{{this.url}}"></li>
+{{/each}}
 </template>

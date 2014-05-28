@@ -6,6 +6,8 @@
     "bootstrap3-datepicker": {},
     "bootstrap-3": {},
     "npm": {},
-    "accounts-linkblue": {}
+    "accounts-linkblue": {},
+    "collectionFS": {},
+    "cfs-public-folder": {}
   }
 }

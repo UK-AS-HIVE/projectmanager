@@ -29,7 +29,9 @@ Template.projects.projectList = function(){
 
 
 
-
+Template.imageList.images = function(){
+    return Thumbnails.find();
+}
 
 Template.projects.events({
     'click .editableName' : function(e, tmpl){
@@ -283,21 +285,24 @@ Template.projectRow.events({
         console.log(path);
         if (path == undefined)
         {
-           // Meteor.call("getScreenshot", this.url, this._id)
+            Meteor.call("getScreenshot", this.url, this._id)
         }
 
     }
 
 })
 
-Template.projectRow.imagePath = function(){
-    Meteor.call("findScreenshot", this._id);
-    var path = this.screenshotPath;
-    if (path){
-    path = path.substr(0, path.lastIndexOf('.'))
-    return path;
-    }
-    return "";
+Template.projectRow.thumbnailPath = function(id){
+    var newThumbnail = [Thumbnails.findOne({"metadata.projectId": id})];
+    return newThumbnail;
+}
+
+Template.projectRow.imagePath = function(id){
+
+    var newImage = [Screenshots.findOne({"metadata.projectId": id})];
+    return newImage;
+
+
 }
 
 Template.tags.tagUrl = function(){

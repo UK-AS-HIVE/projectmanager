@@ -1,11 +1,22 @@
 var appPath;
 
-createThumbnail = function(screenshotPath){
-	im = Meteor.require("imagemagick")
+createThumbnail = function(screenshotPath, id){
+	var Fiber = Npm.require("fibers")
+	var im = Meteor.require("imagemagick")
 	im.convert([screenshotPath+".png", '-resize', '80x60', screenshotPath+"-small.png"], function(err, features){
   	if (err) throw err;
  		 console.log('Created thumbnail');
-	})
+ 	console.log(id);
+ 	Fiber(function(){
+ 		var newThumbnail = new FS.File(screenshotPath+"-small.png");
+ 		newThumbnail.metadata = {projectId: id};
+ 		Thumbnails.insert(newThumbnail);
+ 		var newScreenshot = new FS.File(screenshotPath+".png");
+ 		newScreenshot.metadata = {projectId: id};
+ 		Screenshots.insert(newScreenshot);
+
+	}).run();
+ })
 }
 
 
@@ -40,6 +51,7 @@ Meteor.methods({
 	var Future = Npm.require('fibers/future');
 	var imageDownloaded = false;
 	var exec = Meteor.require('exec');
+	var Fiber = Npm.require('fibers')
 	var date = new Date();        
 	var dateString = ( date.getFullYear().toString().substr(2,2) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
 	screenshotsPath = appPath+'.screenshots/',
@@ -51,14 +63,14 @@ Meteor.methods({
 	console.log("Getting screenshots for: " + url);
     var date = new Date();   
     var screenshotPath = screenshotsPath+ id +'/'+dateString;
-
-	exec(['phantomjs', appPath +'.scripts/' + 'screencapture.js', url, screenshotsPath+ id +'/'+dateString+'.png'], function(err, out, code) {
-  	process.stderr.write(err);
-  	process.stdout.write(out);
-  	createThumbnail(screenshotPath);
-})
+		exec(['phantomjs', appPath +'.scripts/' + 'screencapture.js', url, screenshotsPath+ id +'/'+dateString+'.png'], function(err, out, code) {
+  		process.stderr.write(err);
+  		process.stdout.write(out);
+  		Fiber(function(){
+  			createThumbnail(screenshotPath, id);
+  		}).run();
+	})
 },
-
 	findScreenshot : function(id)
 	{
 		//console.log(id);
