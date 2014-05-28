@@ -98,6 +98,10 @@ Template.projects.events({
             type: 'text',
             value: currentOwner,
             success: function(response, newValue) {
+                if (newValue == "")
+                {
+                    newValue = null;
+                }
                 Projects.update(projectId, {$set:{owner: newValue}});
             }
             });
@@ -114,6 +118,10 @@ Template.projects.events({
                 type: 'text',
                 value: currentPlatform,
                 success: function(response, newValue) {
+                if (newValue == "")
+                {
+                    newValue = null;
+                }
                     Projects.update(projectId, {$set:{platform: newValue}});
                 }
                 });
@@ -130,6 +138,10 @@ Template.projects.events({
                 type: 'text',
                 value: currentType,
                 success: function(response, newValue) {
+                    if (newValue == "")
+                    {
+                        newValue = null;
+                    }
                     Projects.update(projectId, {$set:{type: newValue}});
                 }
                 });
@@ -149,6 +161,10 @@ Template.projects.events({
               {value: 'High Priority', text: 'High Priority'}
            ],
             success: function(response, newValue) {
+                if (newValue == "")
+                {
+                    newValue = null;
+                }
                 Projects.update(projectId, {$set:{priority: newValue}});
             }
     });
@@ -185,6 +201,10 @@ Template.projects.events({
                 rows: 3,
                 inputclass: 'notes-input',
                 success: function(response, newValue) {
+                    if (newValue == "")
+                    {
+                        newValue = null;
+                    }
                     Projects.update(projectId, {$set:{notes: newValue}});
                 }
                 });
@@ -205,12 +225,10 @@ Template.projects.events({
                             tags.push(newValue);
                         }
                         Projects.update(projectId, {$set:{tags: tags}});
-
                     }
                 });
                 $(e.target).editable('show');
             },
-
             'click .editURL' : function(e, tmpl){
                 console.log("clicked");
                 e.preventDefault();
@@ -225,6 +243,10 @@ Template.projects.events({
                     showbuttons: false,
                     inputclass:'URLinput',
                     success: function(response, newValue){
+                        if (newValue == "")
+                        {
+                            newValue = null;
+                        }
                         Projects.update(projectId, {$set:{url: newValue}});
                         Meteor.call("getScreenshot", newValue, projectId);
 
