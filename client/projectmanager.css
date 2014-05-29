@@ -44,9 +44,29 @@ form[editable-form] > div {margin: 10px 0;}
   width : 460px !important;
 }
 
+a.editable{
+  color:blue;
+}
+
 a.editable-click { 
     color: blue !important;
     border-bottom: none !important;
+}
+
+
+div.tagContainer {
+  border: 1px solid;
+  border-radius: 5px;
+  float:left;
+}
+
+span.deleteTag{
+  border: 0;
+  top: 0px;
+}
+
+.currentTag{
+  border: 0;
 }
 
 

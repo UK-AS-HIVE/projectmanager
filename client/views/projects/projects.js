@@ -14,7 +14,6 @@ Template.projects.projectList = function(){
     {
         priorityFilter = ["High Priority", "Low Priority", "", undefined];
     }
-    console.log(priorityFilter);
     if (statusFilter == 'All')
         return Projects.find({priority:{$in: priorityFilter}}, {sort: {time:-1}});
     else if (statusFilter == "No Status")
@@ -130,7 +129,7 @@ Template.projects.events({
             'click .editableType' : function(e, tmpl){
             var projectId = this._id;
             var currentType = e.target.text;
-            if (currentType=="Add Platform")
+            if (currentType=="Add Type")
             {
                 currentType = '';
             }
@@ -248,8 +247,9 @@ Template.projects.events({
                             newValue = null;
                         }
                         Projects.update(projectId, {$set:{url: newValue}});
+                        var thumbnailId = Thumbnails.findOne({"metadata.projectId": id})._id;
+                        var screenshotId = Screenshots.findOne({"metadata.projectId": id})._id;
                         Meteor.call("getScreenshot", newValue, projectId);
-
                     }
                     });
                 }
@@ -294,8 +294,12 @@ Template.projectRow.events({
 	},
     'click .deleteProject':function(e, tmpl)
 {
-    Meteor.call("deleteScreenshot", this._id);
+    var projectId = this._id;
+    Meteor.call("deleteScreenshot", projectId);
     Projects.remove(this._id);
+    Screenshots.remove(Screenshots.findOne({"metadata.projectId": projectId})._id);
+    Thumbnails.remove(Thumbnails.findOne({"metadata.projectId": projectId})._id);
+
 },
     'click .screenshotToggle' : function(e, tmpl)
     {

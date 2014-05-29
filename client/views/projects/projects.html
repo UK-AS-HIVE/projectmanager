@@ -25,9 +25,9 @@
 <template name="projectRow">
                 <tr class="parent">
                         
-                        <td><a class="editableName editable-click">{{name}}</a><br/>
+                        <td><a class="editable editableName">{{name}}</a><br/>
                         {{#if description}}
-                        Description: <br /><a class="editableDescription">{{description}}</a>
+                        Description: <br /><a class="editable editableDescription">{{description}}</a>
                         {{else}}
                         Description: <br /><a class="editableDescription">Enter a Description</a>
                         {{/if}}
@@ -43,10 +43,8 @@
                             </div>
                         </td>
                         {{/if}}
-                            {{>tags}}
-                        
-                        
                     </tr>
+                    {{>tags}}
                 </table>
                     </td>
 
@@ -54,7 +52,7 @@
                     <!--Editable Owner-->
                     <td>
                         {{#if owner}}
-                            <a class="editableOwner">{{owner}}</a>
+                            <a class="editable editableOwner">{{owner}}</a>
                         {{else}}
                             <a class="editableOwner">No Owner</a>
                         {{/if}}
@@ -65,7 +63,7 @@
                     <!--Editable URL-->
                     <td>
                         {{#if url}}
-                            <a href="{{formattedUrl}}" class="editableURL" target="_blank"> {{formattedUrl}}</a><a class="editURL"><btn class="glyphicon glyphicon-edit"></btn></a> <br />
+                            <a href="{{formattedUrl}}" class="editable editableURL" target="_blank"> {{formattedUrl}}</a><a class="editURL"><btn class="glyphicon glyphicon-edit"></btn></a> <br />
                         {{else}}
                             <a class="editURL">Enter a URL</a><br/>
                         {{/if}}
@@ -76,7 +74,7 @@
                     <!--Editable Platform-->
                     <td>
                         {{#if platform}}
-                            <a class="editablePlatform">{{platform}}</a>
+                            <a class="editable editablePlatform">{{platform}}</a>
                         {{else}}
                             <a class="editablePlatform">Add Platform</a>
                         {{/if}}
@@ -86,7 +84,7 @@
                     <!--Editable Type-->
                     <td>
                         {{#if type}}
-                            <a class="editableType">{{type}}</a>
+                            <a class="editable editableType">{{type}}</a>
                         {{else}}
                             <a class="editableType">Add Type</a>
                         {{/if}}
@@ -96,12 +94,14 @@
                     <!--Editable Status-->
                     <td>
                             {{#if status}}
-                                <a class="editableStatus">{{status}}</a>
+                                <a class="editable editableStatus">{{status}}</a>
                             {{else}}
                                 <a class="editableStatus">Add Status</a>
                             {{/if}}
                     </td>
-                            <td><a class="editablePriority">{{priority}}</a></td>
+
+                    
+                            <td><a class="editable editablePriority">{{priority}}</a></td>
 
 
                             <td><a class="editableDate">{{date}}</a></td>
@@ -155,13 +155,13 @@
 </template>
 
 <template name="tags">
-                        <td text-align="left" class="tags" id = "tags-{{_id}}"> Tags:
+                        <td text-align="left" class="tags" id = "tags-{{_id}}">
                             {{#if tags}}
                             {{#each tags}}
-                            <a href="{{tagUrl}}" class="currentTag btn btn-xs btn-default">{{this}}</a><span class="btn btn-default btn-xs deleteTag glyphicon glyphicon-remove"></span>
+                            <div class="tagContainer"><a href="https://help.as.uky.edu/story-search?f[0]=field_tags%253Aname%3A+{{this}}" target="_blank" class="currentTag btn btn-xs btn-default">{{this}}</a><span class="btn btn-default btn-xs deleteTag glyphicon glyphicon-remove"></span></div>
                             {{/each}}
                             {{/if}}
-                        <btn class="addTag glyphicon glyphicon-plus" href=''></btn>
+                        <div><btn class="addTag glyphicon glyphicon-plus" href=''></btn></div>
                         </td>
 </template>
 
