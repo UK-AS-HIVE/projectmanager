@@ -5,13 +5,8 @@ Template.projectForm.events({
         $('#responsive').modal('toggle');
     },
      'click #screenShot' : function doScreenshot(){
-        console.log("clicked screenshot");
-        var  URLs = Projects.find().fetch();
-        for (var i=0; i<URLs.length; i++) {
-        var currentUrl= URLs[i].url;
-        console.log(Meteor.call("getScreenshot", currentUrl, URLs[i]._id));
-        console.log( currentUrl );
-        }
+        console.log("Refreshing Screenshots");
+        Meteor.call("refreshScreenshots");
     },
 
     'click #submitProject':function(e,tmpl){

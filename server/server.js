@@ -6,7 +6,6 @@ createThumbnail = function(screenshotPath, url, id){
 	im.convert([screenshotPath+".png", '-resize', '80x60', screenshotPath+"-small.png"], function(err, features){
   	if (err) throw err;
  		 console.log('Created thumbnail');
- 	console.log(id);
  	//insert images into Screenshots and Thumbnails DBs
  	Fiber(function(){
  		var newThumbnail = new FS.File(screenshotPath+"-small.png");
@@ -16,6 +15,7 @@ createThumbnail = function(screenshotPath, url, id){
  		newScreenshot.metadata = {projectId: id};
  		Screenshots.insert(newScreenshot);
 	}).run();
+	console.log("Images added succesfully");
  })
 }
 
@@ -71,6 +71,16 @@ Meteor.methods({
   		}).run();
 	})
 },
+	refreshScreenshots : function(){
+		var  URLs = Projects.find().fetch();
+        for (var i=0; i<URLs.length; i++) {
+        	var currentUrl= URLs[i].url;
+        	console.log(Meteor.call("getScreenshot", currentUrl, URLs[i]._id));
+        }
+
+	}
+
+/*
 	findScreenshot : function(id)
 	{
 		//console.log(id);
@@ -93,10 +103,10 @@ Meteor.methods({
     	}
 
 	}
+*/
 
 
 }) //end Meteor Methods
 
 
 }
-

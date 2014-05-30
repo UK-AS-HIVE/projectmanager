@@ -174,7 +174,7 @@ Template.projects.events({
         'click .editableDate' : function(e, tmpl){
             var projectId = this._id;
             var currentDate = e.target.text;
-            $(e.target).editable({
+            /*$(e.target).editable({
                     format: 'mm-dd-yyyy',    
                     viewformat: 'mm/dd/yyyy',    
                     datepicker: {format: "mm/dd/yyyy",
@@ -183,7 +183,11 @@ Template.projects.events({
                         Projects.update(proejctId,{$set:{date:newValue}});
                 }
             });
-            $(e.target).editable("show");
+            $(e.target).editable("show");*/
+
+            //$(e.target).datepicker();
+            $(e.target).datepicker('show');
+
         },
         'click .editableNotes' : function(e, tmpl){
             var projectId = this._id;
@@ -217,7 +221,7 @@ Template.projects.events({
                     display:false,
                     success: function(response, newValue){
                         var tags = Projects.findOne(projectId).tags;
-                        if (tags == undefined){
+                        if (tags == undefined || tags == ""){
                            var tags = [newValue];
                         }
                         else{
@@ -269,10 +273,15 @@ Template.projects.events({
 
         },
         'click .deleteTag': function(e, tmpl){
-            var projectId = $(e.target).closest('td').attr('id').toString().substr(5);
-            console.log(projectId);
             var currentTag = this.toString();
-            console.log(currentTag);
+            var projectId = $(e.target).closest('td').attr('id').toString().substr(5);
+           //If block to handle ObjectID types (from mongoimport)
+            if(projectId.indexOf('"')!=-1){
+                projectId = projectId.substr(projectId.indexOf('"')+1,24);
+                projectId = new Meteor.Collection.ObjectID(projectId);
+                console.log(projectId);
+            }
+            //
             Projects.update( projectId , {"$pull": { "tags" : currentTag}});
 
 
@@ -384,3 +393,4 @@ $(document).keyup(function(e) {
     }
   }   
 });
+

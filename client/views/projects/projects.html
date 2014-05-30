@@ -65,7 +65,7 @@
                         {{#if url}}
                             <a href="{{formattedUrl}}" class="editable editableURL" target="_blank"> {{formattedUrl}}</a><a class="editURL"><btn class="glyphicon glyphicon-edit"></btn></a> <br />
                         {{else}}
-                            <a class="editURL">Enter a URL</a><br/>
+                            <a class="editURL glyphicon glyphicon-plus pull-center"></a><br/>
                         {{/if}}
                     </td>
                     <!--/Editable-->
@@ -100,11 +100,22 @@
                             {{/if}}
                     </td>
 
-                    
-                            <td><a class="editable editablePriority">{{priority}}</a></td>
 
+                    <td>
+                        {{#if priority}}
+                            <a class="editable editablePriority">{{priority}}</a>
+                        {{else}}
+                            <a class="editablePriority glyphicon glyphicon-plus pull-center"></a><br/>
+                        {{/if}}
+                    </td>
 
-                            <td><a class="editableDate">{{date}}</a></td>
+                    <td>
+                        {{#if date}}
+                            <a class="editableDate">{{date}}</a>
+                        {{else}}
+                            <a class="editableDate glyphicon glyphicon-plus pull-center" data-type="date" data-pk="1"></a><br/>
+                        {{/if}}
+                    </td>
                     <!--/Editable-->
 
                 </tr>
