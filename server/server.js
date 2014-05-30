@@ -76,13 +76,6 @@ Meteor.methods({
         for (var i=0; i<URLs.length; i++) {
         	var currentId = URLs[i]._id;
         	var currentUrl= URLs[i].url;
-        	if(currentUrl != null && currentUrl != "")
-        	{
-        		Projects.update(currentId, {$set:{screenshotEnabled: true}});
-        	}
-        	else{
-        		Projects.update(currentId, {$set:{screenshotEnabled: false}});
-        	}
         	Projects.update(currentId, {$set:{time: "1"}});
         	console.log(Meteor.call("getScreenshot", currentUrl, URLs[i]._id));
         }
