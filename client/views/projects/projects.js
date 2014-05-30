@@ -126,7 +126,7 @@ Template.projects.events({
                 });
                 $(e.target).editable('show');
     },
-            'click .editableType' : function(e, tmpl){
+        'click .editableType' : function(e, tmpl){
             var projectId = this._id;
             var currentType = e.target.text;
             if (currentType=="Add Type")
@@ -174,19 +174,29 @@ Template.projects.events({
         'click .editableDate' : function(e, tmpl){
             var projectId = this._id;
             var currentDate = e.target.text;
-            /*$(e.target).editable({
-                    format: 'mm-dd-yyyy',    
-                    viewformat: 'mm/dd/yyyy',    
-                    datepicker: {format: "mm/dd/yyyy",
-                                    weekStart: 1, autoclose:true},
-                    success : function(response, newValue) {
-                        Projects.update(proejctId,{$set:{date:newValue}});
+            if (currentDate == "Enter a date")
+            {
+                currentDate = ""
+            }
+            $(e.target).editable({
+                value : currentDate,
+                emptytext: "Enter a date",
+                inputclass: "editableDatePicker",
+                showbuttons:true,
+                success: function(response,newValue){
+                    if (newValue == "")
+                    {
+                        newValue = null;
+                    }
+                    Projects.update(projectId, {$set:{date: newValue}});
                 }
             });
-            $(e.target).editable("show");*/
+            $(e.target).editable('show');
+            $(".editableDatePicker").datepicker({
+                autoclose:true
+            });
 
-            //$(e.target).datepicker();
-            $(e.target).datepicker('show');
+            $(".editableDatePicker").datepicker('show');
 
         },
         'click .editableNotes' : function(e, tmpl){
@@ -216,8 +226,8 @@ Template.projects.events({
             'click .addTag' : function(e, tmpl){
                 var projectId = this._id;
                 $(e.target).editable({
-                    value: '', // need to make value always blank
-                    deftaulValue: '',
+                    value: "", // need to make value always blank
+                    deftaulValue: "hi",
                     display:false,
                     success: function(response, newValue){
                         var tags = Projects.findOne(projectId).tags;
@@ -228,6 +238,7 @@ Template.projects.events({
                             tags.push(newValue);
                         }
                         Projects.update(projectId, {$set:{tags: tags}});
+
                     }
                 });
                 $(e.target).editable('show');
@@ -279,7 +290,7 @@ Template.projects.events({
             if(projectId.indexOf('"')!=-1){
                 projectId = projectId.substr(projectId.indexOf('"')+1,24);
                 projectId = new Meteor.Collection.ObjectID(projectId);
-                console.log(projectId);
+               // console.log(projectId);
             }
             //
             Projects.update( projectId , {"$pull": { "tags" : currentTag}});
@@ -294,8 +305,7 @@ Template.projects.events({
 Template.projectRow.events({
 	'click .parent':function(e, tmpl)
 	{
-        var element = e.target.tagName;
-        if (element == 'TD'){
+        if (e.target.tagName == 'TD'){
 		var e = tmpl.find('.details');
         $(e).toggle();
     }
