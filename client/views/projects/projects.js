@@ -4,28 +4,47 @@ $.fn.editable.defaults.showbuttons = false;
 
 Session.setDefault("statusFilter", "In Progress");
 Session.setDefault("priorityFilter", "Any" );
+Session.setDefault("sort","Time Entered")
 
 var notDone = ["In Progress", "Not Scheduled", "On Hold", ""]
 
 Template.projects.projectList = function(){
     var statusFilter = Session.get('statusFilter');
     var priorityFilter = [Session.get('priorityFilter')];
+    
+
+
+    var sortBy;
+    switch(Session.get("sort")){
+            case "Time Entered":
+                sortBy = "time";
+                break;
+            case "Name":
+                sortBy = "name";
+                break;
+            case "Date":
+                sortBy = "date";
+                break;
+        }
+
+    var mySort = {sort: {}};
+    mySort.sort[sortBy] = -1;
+
     if (priorityFilter.indexOf("Any") != -1)
     {
         priorityFilter = ["High Priority", "Low Priority", "", undefined];
     }
     if (statusFilter == 'All')
-        return Projects.find({priority:{$in: priorityFilter}}, {sort: {time:-1}});
+        return Projects.find({priority:{$in: priorityFilter}}, mySort);
     else if (statusFilter == "No Status")
         return Projects.find({status: ""});
     else if (statusFilter == 'Done')
     {
-        return Projects.find({status: {$nin: notDone}, priority:{$in: priorityFilter}}, {sort: {time:-1}})
+        return Projects.find({status: {$nin: notDone}, priority:{$in: priorityFilter}}, mySort)
     }
     else
-	   return Projects.find({status: statusFilter, priority: {$in: priorityFilter}}, {sort: {time:-1}});
+	   return Projects.find({status: statusFilter, priority: {$in: priorityFilter}}, mySort);
 }
-
 
 
 Template.imageList.images = function(){
@@ -377,7 +396,10 @@ Template.filters.helpers({
     getPriorityFilter : function(){
         var priorityFilter = Session.get('priorityFilter');
         return priorityFilter;
-    }
+    },
+    getSort : function(){
+        return Session.get('sort');
+    },
 
 })
 
@@ -389,7 +411,10 @@ Template.filters.events({
     'click .changePriorityFilter' : function(e){
         var newFilter = e.target.text;
         Session.set("priorityFilter", newFilter);
-
+    },
+    'click .changeSort' : function(e,tmpl){
+        var newSort = e.target.text;
+        Session.set("sort",newSort);
     }
 })
 
@@ -403,4 +428,36 @@ $(document).keyup(function(e) {
     }
   }   
 });
+
+
+Template.projects.rendered = function(){
+    scrollToTop();
+}
+
+
+var scrollToTop = function(){
+    $(document).ready(function() {
+    $(window).scroll(function() {
+        if($(this).scrollTop() > 100){
+            $('#goTop').stop().animate({
+                top: '20px'    
+                }, 200);
+        }
+        else{
+            $('#goTop').stop().animate({
+               top: '-100px'    
+            }, 200);
+        }
+    });
+    $('#goTop').click(function() {
+        $('html, body').stop().animate({
+           scrollTop: 0
+        }, 200, function() {
+           $('#goTop').stop().animate({
+               top: '-100px'    
+           }, 200);
+        });
+    });
+});    
+}
 

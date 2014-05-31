@@ -20,6 +20,7 @@
                     {{/each}}
                 </tbody>
             </table>
+            <button id="goTop">Go To Top</button>
 </template>
 
 <template name="projectRow">
@@ -139,9 +140,9 @@
 
                             {{#if url}}
                             {{#if screenshotEnabled}}
-                            <input type="checkbox" class="screenshotToggle" checked>Screenshot Tracking<br/>
+                            <label>Screenshot Tracking: </label><input type="checkbox" class="screenshotToggle" checked>
                             {{else}}
-                            <input type="checkbox" class="screenshotToggle">Screenshot Tracking<br/>
+                            <label>Screenshot Tracking: </label><input type="checkbox" class="screenshotToggle">
                             {{/if}}
                             {{/if}}
 
@@ -183,7 +184,7 @@
       Status: {{getStatusFilter}}
       <span class="caret"></span>
     </button>
-    <ul class="dropdown-menu">
+    <ul class="statusFilter dropdown-menu">
       <li><a href="#" class = "changeStatusFilter" value = "In Progress">In Progress</a></li>
       <li><a href="#" class = "changeStatusFilter" value = "Not Scheduled">Not Scheduled</a></li> 
       <li><a href="#" class = "changeStatusFilter" value = null>On Hold</a></li>     
@@ -194,7 +195,7 @@
   </div>
 
 
-  <div class="btn-group">
+  <div class="priorityFilter btn-group">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
       Priority: {{getPriorityFilter}}
       <span class="caret"></span>
@@ -203,6 +204,18 @@
       <li><a href="#" class = "changePriorityFilter" value = "">Any</a></li>
       <li><a href="#" class = "changePriorityFilter" value = "High Priority">High Priority</a></li>
       <li><a href="#" class = "changePriorityFilter" value = "Low Priority">Low Priority</a></li>      
+    </ul>
+  </div>
+
+    <div class="sortBy btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+      Sort By: {{getSort}}
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li><a href="#" class = "changeSort" value = "time">Time Entered</a></li>
+      <li><a href="#" class = "changeSort" value = "name">Name</a></li>
+      <li><a href="#" class = "changeSort" value = "date">Date</a></li>      
     </ul>
   </div>
 

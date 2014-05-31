@@ -73,6 +73,13 @@ span.deleteTag{
   width:14px;
 }
 
+#goTop{
+    /*background:blue;
+    padding:5px;*/
+    position:fixed;
+    top:-100px;
+    right:10px;
+}
 /* ---------- Overall Specifications ---------- */
 
 body {
