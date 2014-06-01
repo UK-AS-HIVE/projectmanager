@@ -1,6 +1,9 @@
 // set all inline edits to inline, and not popup.
 $.fn.editable.defaults.mode = 'inline';
 $.fn.editable.defaults.showbuttons = false;
+$.fn.editable.defaults.emptytext = null;
+
+
 
 Session.setDefault("statusFilter", "In Progress");
 Session.setDefault("priorityFilter", "Any" );
@@ -11,9 +14,6 @@ var notDone = ["In Progress", "Not Scheduled", "On Hold", ""]
 Template.projects.projectList = function(){
     var statusFilter = Session.get('statusFilter');
     var priorityFilter = [Session.get('priorityFilter')];
-    
-
-
     var sortBy;
     switch(Session.get("sort")){
             case "Time Entered":
@@ -58,6 +58,10 @@ Template.projects.events({
         $(e.target).editable({
         type: 'text',
         success: function(response, newValue){
+            if (newValue == "")
+                {
+                    newValue = null;
+                }
             Projects.update(projectId, {$set:{name: newValue}});
         }
     });
@@ -78,6 +82,10 @@ Template.projects.events({
           {value: 'Done', text: 'Done'}
        ],
         success: function(response, newValue) {
+            if (newValue == "")
+                {
+                    newValue = null;
+                }
             Projects.update(projectId, {$set:{status: newValue}});
 
     }
@@ -99,6 +107,10 @@ Template.projects.events({
             width: 200,
             rows: 3,
             success: function(response, newValue) {
+                if (newValue == "")
+                {
+                    newValue = null;
+                }
                 Projects.update(projectId, {$set:{description: newValue}});
             }
             });
@@ -281,10 +293,15 @@ Template.projects.events({
                             newValue = null;
                         }
                         Projects.update(projectId, {$set:{url: newValue}});
-                        var thumbnailId = Thumbnails.findOne({"metadata.projectId": id})._id;
-                        var screenshotId = Screenshots.findOne({"metadata.projectId": id})._id;
-                        Meteor.call("getScreenshot", newValue, projectId);
-                    }
+                        var thumbnailObject = Thumbnails.findOne({"metadata.projectId": projectId});
+                        var screenshotObject = Screenshots.findOne({"metadata.projectId": projectId});
+                        if (thumbnailObject && screenshotObject)
+                        {
+                            Thumbnails.remove(thumbnailObject._id);
+                            Screenshots.remove(screenshotObject._id);
+                        }
+                        Meteor.call("getScreenshot", newValue,projectId);
+                        }
                     });
                 }
                 if (!currentURL){
@@ -294,6 +311,10 @@ Template.projects.events({
                         value: "http://",  
                         showbuttons: false,
                         success: function(response, newValue) {
+                        if (newValue == "")
+                        {
+                            newValue = null;
+                        }
                             Projects.update(projectId, {$set:{url: newValue}});
                         }
                         });
@@ -352,6 +373,17 @@ Template.projectRow.events({
             Meteor.call("getScreenshot", this.url, this._id)
         }
 
+    },
+    'click .refreshScreenshot' : function()
+    {
+        var thumbnailObject = Thumbnails.findOne({"metadata.projectId": this._id});
+        var screenshotObject = Screenshots.findOne({"metadata.projectId": this._id});
+        if (thumbnailObject && screenshotObject)
+        {
+            Thumbnails.remove(thumbnailObject._id);
+            Screenshots.remove(screenshotObject._id);
+        }
+        Meteor.call("getScreenshot", this.url,this._id);
     }
 
 })

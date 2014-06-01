@@ -34,17 +34,19 @@
                         {{/if}}
 
                 <table>
-                    <tr>
+                    
                         {{#if screenshotEnabled}}
+                        <tr>
                         <td width="80">
                             <div style="height:60px; width:80px;">
                             {{#each thumbnailPath this._id}}
-                            <img href="{{this.url}}" src= "{{this.url}}" align="left"> 
+                            <img href="{{this.url}}" src= "{{this.url}}" align="left">
                             {{/each}}
+                            <br><br><span class="glyphicon glyphicon-refresh refreshScreenshot"></span>
                             </div>
                         </td>
+                        </tr>
                         {{/if}}
-                    </tr>
                     {{>tags}}
                 </table>
                     </td>

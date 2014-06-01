@@ -3,6 +3,7 @@ var appPath;
 createThumbnail = function(screenshotPath, url, id){
 	var Fiber = Npm.require("fibers")
 	var im = Meteor.require("imagemagick")
+	console.log(screenshotPath);
 	im.convert([screenshotPath+".png", '-resize', '80x60', screenshotPath+"-small.png"], function(err, features){
   	if (err) throw err;
  		 console.log('Created thumbnail');
@@ -10,9 +11,9 @@ createThumbnail = function(screenshotPath, url, id){
  	Fiber(function(){
  		var newThumbnail = new FS.File(screenshotPath+"-small.png");
  		newThumbnail.metadata = {projectId: id, myUrl : url};
- 		Thumbnails.insert(newThumbnail);
  		var newScreenshot = new FS.File(screenshotPath+".png");
  		newScreenshot.metadata = {projectId: id};
+ 		Thumbnails.insert(newThumbnail);
  		Screenshots.insert(newScreenshot);
 	}).run();
 	console.log("Images added succesfully");
@@ -27,12 +28,14 @@ if (Meteor.isServer) {
 //Set Collection Permissions:
 	Projects.allow({
 		'update': function(userId){
-			return true;
+			if (Meteor.userId()){
+				return true;}
+			return false;
 		},
 		'remove': function(userId){
 			return true;
 		}
-	})
+	}),
 
 
 //Initialize Variables:
