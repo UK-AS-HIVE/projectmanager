@@ -28,7 +28,7 @@ Template.projects.projectList = function(){
         }
 
     var mySort = {sort: {}};
-    mySort.sort[sortBy] = -1;
+    mySort.sort[sortBy] = 1;
 
     if (priorityFilter.indexOf("Any") != -1)
     {
@@ -295,11 +295,8 @@ Template.projects.events({
                         Projects.update(projectId, {$set:{url: newValue}});
                         var thumbnailObject = Thumbnails.findOne({"metadata.projectId": projectId});
                         var screenshotObject = Screenshots.findOne({"metadata.projectId": projectId});
-                        if (thumbnailObject && screenshotObject)
-                        {
-                            Thumbnails.remove(thumbnailObject._id);
-                            Screenshots.remove(screenshotObject._id);
-                        }
+                        Thumbnails.remove(thumbnailObject._id);
+                        Screenshots.remove(screenshotObject._id);
                         Meteor.call("getScreenshot", newValue,projectId);
                         }
                     });
@@ -376,6 +373,7 @@ Template.projectRow.events({
     },
     'click .refreshScreenshot' : function()
     {
+        //check if thumbnail and screenshot exists and remove them from collection if true.
         var thumbnailObject = Thumbnails.findOne({"metadata.projectId": this._id});
         var screenshotObject = Screenshots.findOne({"metadata.projectId": this._id});
         if (thumbnailObject && screenshotObject)

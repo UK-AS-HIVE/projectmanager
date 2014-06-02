@@ -72,6 +72,7 @@ Template.manageAdmins.events({
   'click .addUser' : function(){
     var newUser = document.getElementById("user-input").value;
     Admins.insert({name: newUser});
+    document.getElementById("user-input").value = "";
   },
   'click .removeUser' : function(){
     console.log(this._id);

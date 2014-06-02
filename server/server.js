@@ -21,66 +21,16 @@ createThumbnail = function(screenshotPath, url, id){
 }
 
 
-isAdmin = function(){
-	var currentUser = Meteor.userId().username;
-	console.log(currentUser);
-	if (Admins.findOne({name: currentUser.username}))
-		return true;
-	else
-		return false;
-}
+
 
 
 if (Meteor.isServer) {
-
-	Meteor.publish('projects', function(){
-		return Projects.find();
-	})
-
-	Projects.allow({
-		'update': function(userId){
-			if (Meteor.userId()){
-				return true;}
-		},
-		'remove': function(userId){
-			return true;
-		}
-	})
-
-
-	Meteor.publish('images', function(){
-		return Thumbnails.find();
-	});
-
-	Meteor.publish('screenshots', function(){
-		return Screenshots.find();
-	});
-
-	Meteor.publish('admins', function(){
-		return Admins.find();
-	});
-
-	Admins.allow({
-		'update' : function(userId){
-			if (isAdmin())
-				return true;
-		},
-		'remove' : function(userId){
-			if (isAdmin())
-				return true;
-		}
-	})
-
-
-
-
-
-
-
-
-
 //Initialize Variables:
 	Meteor.startup(function(){
+	if (!Admins.findOne({name: "aish222"}))
+	{
+		Admins.insert({name: "aish222"});
+	}
 	process.chdir('../../../../../');
 	appPath = process.cwd()+'/';
 	});
