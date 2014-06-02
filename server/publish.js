@@ -65,3 +65,10 @@ Admins.allow({
 		return isAdmin(userId);
 	}
 })
+
+Admins.deny({
+	//deny adding admins if not a user
+	insert: function(userId){
+		return !isAdmin(userId);
+	}
+})

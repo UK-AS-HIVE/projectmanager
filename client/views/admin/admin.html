@@ -1,13 +1,21 @@
 <template name="manage">
-  <section id="manage-page">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="admins manage-block">
-          {{> manageAdmins }}
-        </div>
-      </div>
-    </div>
-  </section>
+    {{#if currentUser}}
+        <section id="manage-page">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="admins manage-block"> 
+                {{> manageAdmins }}
+              </div>
+            </div>
+          </div>
+        </section>    
+    {{else}}
+      {{> login}}
+    {{/if}}
+
+
+
+
 </template>
 
 
