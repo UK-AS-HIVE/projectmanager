@@ -15,20 +15,24 @@ Template.projects.projectList = function(){
     var statusFilter = Session.get('statusFilter');
     var priorityFilter = [Session.get('priorityFilter')];
     var sortBy;
+    var order;
     switch(Session.get("sort")){
             case "Time Entered":
                 sortBy = "time";
+                order = -1;
                 break;
             case "Name":
                 sortBy = "name";
+                order = 1;
                 break;
             case "Date":
                 sortBy = "date";
+                order = -1
                 break;
         }
 
     var mySort = {sort: {}};
-    mySort.sort[sortBy] = 1;
+    mySort.sort[sortBy] = order;
 
     if (priorityFilter.indexOf("Any") != -1)
     {

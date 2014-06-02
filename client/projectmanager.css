@@ -1,3 +1,4 @@
+*{font-family: Arial;}
 
 .screenshot-wrapper{
     width: 640px;
@@ -102,7 +103,6 @@ span.deleteTag{
 #manage-page{
   margin-left: 10%;
 }
-/* ---------- Overall Specifications ---------- */
 
 body {
   line-height: 1.5;
