@@ -60,6 +60,19 @@ div.tagContainer {
   float:left;
 }
 
+.userContainer{
+padding: 3px 5px 3px 18px;
+margin: 3px 0 3px 5px;
+position: auto;
+line-height: 13px;
+color: #333;
+width: auto;
+cursor: default;
+border: 1px solid #aaaaaa;
+border-radius: 3px;
+float:left;
+}
+
 span.deleteTag{
   border: 0;
   top: 0px;
@@ -79,6 +92,15 @@ span.deleteTag{
     position:fixed;
     top:-100px;
     right:10px;
+}
+
+
+.user-input {
+  width: 15%;
+}
+
+#manage-page{
+  margin-left: 10%;
 }
 /* ---------- Overall Specifications ---------- */
 

@@ -21,21 +21,62 @@ createThumbnail = function(screenshotPath, url, id){
 }
 
 
-
+isAdmin = function(){
+	var currentUser = Meteor.userId().username;
+	console.log(currentUser);
+	if (Admins.findOne({name: currentUser.username}))
+		return true;
+	else
+		return false;
+}
 
 
 if (Meteor.isServer) {
-//Set Collection Permissions:
+
+	Meteor.publish('projects', function(){
+		return Projects.find();
+	})
+
 	Projects.allow({
 		'update': function(userId){
 			if (Meteor.userId()){
 				return true;}
-			return false;
 		},
 		'remove': function(userId){
 			return true;
 		}
-	}),
+	})
+
+
+	Meteor.publish('images', function(){
+		return Thumbnails.find();
+	});
+
+	Meteor.publish('screenshots', function(){
+		return Screenshots.find();
+	});
+
+	Meteor.publish('admins', function(){
+		return Admins.find();
+	});
+
+	Admins.allow({
+		'update' : function(userId){
+			if (isAdmin())
+				return true;
+		},
+		'remove' : function(userId){
+			if (isAdmin())
+				return true;
+		}
+	})
+
+
+
+
+
+
+
 
 
 //Initialize Variables:
@@ -80,7 +121,7 @@ Meteor.methods({
         	var currentId = URLs[i]._id;
         	var currentUrl= URLs[i].url;
         	Projects.update(currentId, {$set:{time: "1"}});
-        	console.log(Meteor.call("getScreenshot", currentUrl, URLs[i]._id));
+        	Meteor.call("getScreenshot", currentUrl, URLs[i]._id);
         }
 
 	}

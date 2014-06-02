@@ -10,7 +10,8 @@
       "npm": {},
       "accounts-linkblue": {},
       "collectionFS": {},
-      "cfs-public-folder": {}
+      "cfs-public-folder": {},
+      "iron-router": {}
     },
     "packages": {
       "x-editable-bootstrap3": {
@@ -25,8 +26,8 @@
       },
       "collection2": {
         "git": "https://github.com/aldeed/meteor-collection2.git",
-        "tag": "v0.3.11",
-        "commit": "7e970671305657678e8508d8107d5e6c5e158559"
+        "tag": "v0.4.0",
+        "commit": "5648f7c53ee98f3ac8fbe82a55e6fd78fc67cfbc"
       },
       "bootstrap3-datepicker": {
         "git": "https://github.com/rajit/bootstrap3-datepicker.git",
@@ -57,6 +58,11 @@
         "git": "https://github.com/nooitaf/meteor-cfs-public-folder.git",
         "tag": "v0.0.3",
         "commit": "581c716424b374efb6f611110002621f9cc9212b"
+      },
+      "iron-router": {
+        "git": "https://github.com/EventedMind/iron-router.git",
+        "tag": "v0.7.1",
+        "commit": "d1ffb3f06ea4c112132b030f2eb1a70b81675ecb"
       },
       "cfs-base-package": {
         "git": "https://github.com/CollectionFS/Meteor-cfs-base-package.git",
@@ -92,6 +98,11 @@
         "git": "https://github.com/CollectionFS/Meteor-cfs-upload-http.git",
         "tag": "v0.0.12",
         "commit": "774bf581e0f3da269dc842672ed6c2da09fd2bdf"
+      },
+      "blaze-layout": {
+        "git": "https://github.com/EventedMind/blaze-layout.git",
+        "tag": "v0.2.4",
+        "commit": "b40e9b0612329288d75cf52ad14a7da64bb8618f"
       },
       "cfs-filesaver": {
         "git": "https://github.com/CollectionFS/Meteor-cfs-filesaver.git",

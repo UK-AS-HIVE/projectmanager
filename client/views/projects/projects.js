@@ -473,21 +473,21 @@ var scrollToTop = function(){
         if($(this).scrollTop() > 100){
             $('#goTop').stop().animate({
                 top: '20px'    
-                }, 200);
+                }, 1000);
         }
         else{
             $('#goTop').stop().animate({
                top: '-100px'    
-            }, 200);
+            }, 1000);
         }
     });
     $('#goTop').click(function() {
         $('html, body').stop().animate({
            scrollTop: 0
-        }, 200, function() {
+        }, 1000, function() {
            $('#goTop').stop().animate({
                top: '-100px'    
-           }, 200);
+           }, 1000);
         });
     });
 });    

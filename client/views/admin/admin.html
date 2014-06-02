@@ -1,0 +1,30 @@
+<template name="manage">
+  <section id="manage-page">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="admins manage-block">
+          {{> manageAdmins }}
+        </div>
+      </div>
+    </div>
+  </section>
+</template>
+
+
+<template name="manageAdmins">
+  <div>
+    <div class="form-group">
+      <input type="text" id="user-input" class="form-control col-md-6 user-input" placeholder="Add a New User">
+    </div>
+    <button type="submit" class="btn btn-default addUser">Add</button>
+  </div><br>
+  <labeL>Current Users: </label>
+  <div class="admins">
+      {{#each admins}}
+    <div class="userContainer">
+      <button type="button" class="btn-group glyphicon glyphicon-remove btn-group-xs removeUser"></button>{{this.name}}
+    </div>
+    {{/each}}
+  </div>
+
+</template>

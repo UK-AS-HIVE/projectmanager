@@ -8,6 +8,7 @@
     "npm": {},
     "accounts-linkblue": {},
     "collectionFS": {},
-    "cfs-public-folder": {}
+    "cfs-public-folder": {},
+    "iron-router": {}
   }
 }
