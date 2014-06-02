@@ -77,7 +77,11 @@ Template.manageAdmins.events({
   'click .removeUser' : function(){
     console.log(this._id);
     Admins.remove(this._id);
-  }
+  },
+  'click #screenShot' : function doScreenshot(){
+        console.log("Refreshing Screenshots");
+        Meteor.call("refreshScreenshots");
+    },
 
 
 })

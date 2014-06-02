@@ -4,10 +4,6 @@ Template.projectForm.events({
         //toggle_visibility('projectForm');
         $('#responsive').modal('toggle');
     },
-     'click #screenShot' : function doScreenshot(){
-        console.log("Refreshing Screenshots");
-        Meteor.call("refreshScreenshots");
-    },
 
     'click #submitProject':function(e,tmpl){
         addProject(e,tmpl);
