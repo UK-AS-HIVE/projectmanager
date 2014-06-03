@@ -70,7 +70,6 @@ Meteor.methods({
         for (var i=0; i<URLs.length; i++) {
         	var currentId = URLs[i]._id;
         	var currentUrl= URLs[i].url;
-        	Projects.update(currentId, {$set:{time: "1"}});
         	Meteor.call("getScreenshot", currentUrl, URLs[i]._id);
         }
 
