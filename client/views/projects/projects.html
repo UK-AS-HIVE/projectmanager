@@ -4,8 +4,8 @@
     <br/>
     {{> filters}}
     {{> search}}
-        <table class="table table-bordered table-striped table-hover projectTable pagination-sm" id="projectTable">
-                <thead>
+        <table class="table table-bordered table-striped table-hover projectTable pagination-sm table-condensed" id="projectTable">
+                <thead class="project-header">
                     <tr>
                         <th id="name-header" width='auto'>Name</th>
                         <th id="owner-header">Owner</th>
@@ -32,34 +32,25 @@
                         
                         <td><a class="editable editableName">{{name}}</a><br/>
                         {{#if description}}
-                        <a class="editable editableDescription">{{description}}</a>
+                        <span class="editable editableDescription">{{description}}</span>
                         {{else}}
                         <a class="editableDescription">Enter a Description</a>
-                        {{/if}}
-
-                <table>
-                    
+                        {{/if}}                    
                         {{#if screenshotEnabled}}
-                        <tr>
-                        <td width="80">
                             <div style="height:72px; width:92px;">
                             {{#each thumbnailPath this._id}}
                             <img href="{{this.url}}" src= "{{this.url}}" align="left">
                             {{/each}}
                             <br><br><span class="glyphicon glyphicon-refresh refreshScreenshot"></span>
                             </div>
-                        </td>
-                        </tr>
                         {{/if}}
-                    {{>tags}}
-                </table>
                     </td>
 
 
                     <!--Editable Owner-->
                     <td>
                         {{#if owner}}
-                            <a class="editable editableOwner">{{owner}}</a>
+                            <span class="editable editableOwner">{{owner}}</span>
                         {{else}}
                             <a class="editableOwner">No Owner</a>
                         {{/if}}
@@ -151,6 +142,7 @@
                             <label>Screenshot Tracking: </label><input type="checkbox" class="screenshotToggle">
                             {{/if}}
                             {{/if}}
+                            {{>tags}}
 
                         </td>
                         <td>
@@ -164,71 +156,13 @@
                         </td>
                     </tr>
                     </table>
-                            <a class="btn btn-danger btn-large pull-center deleteProject"><i class="icon-white icon-trash"></i> Delete Project</a><br/><br/>
+                            <a class="btn btn-danger btn-sm pull-center deleteProject"><i class="icon-white icon-trash"></i> Delete Project</a><br/><br/>
                         </td>
                     </tr>
     <td>
 
     </td>
 </template>
-
-<template name="tags">
-                        <td text-align="left" class="tags" id = "tags-{{_id}}">
-                            {{#if tags}}
-                            {{#each tags}}
-                            <div class="tagContainer"><a href="https://help.as.uky.edu/story-search?f[0]=field_tags%253Aname%3A+{{this}}" target="_blank" class="currentTag btn btn-xs btn-default">{{this}}</a><span class="btn btn-default btn-xs deleteTag glyphicon glyphicon-remove"></span></div>
-                            {{/each}}
-                            {{/if}}
-                        <div class="addTagContainer"><btn class="addTag glyphicon glyphicon-plus" href=''></btn></div>
-                        </td>
-</template>
-
-
-<template name="filters">
-  <div class="btn-group">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-      Status: {{getStatusFilter}}
-      <span class="caret"></span>
-    </button>
-    <ul class="statusFilter dropdown-menu">
-      <li><a href="#" class = "changeStatusFilter" value = "In Progress">In Progress</a></li>
-      <li><a href="#" class = "changeStatusFilter" value = "Not Scheduled">Not Scheduled</a></li> 
-      <li><a href="#" class = "changeStatusFilter" value = null>On Hold</a></li>     
-      <li><a href="#" class = "changeStatusFilter" value = "Done">Done</a></li>
-      <li><a href="#" class = "changeStatusFilter" value = null>No Status</a></li>
-      <li><a href="#" class = "changeStatusFilter" value="">All</a></li>
-    </ul>
-  </div>
-
-
-  <div class="priorityFilter btn-group">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-      Priority: {{getPriorityFilter}}
-      <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu">
-      <li><a href="#" class = "changePriorityFilter" value = "">Any</a></li>
-      <li><a href="#" class = "changePriorityFilter" value = "High Priority">High Priority</a></li>
-      <li><a href="#" class = "changePriorityFilter" value = "Low Priority">Low Priority</a></li>      
-    </ul>
-  </div>
-
-    <div class="sortBy btn-group">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-      Sort By: {{getSort}}
-      <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu">
-      <li><a href="#" class = "changeSort" value = "time">Time Entered</a></li>
-      <li><a href="#" class = "changeSort" value = "name">Name</a></li>
-      <li><a href="#" class = "changeSort" value = "date">Date</a></li>      
-    </ul>
-  </div>
-
-
-
-</template>
-
 
 <template name="imageList">
 {{#each images}}

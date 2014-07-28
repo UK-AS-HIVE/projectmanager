@@ -1,0 +1,17 @@
+<template name="tags">
+                        <div text-align="left" class="tags">
+                            {{#if tags}}
+                            <ul class="list-inline">
+                            {{#each tags}}
+                            <li><div class="tagContainer">
+	                            	<a href="https://help.as.uky.edu/story-search?f[0]=field_tags%253Aname%3A+{{this}}" target="_blank" class="currentTag btn btn-xs btn-default">{{this}}</a>
+	                            	<span class="btn btn-default btn-xs deleteTag glyphicon glyphicon-remove" data-projectId="{{../_id}}"></span></div>
+	                        </li>
+	                            {{/each}}
+                            <li><div class="addTagContainer"><btn class="addTag glyphicon glyphicon-plus" href=''></btn></div></li>
+	                        </ul>
+                            {{else}}
+                            <div class="addTagContainer"><btn class="addTag glyphicon glyphicon-plus" href=''></btn></div>
+	                            {{/if}}
+                        </div>
+</template>

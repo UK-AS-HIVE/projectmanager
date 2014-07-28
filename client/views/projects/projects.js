@@ -3,6 +3,7 @@ $.fn.editable.defaults.mode = 'inline';
 $.fn.editable.defaults.showbuttons = false;
 $.fn.editable.defaults.emptytext = null;
 $.fn.editable.defaults.onblur = 'submit';
+$.fn.editable.defaults.display = function(){};
 
 
 
@@ -37,7 +38,7 @@ Template.projects.projectList = function(){
 
     if (priorityFilter.indexOf("Any") != -1)
     {
-        priorityFilter = ["High Priority", "Low Priority", "", undefined];
+        priorityFilter = ["High Priority", "Low Priority", "", "Medium Priority", undefined];
     }
     if (statusFilter == 'All')
         return Projects.find({priority:{$in: priorityFilter}}, mySort);
@@ -68,6 +69,7 @@ Template.projects.events({
                     newValue = null;
                 }
             Projects.update(projectId, {$set:{name: newValue}});
+            $(e.target).editable('destroy');
         }
     });
         $(e.target).editable('show');
@@ -92,7 +94,7 @@ Template.projects.events({
                     newValue = null;
                 }
             Projects.update(projectId, {$set:{status: newValue}});
-
+            $(e.target).editable('destroy');
     }
     });
         $(e.target).editable('show');
@@ -117,6 +119,7 @@ Template.projects.events({
                     newValue = null;
                 }
                 Projects.update(projectId, {$set:{description: newValue}});
+                $(e.target).editable('destroy');
             }
             });
             $(e.target).editable('show');
@@ -138,6 +141,7 @@ Template.projects.events({
                     newValue = null;
                 }
                 Projects.update(projectId, {$set:{owner: newValue}});
+                $(e.target).editable('destroy');
             }
             });
             $(e.target).editable('show');
@@ -158,6 +162,7 @@ Template.projects.events({
                     newValue = null;
                 }
                     Projects.update(projectId, {$set:{platform: newValue}});
+                    $(e.target).editable('destroy');
                 }
                 });
                 $(e.target).editable('show');
@@ -178,6 +183,7 @@ Template.projects.events({
                         newValue = null;
                     }
                     Projects.update(projectId, {$set:{type: newValue}});
+                    $(e.target).editable('destroy');
                 }
                 });
                 $(e.target).editable('show');
@@ -193,6 +199,7 @@ Template.projects.events({
             showbuttons: false,
             source: [
               {value: 'Low Priority', text: 'Low Priority'},
+              {value: 'Medium Priority', text: 'Medium Priority'},
               {value: 'High Priority', text: 'High Priority'}
            ],
             success: function(response, newValue) {
@@ -201,6 +208,7 @@ Template.projects.events({
                     newValue = null;
                 }
                 Projects.update(projectId, {$set:{priority: newValue}});
+                $(e.target).editable('destroy');
             }
     });
         $(e.target).editable('show');
@@ -225,6 +233,7 @@ Template.projects.events({
                         newValue = null;
                     }
                     Projects.update(projectId, {$set:{date: newValue}});
+                    $(e.target).editable('destroy');
                 }
             });
             $(e.target).editable('show');
@@ -255,6 +264,7 @@ Template.projects.events({
                         newValue = null;
                     }
                     Projects.update(projectId, {$set:{notes: newValue}});
+                    $(e.target).editable('destroy');
                 }
                 });
                 $(e.target).editable('show');
@@ -274,7 +284,7 @@ Template.projects.events({
                             tags.push(newValue);
                         }
                         Projects.update(projectId, {$set:{tags: tags}});
-
+                        $(e.target).editable('destroy');
                     }
                 });
                 $(e.target).editable('show');
@@ -303,6 +313,7 @@ Template.projects.events({
                         Thumbnails.remove(thumbnailObject._id);
                         Screenshots.remove(screenshotObject._id);
                         Meteor.call("getScreenshot", newValue,projectId);
+                        $(e.target).editable('destroy');
                         }
                     });
                 }
@@ -318,29 +329,13 @@ Template.projects.events({
                             newValue = null;
                         }
                             Projects.update(projectId, {$set:{url: newValue}});
+                            $(e.target).editable('destroy');
                         }
                         });
                     }
                 (URL).editable('toggle');
                 (URL).off('click');
-
-        },
-        'click .deleteTag': function(e, tmpl){
-            var currentTag = this.toString();
-            var projectId = $(e.target).closest('td').attr('id').toString().substr(5);
-           //If block to handle ObjectID types (from mongoimport)
-            if(projectId.indexOf('"')!=-1){
-                projectId = projectId.substr(projectId.indexOf('"')+1,24);
-                projectId = new Meteor.Collection.ObjectID(projectId);
-               // console.log(projectId);
-            }
-            //
-            Projects.update( projectId , {"$pull": { "tags" : currentTag}});
-
-
-
         }
-
  })
 
 
