@@ -343,9 +343,11 @@ Template.projectRow.events({
 	'click .parent':function(e, tmpl)
 	{
         if (e.target.tagName == 'TD'){
-		var e = tmpl.find('.details');
-        $(e).toggle();
-    }
+        console.log(e.target.tagName)
+		var x = tmpl.find('.details');
+        console.log(x);
+        $(x).toggle();
+        }
     
 	},
     'click .deleteProject':function(e, tmpl)
