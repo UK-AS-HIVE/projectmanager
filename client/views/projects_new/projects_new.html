@@ -1,0 +1,168 @@
+<template name="projects_new">
+    <div class="container">
+	<div class="filters">{{>filters}}{{>projectForm}}</div>
+	{{#each projectList}}
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <!--<h3 class="panel-title"><span class="editable editable-name">{{name}}</span></h3>!-->
+	      <div class="inline-edit">
+	        <span class="inline-edit-preview">{{name}}</span>
+	        <span class="inline-edit-form">
+	          <input type="text" class="form-control inline-name" value="{{name}}" placeholder="Name" />
+	        </span>
+	        <i class="glyphicon glyphicon-edit"></i>
+	      </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <table class="table table-condensed">
+              <tbody>
+                <tr>
+                  <td style="width:90px;">
+                    <span class="label label-default">Owner</span>
+                  </td>
+                  <td>
+      				      <div class="inline-edit">
+      					        <span class="inline-edit-preview">{{owner}}</span>
+      					        <span class="inline-edit-form">
+      					          <input type="text" class="form-control inline-owner" value="{{owner}}" placeholder="Owner" />
+      					        </span>
+      					        <i class="glyphicon glyphicon-edit"></i>
+      					    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="label label-default">URL:</span>
+                  </td>
+                  <td>
+        			      <div class="inline-edit">
+        				        <span class="inline-edit-preview">{{url}}</span>
+        				        <span class="inline-edit-form">
+        				          <input type="text" class="form-control inline-url" value="{{url}}" placeholder="URL" />
+        				        </span>
+        				        <i class="glyphicon glyphicon-edit"></i>
+        				    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="label label-default">Status:</span>
+                  </td>
+                  <td>
+                    <div class="inline-edit">
+                      <span class="inline-edit-preview">{{status}}</span>
+                      <span class="inline-edit-form">
+                        <select class="form-control inline-status" placeholder="status">
+                          <option value="In Progress" {{isSelected 'In Progress'}}>In Progress</option>
+                          <option value="Not Scheduled" {{isSelected 'Not Scheduled'}} >Not Scheduled</option>
+                          <option value="On Hold" {{isSelected 'On Hold'}} >On Hold</option>
+                          <option value="Done" {{isSelected 'Done'}} >Done</option>
+                        </select>
+                      </span>
+                      <i class="glyphicon glyphicon-edit"></i>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="label label-default">Priority:</span>
+                  </td>
+                  <td>
+                    <div class="inline-edit">
+                      <span class="inline-edit-preview">{{priority}}</span>
+                      <span class="inline-edit-form">
+                        <select class="form-control inline-priority" placeholder="priority">
+                          <option value="High Priority">High</option>
+                          <option value="Medium Priority">Medium</option>
+                          <option value="Low Priority">Low</option>
+                        </select>
+                      </span>
+                      <i class="glyphicon glyphicon-edit"></i>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-3">
+            <table class="table table-condensed pull-left">
+              <tbody>
+                <tr>
+                  <td style="width:90px;">
+                    <span class="label label-default">Platform: </span>
+                  </td>
+                  <td>
+                    <div class="inline-edit">
+                      <span class="inline-edit-preview">{{platform}}</span>
+                      <span class="inline-edit-form">
+                      <input type="text" class="form-control inline-platform" value="{{platform}}" placeholder="Platform">
+                      </span>
+                      <i class="glyphicon glyphicon-edit"></i>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="label label-default">Type:</span>
+                  </td>
+                  <td>
+                    <div class="inline-edit">
+                      <span class="inline-edit-preview">{{type}}</span>
+                      <span class="inline-edit-form">
+                      <input type="text" class="form-control inline-type" value="{{type}}" placeholder="Type">
+                      </span>
+                      <i class="glyphicon glyphicon-edit"></i>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="label label-default">Due/Launch Date:</span>
+                  </td>
+                  <td>
+                    <div class="inline-edit">
+                      <span class="inline-edit-preview">{{date}}</span>
+                      <span class="inline-edit-form">
+                      <input class="datepicker inline-date">
+                      </span>
+                      <i class="glyphicon glyphicon-edit"></i>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="label label-default">Screenshot Tracking:</span>
+                  </td>
+                  <td>
+                    {{#if url}}
+                    {{#if screenshotEnabled}}
+                    <input type="checkbox" class="screenshotToggle" checked>
+                    {{else}}
+                    <input type="checkbox" class="screenshotToggle">
+                    {{/if}}
+                    {{/if}}
+				          </td>
+                </tr>
+              </tbody>
+            </table>
+            <span class="glyphicon glyphicon-chevron-down pull-right"></span>
+          </div>
+          <div class="col-md-6">
+          <div class="tags" style="margin-top:10px;">
+          {{>tags}}
+          </div>
+          <br>
+            {{#if screenshotEnabled}}
+            	<span class="glyphicon glyphicon-refresh refreshScreenshot pull-right" style="margin-right: 20px;"></span>
+	            {{#each thumbnailPath this._id}}
+	            <img href="{{this.url}}" src= "{{this.url}}" class="pull-right">
+	            {{/each}}
+			{{/if}}
+          </div>
+        </div>
+      </div>
+    {{/each}}
+    </div>
+
+</template>

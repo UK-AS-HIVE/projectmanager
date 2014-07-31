@@ -4,17 +4,21 @@ createThumbnail = function(screenshotPath, url, id){
 	var Fiber = Npm.require("fibers")
 	var im = Meteor.require("imagemagick")
 	console.log(screenshotPath);
-	im.convert([screenshotPath+".png", '-resize', '80x60', screenshotPath+"-small.png"], function(err, features){
+	im.convert([screenshotPath+".png", '-resize', '40x30', screenshotPath+"-thumb.png"]);
+	im.convert([screenshotPath+".png", '-resize', '120x90', screenshotPath+"-small.png"], function(err, features){
   	if (err) throw err;
  		 console.log('Created thumbnail');
  	//insert images into Screenshots and Thumbnails DBs
  	Fiber(function(){
- 		var newThumbnail = new FS.File(screenshotPath+"-small.png");
+ 		var newThumbnail = new FS.File(screenshotPath+"-thumb.png");
  		newThumbnail.metadata = {projectId: id, myUrl : url};
  		var newScreenshot = new FS.File(screenshotPath+".png");
  		newScreenshot.metadata = {projectId: id};
+ 		var newSmallScreenshot = new FS.File(screenshotPath+"-small.png");
+ 		newSmallScreenshot.metadata = {projectId: id, myUrl : url};
  		Thumbnails.insert(newThumbnail);
  		Screenshots.insert(newScreenshot);
+ 		SmallScreenshots.insert(newSmallScreenshot);
 	}).run();
 	console.log("Images added succesfully");
  })

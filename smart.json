@@ -9,6 +9,10 @@
     "accounts-linkblue": {},
     "collectionFS": {},
     "cfs-public-folder": {},
-    "iron-router": {}
+    "iron-router": {},
+    "inline-edit": {
+      "path": "/home/aly/hive/inline-edit"
+    },
+    "select2": {}
   }
 }
