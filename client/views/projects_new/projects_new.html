@@ -6,16 +6,19 @@
         <div class="panel-heading">
           <!--<h3 class="panel-title"><span class="editable editable-name">{{name}}</span></h3>!-->
 	      <div class="inline-edit">
-	        <span class="inline-edit-preview">{{name}}</span>
+	        <span class="inline-edit-preview">
+            <strong>{{name}}</strong>
+          </span>
 	        <span class="inline-edit-form">
 	          <input type="text" class="form-control inline-name" value="{{name}}" placeholder="Name" />
 	        </span>
 	        <i class="glyphicon glyphicon-edit"></i>
 	      </div>
         </div>
+        <div class ="panel-body">
         <div class="row">
           <div class="col-md-3">
-            <table class="table table-condensed">
+            <table class="table table-striped table-hover table-condensed">
               <tbody>
                 <tr>
                   <td style="width:90px;">
@@ -23,7 +26,7 @@
                   </td>
                   <td>
       				      <div class="inline-edit">
-      					        <span class="inline-edit-preview"><strong>{{owner}}</strong></span>
+      					        <span class="inline-edit-preview">{{owner}}</span>
       					        <span class="inline-edit-form">
       					          <input type="text" class="form-control inline-owner" value="{{owner}}" placeholder="Owner" />
       					        </span>
@@ -78,19 +81,20 @@
                           <option value="Low Priority">Low</option>
                         </select>
                       </span>
-                      <i class=""></i>
+                      <i class="glyphicon glyphicon-edit"></i>
                     </div>
                   </td>
                 </tr>
               </tbody>
             </table>
+
           </div>
           <div class="col-md-3">
-            <table class="table table-condensed pull-left">
+            <table class="table table-condensed table-hover table-striped pull-left">
               <tbody>
                 <tr>
-                  <td style="width:90px;">
-                    <span class="label label-default">Platform: </span>
+                  <td style="width:130px;">
+                    <span class="">Platform: </span>
                   </td>
                   <td>
                     <div class="inline-edit">
@@ -104,7 +108,7 @@
                 </tr>
                 <tr>
                   <td>
-                    <span class="label label-default">Type:</span>
+                    <span class="">Type:</span>
                   </td>
                   <td>
                     <div class="inline-edit">
@@ -118,7 +122,7 @@
                 </tr>
                 <tr>
                   <td>
-                    <span class="label label-default">Due/Launch Date:</span>
+                    <span class="">Due/Launch Date:</span>
                   </td>
                   <td>
                     <div class="inline-edit">
@@ -132,7 +136,7 @@
                 </tr>
                 <tr>
                   <td>
-                    <span class="label label-default">Screenshot Tracking:</span>
+                    <span class="">Screenshot Tracking:</span>
                   </td>
                   <td>
                     {{#if url}}
@@ -149,9 +153,6 @@
             <span class="glyphicon glyphicon-chevron-down pull-right"></span>
           </div>
           <div class="col-md-6">
-          <div class="tags" style="margin-top:10px;">
-          {{>tags}}
-          </div>
           <br>
             {{#if screenshotEnabled}}
             	<span class="glyphicon glyphicon-refresh refreshScreenshot pull-right" style="margin-right: 20px;"></span>
@@ -161,7 +162,11 @@
 			{{/if}}
           </div>
         </div>
+        </div>
+        <div class="panel-footer"><div style="display:none">Tags:</div>{{>tags}}</div>
+
       </div>
+
     {{/each}}
     </div>
 

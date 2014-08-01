@@ -41,7 +41,7 @@ Template.tags.rendered = function(){
   console.log(arrayTags);
   $(".tagContainer").select2({
     tags:arrayTags,
-    width: '200px',
+    width: '100%',
   });
 
 }

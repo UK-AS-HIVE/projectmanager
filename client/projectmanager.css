@@ -1,3 +1,12 @@
+.panel-footer .tag-footer{
+  min-height:30px;
+}
+
+ul.select2-choices{
+  max-height:28px;
+  margin-top:-10px;
+}
+
 *{font-family: Arial;}
 
 .screenshot-wrapper{
@@ -55,11 +64,6 @@ a.editable-click {
 }
 
 
-div.tagContainer {
-  border: 1px solid;
-  border-radius: 3px;
-  float:left;
-}
 
 .userContainer{
 padding: 3px 5px 3px 18px;

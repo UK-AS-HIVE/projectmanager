@@ -118,15 +118,13 @@ Template.projects_new.events({
     'change .inline-date': function(e){
         Projects.update(this._id, {$set:{date: e.target.value}});
     },
+    'change .inline-description': function(e){
+        Projects.update(this._id, {$set:{description: e.target.value}});
+    },
     'focus .datepicker' : function(e){
         $(e.target).datepicker({
             autoclose : true
         });
-    },
-    'keyup .inline-edit': function(e){
-        if (e.which == 13){
-            toggleEdit(e);
-        }
     }
 
 })
@@ -142,7 +140,6 @@ Template.projects_new.helpers({
 
 
 Template.projects_new.rendered =function (){
-    $("#e1").select2();
 }
 
 Template.projectRow.events({
