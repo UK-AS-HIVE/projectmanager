@@ -2,20 +2,7 @@ Template.tags.helpers({
 	tagUrl : function(){
 		var currentTag = this.value;
 	    return "/"+currentTag;
-	},
-  currentTags : function(){
-    return Projects.findOne(this._id).tags;
-    console.log(myTags);
-    if (!myTags){
-      return null;
-    }
-    var tags = myTags[0];
-    for (var i=1; i<myTags.length;i++)
-    {
-      tags = tags + "," + myTags[i];
-    }
-    return tags;
-  }
+	}
 })
 
 
@@ -27,11 +14,15 @@ Template.tags.events({
     Tags.insert({tag: currentTags[currentTags.length-1]})
   }
   Projects.update(this._id, {$set:{tags: currentTags}});
+  },
+  'click .add-tag' : function(e, tmpl){
+    console.log("clicked");
+    console.log($(e.target).prev('.select2-container').find('.select2-input'))
+    $(tmpl.find('.tagContainer')).select2('focus');
   }
 })
 
 Template.tags.rendered = function(){
-
   var savedTags = Tags.find().fetch();
   var arrayTags = []
   for (var i=0; i<savedTags.length;i++)
@@ -41,7 +32,7 @@ Template.tags.rendered = function(){
   console.log(arrayTags);
   $(".tagContainer").select2({
     tags:arrayTags,
-    width: '100%',
-  });
+    width:'off'
+      });
 
 }

@@ -344,10 +344,10 @@ Template.projectRow.events({
 	{
         if (e.target.tagName == 'TD'){
         console.log(e.target.tagName)
-		var x = tmpl.find('.details');
-        console.log(x);
-        $(x).toggle();
+		var x = $(tmpl.find('.details'));
+        x.toggle();
         }
+        x.toggle();
     
 	},
     'click .deleteProject':function(e, tmpl)
@@ -357,6 +357,8 @@ Template.projectRow.events({
     Projects.remove(this._id);
     Screenshots.remove(Screenshots.findOne({"metadata.projectId": projectId})._id);
     Thumbnails.remove(Thumbnails.findOne({"metadata.projectId": projectId})._id);
+    SmallScreenshots.remove(Screenshots.findOne({"metadata.projectId": projectId})._id);
+
 
 },
     'click .screenshotToggle' : function(e, tmpl)

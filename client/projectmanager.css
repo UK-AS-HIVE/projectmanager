@@ -4,9 +4,20 @@
 
 ul.select2-choices{
   max-height:28px;
-  margin-top:-10px;
+  border: 0px !important;
+  background-color: #f5f5f5 !important;
+  background-image: none !important;
 }
 
+.select2-input{
+  font-family: "Glyphicons Halflings";
+  content: "\e080";
+  cursor:default;
+} 
+
+.panel-footer{
+  padding:0px !important;
+}
 *{font-family: Arial;}
 
 .screenshot-wrapper{
