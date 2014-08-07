@@ -15,8 +15,13 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="/projects">Projects</a></li>
+                    <li class="active"><a hrcd pef="/projects">Projects</a></li>
                     <li class="active"><a href="/manage">Manage</a></li>
+                    <li class="active">
+                        <a class="view-settings" href="#" data-container="body" data-toggle="popover" data-placement="bottom">
+                        View Settings
+                        </a>
+                    </li>
 
                 </ul>
                 {{#if currentUser}}
@@ -27,5 +32,11 @@
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
+
+   <div id="popover-content" class="hide">
+      <a href="#" class="change-view">Classic</a><br>
+      <a href="#" class="change-view">Modern</a>
+   </div>
+
 
 </template>

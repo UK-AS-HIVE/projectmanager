@@ -50,6 +50,10 @@ Screenshots.allow({
 	
 })
 
+Meteor.publish('smallScreenshots', function(){
+	return SmallScreenshots.find();
+});
+
 Meteor.publish('admins', function(){
 	return Admins.find();
 });
@@ -72,3 +76,16 @@ Admins.deny({
 		return !isAdmin(userId);
 	}
 })
+
+
+Meteor.publish("userData", function () {
+  return Meteor.users.find(
+    {_id: this.userId});
+});
+
+
+
+Meteor.users.allow({
+	update: function (userId) { 
+		return isAdmin(userId); }
+});

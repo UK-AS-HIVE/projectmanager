@@ -47,7 +47,7 @@ Template.projects_new.projectList = function(){
         return Projects.find({status: {$nin: notDone}, priority:{$in: priorityFilter}}, mySort)
     }
     else
-	   return Projects.find({status: statusFilter, priority: {$in: priorityFilter}}, mySort);
+       return Projects.find({status: statusFilter, priority: {$in: priorityFilter}}, mySort);
 }
 
 
@@ -143,14 +143,14 @@ Template.projects_new.rendered =function (){
 }
 
 Template.projectRow.events({
-	'click .parent':function(e, tmpl)
-	{
+    'click .parent':function(e, tmpl)
+    {
         if (e.target.tagName == 'TD'){
-		var e = tmpl.find('.details');
+        var e = tmpl.find('.details');
         $(e).toggle();
     }
     
-	},
+    },
     'click .deleteProject':function(e, tmpl)
 {
     var projectId = this._id;

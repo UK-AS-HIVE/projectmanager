@@ -1,5 +1,9 @@
 <template name="home">
   <div class="container">
+  {{#if view 'Modern'}}
+  {{>projects_new}}
+  {{else}}
   	{{> projects}}
+  {{/if}}
   </div>
 </template>

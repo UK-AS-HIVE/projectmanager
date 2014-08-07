@@ -29,15 +29,24 @@
 
 <template name="projectRow">
                 <tr class="parent">
-                        
-                        <td><a class="editable editableName">{{name}}</a><br/>
+                        <td>
+                        <div class="inline-edit" style="display:inline-block">
+                        <span class="inline-edit-preview">
+                        <strong>{{name}}</strong>
+                        </span>
+                        <span class="inline-edit-form">
+                          <input type="text" class="form-control inline-name" value="{{name}}" placeholder="Name" />
+                        </span>
+                        <i class="glyphicon glyphicon-edit"></i>
+                        </div>
+                        <br>
                         {{#if description}}
                         <span class="editable editableDescription">{{description}}</span>
                         {{else}}
                         <a class="editableDescription">Enter a Description</a>
                         {{/if}}                    
                         {{#if screenshotEnabled}}
-                            <div style="height:72px; width:92px;">
+                            <div style="height:44px;width:31px">
                             {{#each thumbnailPath this._id}}
                             <img href="{{this.url}}" src= "{{this.url}}" align="left">
                             {{/each}}
@@ -117,7 +126,7 @@
                     <!--/Editable-->
 
                 </tr>
-                        <tr style="display:none" class ="details">
+                        <tr style="display: none;" class ="details">
                         <td colspan="10">
                         <table>
                         <tr>
@@ -141,7 +150,7 @@
                             {{else}}
                             <label>Screenshot Tracking: </label><input type="checkbox" class="screenshotToggle">
                             {{/if}}
-                            {{/if}}
+                            {{/if}}<br>
                             {{>tags}}
 
                         </td>

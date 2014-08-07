@@ -49,7 +49,7 @@ Template.projects.projectList = function(){
         return Projects.find({status: {$nin: notDone}, priority:{$in: priorityFilter}}, mySort)
     }
     else
-	   return Projects.find({status: statusFilter, priority: {$in: priorityFilter}}, mySort);
+       return Projects.find({status: statusFilter, priority: {$in: priorityFilter}}, mySort);
 }
 
 
@@ -340,16 +340,15 @@ Template.projects.events({
 
 
 Template.projectRow.events({
-	'click .parent':function(e, tmpl)
-	{
-        if (e.target.tagName == 'TD'){
-        console.log(e.target.tagName)
-		var x = tmpl.find('.details');
-        console.log(x);
-        $(x).toggle();
+    'click .parent':function(e, tmpl)
+    {
+        if (e.target.tagName){
+        var x = $(tmpl.find('.details'));
+        x.toggle()
         }
-    
-	},
+        if (x)
+            x.toggle()    
+    },
     'click .deleteProject':function(e, tmpl)
 {
     var projectId = this._id;
@@ -357,6 +356,8 @@ Template.projectRow.events({
     Projects.remove(this._id);
     Screenshots.remove(Screenshots.findOne({"metadata.projectId": projectId})._id);
     Thumbnails.remove(Thumbnails.findOne({"metadata.projectId": projectId})._id);
+    SmallScreenshots.remove(Screenshots.findOne({"metadata.projectId": projectId})._id);
+
 
 },
     'click .screenshotToggle' : function(e, tmpl)
@@ -384,7 +385,19 @@ Template.projectRow.events({
             Screenshots.remove(screenshotObject._id);
         }
         Meteor.call("getScreenshot", this.url,this._id);
+    },
+    'click .inline-edit .glyphicon-edit': function(e){
+        console.log('toggle edit');
+        toggleEdit(e);
+
+    },
+    'change .inline-edit': function(e){
+        toggleEdit(e);
+    },
+    'change .inline-name': function(e){
+        Projects.update(this._id, {$set:{name: e.target.value}});
     }
+
 
 })
 
