@@ -5,7 +5,7 @@ createThumbnail = function(screenshotPath, url, id){
 	var im = Meteor.require("imagemagick")
 	console.log(screenshotPath);
 	im.convert([screenshotPath+".png", '-resize', '40x30', screenshotPath+"-thumb.png"]);
-	im.convert([screenshotPath+".png", '-resize', '205x145', screenshotPath+"-small.png"], function(err, features){
+	im.convert([screenshotPath+".png", '-resize', '120x90', screenshotPath+"-small.png"], function(err, features){
   	if (err) throw err;
  		 console.log('Created thumbnail');
  	//insert images into Screenshots and Thumbnails DBs
