@@ -1,4 +1,19 @@
 <template name="tags">
-    <input type="hidden" class="tagContainer" value="{{tags}}" Placeholder="Tags">
-    <span class="glyphicon glyphicon-edit add-tag"></span>
-</template>
+	<div class="inline-edit" style="display:inline-block">
+	<div class="inline-edit-preview" style="display:inline-block">
+    {{#each tags}}
+    <li class="tag-container">    
+    	<div class="div-remove" style="display:inline-block">
+    		<span class="glyphicon glyphicon-remove remove-tag-btn" data-projectId="{{../_id}}" data-tag-content="{{this}}">
+    		</span>
+    	</div>	
+    	<span class="tag-content">{{this}}</span>
+	</li>
+    {{/each}}
+	</div>
+     <span class="inline-edit-form">
+		<input class="tag-input" placeholder="Add a tag" />
+     </span>
+     <i class="glyphicon glyphicon-edit"></i>
+    </div>
+	</template>

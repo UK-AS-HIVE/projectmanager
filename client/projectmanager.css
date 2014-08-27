@@ -35,7 +35,7 @@ ul.select2-choices{
   z-index:1050 !important;
 }
 
-.descriptionInput{
+.description-input{
   width: 500px;
 }
 
@@ -52,15 +52,6 @@ form[editable-form] > div {margin: 10px 0;}
 
 .notes-input{
   width : 460px !important;
-}
-
-a.editable{
-  color:blue;
-}
-
-a.editable-click { 
-    color: blue !important;
-    border-bottom: none !important;
 }
 
 
@@ -101,6 +92,7 @@ span.deleteTag{
     position:fixed;
     top:-100px;
     right:10px;
+    border-radius:6px;
 }
 
 

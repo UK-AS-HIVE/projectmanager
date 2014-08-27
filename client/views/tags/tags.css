@@ -1,0 +1,25 @@
+.tag-container{
+	display:inline-block;
+	padding: 0 5px 3px 3px;
+	position: relative;
+	line-height: 13px;
+	color: #333;
+	cursor: default;
+	border: 1px solid #aaaaaa;
+	border-radius: 6px;
+	height:20px;
+}
+
+.tag-content{
+	display:inline-block;
+	margin-top:3px;
+}
+
+.glyphicon-remove{
+	font-size:8px;
+}
+
+.tag-input{
+	border:0px;
+	width: 150px;
+}

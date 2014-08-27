@@ -7,31 +7,40 @@ Template.tags.helpers({
 
 
 Template.tags.events({
-  'change .tagContainer' : function(e){
-  var currentTags = e.val;
-  if (!Tags.findOne({tag: currentTags[currentTags.length-1]}))
-  {
-    Tags.insert({tag: currentTags[currentTags.length-1]})
-  }
-  Projects.update(this._id, {$set:{tags: currentTags}});
+  'click .remove-tag-btn' : function(e, tmpl){
+    var projectId = e.target.getAttribute('data-projectId');
+    var tag = e.target.getAttribute('data-tag-content');
+    Projects.update(projectId, {$pull: {tags: tag}})
   },
-  'click .add-tag' : function(e, tmpl){
-    console.log("clicked");
-    console.log($(e.target).prev('.select2-container').find('.select2-input'))
-    $(tmpl.find('.tagContainer')).select2('focus');
+  'click .toggle-tag': function(e){
+    $(e.target).next().toggle()
+  },
+  'change .tag-input': function(e){
+    if (e.target.value){
+      Projects.update(this._id, {$push:{tags: e.target.value}});
+    }
+    if (Tags.find({tag: e.target.value}).count() == 0){
+      Tags.insert({tag: e.target.value})
+    }
+    e.target.value = "";
+    $(e.target).select2("val", null);
+  },
+  'click .glyphicon-edit': function(){
+    $(".select2-input").focus()
   }
 })
 
 Template.tags.rendered = function(){
+  $('.tag-div').toggle('')
   var savedTags = Tags.find().fetch();
   var arrayTags = []
   for (var i=0; i<savedTags.length;i++)
   {
     arrayTags.push(savedTags[i].tag)
   }
-  $(".tagContainer").select2({
+  $(".tag-input").select2({
     tags:arrayTags,
-    width:'auto'
-    });
+    containerCssClass: 'tag-container'
+  });
 
 }

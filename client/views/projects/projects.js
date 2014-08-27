@@ -57,286 +57,6 @@ Template.imageList.images = function(){
     return Thumbnails.find();
 }
 
-Template.projects.events({
-    'click .editableName' : function(e, tmpl){
-        var projectId = this._id;
-        console.log(projectId);
-        $(e.target).editable({
-        type: 'text',
-        success: function(response, newValue){
-            if (newValue == "")
-                {
-                    newValue = null;
-                }
-            Projects.update(projectId, {$set:{name: newValue}});
-            $(e.target).editable('destroy');
-        }
-    });
-        $(e.target).editable('show');
-    },
-        'click .editableStatus' : function(e, tmpl){
-        var projectId = this._id;
-        var currentStatus = e.target.text;
-        $(e.target).editable({
-        type: 'select',
-        show:true, 
-        value: currentStatus,  
-        showbuttons: false,
-        source: [
-          {value: 'In Progress', text: 'In Progress'},
-          {value: 'Not Scheduled', text: 'Not Scheduled'},
-          {value: 'On Hold', text: 'On Hold'},
-          {value: 'Done', text: 'Done'}
-       ],
-        success: function(response, newValue) {
-            if (newValue == "")
-                {
-                    newValue = null;
-                }
-            Projects.update(projectId, {$set:{status: newValue}});
-            $(e.target).editable('destroy');
-    }
-    });
-        $(e.target).editable('show');
-
-    },
-        'click .editableDescription' : function(e, tmpl){
-        var projectId = this._id;
-        var currentDescription = e.target.text;
-        if (currentDescription=="Enter a Description")
-        {
-            currentDescription = ''
-        }
-        $(e.target).editable({
-            type: 'textarea',
-            value : currentDescription,
-            showbuttons:true,
-            width: 200,
-            rows: 3,
-            success: function(response, newValue) {
-                if (newValue == "")
-                {
-                    newValue = null;
-                }
-                Projects.update(projectId, {$set:{description: newValue}});
-                $(e.target).editable('destroy');
-            }
-            });
-            $(e.target).editable('show');
-    },
-        'click .editableOwner' : function(e, tmpl){
-        var projectId = this._id;
-        var currentOwner = e.target.text;
-        console.log(currentOwner);
-        if (currentOwner=="No Owner")
-        {
-            currentOwner = '';
-        }
-        $(e.target).editable({
-            type: 'text',
-            value: currentOwner,
-            success: function(response, newValue) {
-                if (newValue == "")
-                {
-                    newValue = null;
-                }
-                Projects.update(projectId, {$set:{owner: newValue}});
-                $(e.target).editable('destroy');
-            }
-            });
-            $(e.target).editable('show');
-    },
-        'click .editablePlatform' : function(e, tmpl){
-            var projectId = this._id;
-            var currentPlatform = e.target.text;
-            if (currentPlatform=="Add Platform")
-            {
-                currentPlatform = '';
-            }
-            $(e.target).editable({
-                type: 'text',
-                value: currentPlatform,
-                success: function(response, newValue) {
-                if (newValue == "")
-                {
-                    newValue = null;
-                }
-                    Projects.update(projectId, {$set:{platform: newValue}});
-                    $(e.target).editable('destroy');
-                }
-                });
-                $(e.target).editable('show');
-    },
-        'click .editableType' : function(e, tmpl){
-            var projectId = this._id;
-            var currentType = e.target.text;
-            if (currentType=="Add Type")
-            {
-                currentType = '';
-            }
-            $(e.target).editable({
-                type: 'text',
-                value: currentType,
-                success: function(response, newValue) {
-                    if (newValue == "")
-                    {
-                        newValue = null;
-                    }
-                    Projects.update(projectId, {$set:{type: newValue}});
-                    $(e.target).editable('destroy');
-                }
-                });
-                $(e.target).editable('show');
-    },
-
-        'click .editablePriority' : function(e, tmpl){
-            var projectId = this._id;
-            var currentPriority = e.target.text;
-            $(e.target).editable({
-            type: 'select',
-            show:true, 
-            value: currentPriority,  
-            showbuttons: false,
-            source: [
-              {value: 'Low Priority', text: 'Low Priority'},
-              {value: 'Medium Priority', text: 'Medium Priority'},
-              {value: 'High Priority', text: 'High Priority'}
-           ],
-            success: function(response, newValue) {
-                if (newValue == "")
-                {
-                    newValue = null;
-                }
-                Projects.update(projectId, {$set:{priority: newValue}});
-                $(e.target).editable('destroy');
-            }
-    });
-        $(e.target).editable('show');
-
-     },
-
-        'click .editableDate' : function(e, tmpl){
-            var projectId = this._id;
-            var currentDate = e.target.text;
-            if (currentDate == "Enter a date")
-            {
-                currentDate = ""
-            }
-            $(e.target).editable({
-                value : currentDate,
-                emptytext: "Enter a date",
-                inputclass: "editableDatePicker",
-                showbuttons:true,
-                success: function(response,newValue){
-                    if (newValue == "")
-                    {
-                        newValue = null;
-                    }
-                    Projects.update(projectId, {$set:{date: newValue}});
-                    $(e.target).editable('destroy');
-                }
-            });
-            $(e.target).editable('show');
-            $(".editableDatePicker").datepicker({
-                autoclose:true
-            });
-
-            $(".editableDatePicker").datepicker('show');
-
-        },
-        'click .editableNotes' : function(e, tmpl){
-            var projectId = this._id;
-            var currentNotes = e.target.text;
-            if (currentNotes=="Add Notes")
-            {
-                currentNotes = '';
-            }
-            $(e.target).editable({
-                type: 'textarea',
-                value : currentNotes,
-                showbuttons:true,
-                cols: 20,
-                rows: 3,
-                inputclass: 'notes-input',
-                success: function(response, newValue) {
-                    if (newValue == "")
-                    {
-                        newValue = null;
-                    }
-                    Projects.update(projectId, {$set:{notes: newValue}});
-                    $(e.target).editable('destroy');
-                }
-                });
-                $(e.target).editable('show');
-            },
-            'click .addTag' : function(e, tmpl){
-                var projectId = this._id;
-                $(e.target).editable({
-                    value: "", // need to make value always blank
-                    deftaulValue: "hi",
-                    display:false,
-                    success: function(response, newValue){
-                        var tags = Projects.findOne(projectId).tags;
-                        if (tags == undefined || tags == ""){
-                           var tags = [newValue];
-                        }
-                        else{
-                            tags.push(newValue);
-                        }
-                        Projects.update(projectId, {$set:{tags: tags}});
-                        $(e.target).editable('destroy');
-                    }
-                });
-                $(e.target).editable('show');
-            },
-            'click .editURL' : function(e, tmpl){
-                console.log("clicked");
-                e.preventDefault();
-                e.stopPropagation();
-                var projectId = this._id;
-                var currentURL = this.url;
-                if (currentURL!=''){
-                    URL = $(e.target).closest('td').find('.editableURL');
-                    $(URL).editable({
-                    type: 'text', 
-                    value: currentURL,  
-                    showbuttons: false,
-                    inputclass:'URLinput',
-                    success: function(response, newValue){
-                        if (newValue == "")
-                        {
-                            newValue = null;
-                        }
-                        Projects.update(projectId, {$set:{url: newValue}});
-                        var thumbnailObject = Thumbnails.findOne({"metadata.projectId": projectId});
-                        var screenshotObject = Screenshots.findOne({"metadata.projectId": projectId});
-                        Thumbnails.remove(thumbnailObject._id);
-                        Screenshots.remove(screenshotObject._id);
-                        Meteor.call("getScreenshot", newValue,projectId);
-                        $(e.target).editable('destroy');
-                        }
-                    });
-                }
-                if (!currentURL){
-                    URL = $(e.target);
-                    $(URL).editable({
-                        type: 'text', 
-                        value: "http://",  
-                        showbuttons: false,
-                        success: function(response, newValue) {
-                        if (newValue == "")
-                        {
-                            newValue = null;
-                        }
-                            Projects.update(projectId, {$set:{url: newValue}});
-                            $(e.target).editable('destroy');
-                        }
-                        });
-                    }
-                (URL).editable('toggle');
-                (URL).off('click');
-        }
- })
 
 
 Template.projectRow.events({
@@ -396,9 +116,39 @@ Template.projectRow.events({
     },
     'change .inline-name': function(e){
         Projects.update(this._id, {$set:{name: e.target.value}});
+    },
+    'change .inline-description': function(e){
+        Projects.update(this._id,{$set:{description: e.target.value}})
+    },
+    'change .inline-owner': function(e){
+        Projects.update(this._id,{$set:{owner: e.target.value}})
+    },
+    'change .inline-url': function(e){
+        Projects.update(this._id,{$set:{url: e.target.value}})
+    },
+    'change .inline-platform': function(e){
+        Projects.update(this._id,{$set:{platform: e.target.value}})
+    },
+    'change .inline-type': function(e){
+        Projects.update(this._id,{$set:{type: e.target.value}})
+    },
+    'change .inline-status': function(e){
+        Projects.update(this._id,{$set:{status: e.target.value}})
+    },
+    'change .inline-priority': function(e){
+        Projects.update(this._id,{$set:{priority: e.target.value}})
+    },
+    'change .inline-date': function(e){
+        Projects.update(this._id, {$set:{date: e.target.value}});
+    },
+    'change .inline-notes' : function(e){
+        Projects.update(this._id, {$set:{notes: e.target.value}});        
+    },
+    'focus .datepicker' : function(e){
+        $(e.target).datepicker({
+            autoclose : true
+        });
     }
-
-
 })
 
 Template.projectRow.thumbnailPath = function(id){
