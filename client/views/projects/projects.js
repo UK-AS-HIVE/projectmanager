@@ -60,6 +60,14 @@ Template.imageList.images = function(){
 
 
 Template.projectRow.events({
+    'mouseenter td' : function(e, tmpl){
+        var glyphicons = tmpl.findAll('.glyphicon-edit');
+        $(glyphicons).css("visibility","visible");
+    },
+    'mouseleave td' : function(e, tmpl){
+        var glyphicons = tmpl.findAll('.glyphicon-edit');
+        $(glyphicons).css("visibility","hidden");
+    },
     'click .parent':function(e, tmpl)
     {
         if (e.target.tagName){

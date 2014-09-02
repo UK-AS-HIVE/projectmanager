@@ -29,7 +29,7 @@
 
 <template name="projectRow">
                 <tr class="parent">
-                        <td>
+                        <td class="inline-edit-preview">
                         <div class="inline-edit" style="display:inline-block">
                         <span class="inline-edit-preview">
                         <strong>{{name}}</strong>
@@ -63,7 +63,7 @@
 
 
                     <!--Editable Owner-->
-                    <td>
+                    <td class="editable">
                         <div class="inline-edit" style="display:inline-block">
                         <span class="inline-edit-preview">
                         {{owner}}
@@ -78,7 +78,7 @@
 
 
                     <!--Editable URL-->
-                    <td>
+                        <td class="inline-edit-preview">
                         <div class="inline-edit" style="display:inline-block">
                         <span class="inline-edit-preview">
                         <a href="{{url}}" target="_blank">{{url}}</a>
