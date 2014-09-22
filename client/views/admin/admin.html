@@ -29,7 +29,13 @@
   <labeL>Current Users: </label>
   <div class="admins">
       {{#each admins}}
-    <div class="tagContainer"><a class="currentTag btn btn-xs btn-default">{{this.name}}</a><span class="btn btn-default btn-xs deleteTag glyphicon glyphicon-remove removeUser"></span></div>
+    <li class="tag-container">    
+      <div class="div-remove" style="display:inline-block">
+        <span class="glyphicon glyphicon-remove removeUser">
+        </span>
+      </div>  
+      <span class="tag-content">{{this.name}}</span>
+  </li>
       {{/each}}
   </div>
   <br/><br />

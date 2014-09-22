@@ -2,17 +2,19 @@
 	display:inline-block;
 	padding: 0 5px 3px 3px;
 	position: relative;
-	line-height: 13px;
+	line-height: 16px;
 	color: #333;
 	cursor: default;
 	border: 1px solid #aaaaaa;
 	border-radius: 6px;
 	height:20px;
+	margin-left: 5px;
+	top: 2px;
 }
 
 .tag-content{
 	display:inline-block;
-	margin-top:3px;
+	margin-top:2px;
 }
 
 .glyphicon-remove{

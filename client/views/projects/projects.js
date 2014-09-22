@@ -61,11 +61,11 @@ Template.imageList.images = function(){
 
 Template.projectRow.events({
     'mouseenter td' : function(e, tmpl){
-        var glyphicons = tmpl.findAll('.glyphicon-edit');
+        var glyphicons = $(e.target).find(".glyphicon-edit");
         $(glyphicons).css("visibility","visible");
     },
     'mouseleave td' : function(e, tmpl){
-        var glyphicons = tmpl.findAll('.glyphicon-edit');
+        var glyphicons = $(e.target).find(".glyphicon-edit");
         $(glyphicons).css("visibility","hidden");
     },
     'click .parent':function(e, tmpl)
