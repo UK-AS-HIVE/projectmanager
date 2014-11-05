@@ -35,8 +35,6 @@ if (Meteor.isServer) {
 	{
 		Admins.insert({name: "aish222"});
 	}
-	process.chdir('../../../../../');
-	appPath = process.cwd()+'/';
 	});
 
 
@@ -52,6 +50,10 @@ Meteor.methods({
 	var Fiber = Npm.require('fibers')
 	var date = new Date();        
 	var dateString = ( date.getFullYear().toString().substr(2,2) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+  if (process.cwd().indexOf('.meteor/local') > -1){
+    process.chdir('../../../../..');
+    appPath = process.cwd()+'/';
+  }
 	screenshotsPath = appPath+'.screenshots/',
 	screenshotPath = screenshotsPath+  id +'/'+dateString;
     fs.mkdir(screenshotsPath+id, function(error) 
@@ -78,31 +80,6 @@ Meteor.methods({
         }
 
 	}
-
-/*
-	findScreenshot : function(id)
-	{
-		//console.log(id);
-		var date = new Date();        
-    	var dateString = (date.getMonth() + 1) + "-" + date.getDate() + "-" + date.getFullYear().toString().substr(2,2);
-    	var path = appPath+".screenshots/"+id+"/";
-		var Finder = Meteor.require('fs-finder');
-		try{
-			var files = Finder.in(path).findFiles();
-		}
-		catch(err){
-			Projects.update(id, {$set:{screenshotPath: ""}});
-			return ;
-		}
-		if (files.length>0){
-		screenshot = files[files.length-1].toString();
-		var index = screenshot.indexOf("/.screenshots");
-		screenshot = screenshot.substr(index);
-        Projects.update(id, {$set:{screenshotPath: screenshot}});
-    	}
-
-	}
-*/
 
 
 }) //end Meteor Methods

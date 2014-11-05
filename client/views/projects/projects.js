@@ -1,12 +1,3 @@
-// set all inline edits to inline, and not popup.
-$.fn.editable.defaults.mode = 'inline';
-$.fn.editable.defaults.showbuttons = false;
-$.fn.editable.defaults.emptytext = null;
-$.fn.editable.defaults.onblur = 'submit';
-$.fn.editable.defaults.display = function(){};
-
-
-
 Session.setDefault("statusFilter", "In Progress");
 Session.setDefault("priorityFilter", "Any" );
 Session.setDefault("sort","Time Entered")
