@@ -1,20 +1,18 @@
 <template name="tags">
-	<span class="label label-default"> Waggle Tags </span>
-	<div class="inline-edit" style="display:inline-block">
-	<div class="inline-edit-preview" style="display:inline-block">
-    {{#each tags}}
-    <li class="tag-container">    
-    	<div class="div-remove" style="display:inline-block">
-    		<span class="glyphicon glyphicon-remove remove-tag-btn" data-projectId="{{../_id}}" data-tag-content="{{this}}">
-    		</span>
-    	</div>	
-    	<a class="tag-content" target='_blank' href="https://help.as.uky.edu/story-search?f[0]=field_tags%253Aname%3A+{{this}}">{{this}}</a>
-	</li>
-    {{/each}}
-	</div>
-     <span class="inline-edit-form">
-		<input class="tag-input" placeholder="Add a tag" />
-     </span>
-     <i class="glyphicon glyphicon-edit"></i>
+  <span class="label label-default"> Waggle Tags </span>
+  <div class="inline-edit" style="display:inline-block">
+    <div class="inline-edit-preview" style="display:inline-block">
+      {{#each tags}}
+      <li class="tag-container">
+        <div class="div-remove" style="display:inline-block">
+          <span class="glyphicon glyphicon-remove remove-tag-btn" data-projectId="{{../_id}}" data-tag-content="{{this}}">
+          </span>
+        </div>
+        <a class="tag-content" target='_blank' href="https://help.as.uky.edu/story-search?f[0]=field_tags%253Aname%3A+{{this}}">{{this}}</a>
+      </li>
+      {{/each}}
     </div>
-	</template>
+    <input class="tag-input" type="hidden" placeholder="Add a tag" />
+    <i class="glyphicon glyphicon-edit"></i>
+  </div>
+</template>

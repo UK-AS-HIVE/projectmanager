@@ -1,45 +1,40 @@
 <template name="manage">
-    {{#if currentUser}}
-        <section id="manage-page">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="admins manage-block"> 
-                {{> manageAdmins }}
-              </div>
-            </div>
-          </div>
-        </section>    
-    {{else}}
-      {{> login}}
-    {{/if}}
-
-
-
-
+  {{#if currentUser}}
+  <section id="manage-page">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="admins manage-block"> 
+          {{> manageAdmins }}
+        </div>
+      </div>
+    </div>
+  </section>
+  {{else}}
+  {{> login}}
+  {{/if}}
 </template>
-
-
 <template name="manageAdmins">
   <div>
     <div class="form-group">
       <input type="text" id="user-input" class="form-control col-md-6 user-input" placeholder="Add a New User">
     </div>
     <button type="submit" class="btn btn-default addUser">Add</button>
-  </div><br>
+  </div>
+  <br>
   <labeL>Current Users: </label>
   <div class="admins">
-      {{#each admins}}
-    <li class="tag-container">    
+    {{#each admins}}
+    <li class="tag-container">
       <div class="div-remove" style="display:inline-block">
         <span class="glyphicon glyphicon-remove removeUser">
         </span>
-      </div>  
+      </div>
       <span class="tag-content">{{this.name}}</span>
-  </li>
-      {{/each}}
+    </li>
+    {{/each}}
   </div>
   <br/><br />
   <div>
-  <button class="btn btn-success " id ="screenShot">Refresh All Screenshots!</button>
+    <button class="btn btn-success " id ="screenShot">Refresh All Screenshots!</button>
   </div>
 </template>

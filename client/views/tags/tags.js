@@ -23,24 +23,14 @@ Template.tags.events({
       Tags.insert({tag: e.target.value})
     }
     e.target.value = "";
-    $(e.target).select2("val", null);
+    $(e.target).select2('destroy');
   },
-  'click .glyphicon-edit': function(){
-    $(".select2-input").focus()
+  'click .glyphicon-edit': function(e, tmpl){
+    $(tmpl.find(".tag-input")).select2({
+      tags: Tags.find().map(function(doc){
+        return doc.tag
+      })
+      //containerCssClass: 'tag-container'
+    }).select2('open');
   }
 })
-
-Template.tags.rendered = function(){
-  $('.tag-div').toggle('')
-  var savedTags = Tags.find().fetch();
-  var arrayTags = []
-  for (var i=0; i<savedTags.length;i++)
-  {
-    arrayTags.push(savedTags[i].tag)
-  }
-  $(".tag-input").select2({
-    tags:arrayTags,
-    containerCssClass: 'tag-container'
-  });
-
-}

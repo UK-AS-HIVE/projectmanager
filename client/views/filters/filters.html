@@ -1,42 +1,39 @@
 <template name="filters">
   <div class="statusFilter btn-group">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-      Status: {{getStatusFilter}}
-      <span class="caret"></span>
+    Status: {{getStatusFilter}}
+    <span class="caret"></span>
     </button>
     <ul class="statusFilter dropdown-menu">
       <li><a href="#" class = "changeStatusFilter" value = "In Progress">In Progress</a></li>
-      <li><a href="#" class = "changeStatusFilter" value = "Not Scheduled">Not Scheduled</a></li> 
-      <li><a href="#" class = "changeStatusFilter" value = null>On Hold</a></li>     
+      <li><a href="#" class = "changeStatusFilter" value = "Not Scheduled">Not Scheduled</a></li>
+      <li><a href="#" class = "changeStatusFilter" value = null>On Hold</a></li>
       <li><a href="#" class = "changeStatusFilter" value = "Done">Done</a></li>
       <li><a href="#" class = "changeStatusFilter" value = null>No Status</a></li>
       <li><a href="#" class = "changeStatusFilter" value="">All</a></li>
     </ul>
   </div>
-
-
   <div class="priorityFilter btn-group">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-      Priority: {{getPriorityFilter}}
-      <span class="caret"></span>
+    Priority: {{getPriorityFilter}}
+    <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
       <li><a href="#" class = "changePriorityFilter" value = "">Any</a></li>
       <li><a href="#" class = "changePriorityFilter" value = "High Priority">High Priority</a></li>
       <li><a href="#" class = "changePriorityFilter" value = "Medium Priority">Medium Priority</a></li>
-      <li><a href="#" class = "changePriorityFilter" value = "Low Priority">Low Priority</a></li>      
+      <li><a href="#" class = "changePriorityFilter" value = "Low Priority">Low Priority</a></li>
     </ul>
   </div>
-
-    <div class="sortBy btn-group">
+  <div class="sortBy btn-group">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-      Sort By: {{getSort}}
-      <span class="caret"></span>
+    Sort By: {{getSort}}
+    <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
       <li><a href="#" class = "changeSort" value = "time">Time Entered</a></li>
       <li><a href="#" class = "changeSort" value = "name">Name</a></li>
-      <li><a href="#" class = "changeSort" value = "date">Date</a></li>      
+      <li><a href="#" class = "changeSort" value = "date">Date</a></li>
     </ul>
   </div>
 </template>

@@ -1,21 +1,21 @@
 <template name="projects_new">
-    <div class="container">
-	<div class="filters">{{>filters}}{{>projectForm}}</div>
-	{{#each projectList}}
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <!--<h3 class="panel-title"><span class="editable editable-name">{{name}}</span></h3>!-->
-	      <div class="inline-edit">
-	        <span class="inline-edit-preview">
-            <strong>{{name}}</strong>
+  <div class="container">
+    <div class="filters">{{>filters}}{{>projectForm}}</div>
+    {{#each projectList}}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <!--<h3 class="panel-title"><span class="editable editable-name">{{name}}</span></h3>!-->
+        <div class="inline-edit">
+          <span class="inline-edit-preview">
+          <strong>{{name}}</strong>
           </span>
-	        <span class="inline-edit-form">
-	          <input type="text" class="form-control inline-name" value="{{name}}" placeholder="Name" />
-	        </span>
-	        <i class="glyphicon glyphicon-edit"></i>
-	      </div>
+          <span class="inline-edit-form">
+          <input type="text" class="form-control inline-name" value="{{name}}" placeholder="Name" />
+          </span>
+          <i class="glyphicon glyphicon-edit"></i>
         </div>
-        <div class ="panel-body">
+      </div>
+      <div class ="panel-body">
         <div class="row">
           <div class="col-md-3">
             <table class="table table-striped table-hover table-condensed">
@@ -25,13 +25,13 @@
                     <span>Owner</span>
                   </td>
                   <td>
-      				      <div class="inline-edit">
-      					        <span class="inline-edit-preview">{{owner}}</span>
-      					        <span class="inline-edit-form">
-      					          <input type="text" class="form-control inline-owner" value="{{owner}}" placeholder="Owner" />
-      					        </span>
-      					        <i class="glyphicon glyphicon-edit"></i>
-      					    </div>
+                    <div class="inline-edit">
+                      <span class="inline-edit-preview">{{owner}}</span>
+                      <span class="inline-edit-form">
+                      <input type="text" class="form-control inline-owner" value="{{owner}}" placeholder="Owner" />
+                      </span>
+                      <i class="glyphicon glyphicon-edit"></i>
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -39,13 +39,13 @@
                     <span class="">URL:</span>
                   </td>
                   <td>
-        			      <div class="inline-edit">
-        				        <span class="inline-edit-preview">{{url}}</span>
-        				        <span class="inline-edit-form">
-        				          <input type="text" class="form-control inline-url" value="{{url}}" placeholder="URL" />
-        				        </span>
-        				        <i class="glyphicon glyphicon-edit"></i>
-        				    </div>
+                    <div class="inline-edit">
+                      <span class="inline-edit-preview">{{url}}</span>
+                      <span class="inline-edit-form">
+                      <input type="text" class="form-control inline-url" value="{{url}}" placeholder="URL" />
+                      </span>
+                      <i class="glyphicon glyphicon-edit"></i>
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -56,12 +56,12 @@
                     <div class="inline-edit">
                       <span class="inline-edit-preview">{{status}}</span>
                       <span class="inline-edit-form">
-                        <select class="form-control inline-status" placeholder="status">
-                          <option value="In Progress" {{isSelected 'In Progress'}}>In Progress</option>
-                          <option value="Not Scheduled" {{isSelected 'Not Scheduled'}} >Not Scheduled</option>
-                          <option value="On Hold" {{isSelected 'On Hold'}} >On Hold</option>
-                          <option value="Done" {{isSelected 'Done'}} >Done</option>
-                        </select>
+                      <select class="form-control inline-status" placeholder="status">
+                      <option value="In Progress" {{isSelected 'In Progress'}}>In Progress</option>
+                      <option value="Not Scheduled" {{isSelected 'Not Scheduled'}} >Not Scheduled</option>
+                      <option value="On Hold" {{isSelected 'On Hold'}} >On Hold</option>
+                      <option value="Done" {{isSelected 'Done'}} >Done</option>
+                      </select>
                       </span>
                       <i class="glyphicon glyphicon-edit"></i>
                     </div>
@@ -87,7 +87,6 @@
                 </tr>
               </tbody>
             </table>
-
           </div>
           <div class="col-md-3">
             <table class="table table-condensed table-hover table-striped pull-left">
@@ -146,28 +145,28 @@
                     <input type="checkbox" class="screenshotToggle">
                     {{/if}}
                     {{/if}}
-				          </td>
+                  </td>
                 </tr>
               </tbody>
             </table>
             <span class="glyphicon glyphicon-chevron-down pull-right"></span>
           </div>
           <div class="col-md-6">
-          <br>
+            <br>
             {{#if screenshotEnabled}}
-            	<span class="glyphicon glyphicon-refresh refreshScreenshot pull-right" style="margin-right: 20px;"></span>
-	            {{#each thumbnailPath this._id}}
-	            <img href="{{this.url}}" src= "{{this.url}}" class="pull-right">
-	            {{/each}}
-			{{/if}}
+            <span class="glyphicon glyphicon-refresh refreshScreenshot pull-right" style="margin-right: 20px;"></span>
+            {{#each thumbnailPath this._id}}
+            <img href="{{this.url}}" src= "{{this.url}}" class="pull-right">
+            {{/each}}
+            {{/if}}
           </div>
         </div>
-        </div>
-        <div class="panel-footer"><div style="display:none">Tags:</div>{{>tags}}</div>
-
       </div>
-
-    {{/each}}
+      <div class="panel-footer">
+        <div style="display:none">Tags:</div>
+        {{>tags}}
+      </div>
     </div>
-
+    {{/each}}
+  </div>
 </template>

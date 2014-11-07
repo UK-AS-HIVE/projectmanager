@@ -51,7 +51,7 @@ form[editable-form] > div {margin: 10px 0;}
 }
 
 .notes-input{
-  width : 460px !important;
+  width : 428px !important;
 }
 
 
@@ -72,6 +72,9 @@ float:left;
 span.deleteTag{
   border: 0;
   top: 0px;
+}
+.deleteProject{
+  margin-top:5px;
 }
 
 .currentTag{

@@ -1,220 +1,221 @@
 <template name="projects">
- <div class="container">
+  <div class="container">
     {{> projectForm}}
     <br/>
     <br/>
     {{> filters}}
     {{> search}}
-        <table class="table table-bordered table-striped table-hover projectTable pagination-sm table-condensed" id="projectTable">
-                <thead class="project-header">
-                    <tr>
-                        <th id="name-header" width='auto'>Name</th>
-                        <th id="owner-header">Owner</th>
-                        <th id="url-header">URL</th>
-                        <th>Platform</th>
-                        <th>Type</th>
-                        <th>Status</th>
-                        <th>Priority</th>
-                        <th>Due/Launch Date</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                   {{#each projectList}}
-                   {{> projectRow}}
-                    {{/each}}
-                </tbody>
-            </table>
-            <button id="goTop">Go To Top</button>
-            </div>
+    <table class="table table-bordered table-striped table-hover projectTable pagination-sm table-condensed" id="projectTable">
+      <thead class="project-header">
+        <tr>
+          <th id="name-header" width='auto'>Name</th>
+          <th id="owner-header">Owner</th>
+          <th id="url-header">URL</th>
+          <th>Platform</th>
+          <th>Type</th>
+          <th>Status</th>
+          <th>Priority</th>
+          <th>Due/Launch Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each projectList}}
+        {{> projectRow}}
+        {{/each}}
+      </tbody>
+    </table>
+    <button id="goTop">Go To Top</button>
+  </div>
 </template>
-
 <template name="projectRow">
-                <tr class="parent">
-                        <td class="inline-edit-preview">
-                        <div class="inline-edit" style="display:inline-block">
-                        <span class="inline-edit-preview">
-                        <strong>{{name}}</strong>
-                        </span>
-                        <span class="inline-edit-form">
-                          <input type="text" class="form-control inline-name" value="{{name}}" placeholder="Name" />
-                        </span>
-                        <i class="glyphicon glyphicon-edit"></i>
-                        </div>
-
-                        <br>
-                        <div class="inline-edit" style="display:inline-block">
-                        <span class="inline-edit-preview">
-                        {{#if description}}{{description}}{{else}}Enter a Description{{/if}}
-                        </span>
-                        <span class="inline-edit-form">
-                          <textarea type="textarea" class="form-control inline-description description-input" value="{{description}}" placeholder="Description" ></textarea>
-                        </span>
-                        <i class="glyphicon glyphicon-edit"></i>
-                        </div>
-                        
-                        {{#if screenshotEnabled}}
-                            <div style="height:44px;width:31px">
-                            {{#each thumbnailPath this._id}}
-                            <img href="{{this.url}}" src= "{{this.url}}" align="left">
-                            {{/each}}
-                            <br><br><span class="glyphicon glyphicon-refresh refreshScreenshot"></span>
-                            </div>
-                        {{/if}}
-                    </td>
-
-
-                    <!--Editable Owner-->
-                    <td class="inline-edit-preview">
-                        <div class="inline-edit" style="display:inline-block">
-                        <span class="inline-edit-preview">
-                        {{owner}}
-                        </span>
-                        <span class="inline-edit-form">
-                          <input type="text" class="form-control inline-owner" value="{{owner}}" placeholder="Owner" />
-                        </span>
-                        <i class="glyphicon glyphicon-edit"></i>
-                        </div>
-                    </td>
-                    <!--/Editable Owner-->
-
-
-                    <!--Editable URL-->
-                        <td class="inline-edit-preview">
-                        <div class="inline-edit" style="display:inline-block">
-                        <span class="inline-edit-preview">
-                        <a href="{{url}}" target="_blank">{{url}}</a>
-                        </span>
-                        <span class="inline-edit-form">
-                          <input type="text" class="form-control inline-url" value="{{url}}" placeholder="URL" />
-                        </span>
-                        <i class="glyphicon glyphicon-edit"></i>
-                        </div>
-                    </td>
-                    <!--/Editable-->
-
-
-                    <!--Editable Platform-->
-                    <td>
-                        <div class="inline-edit" style="display:inline-block">
-                        <span class="inline-edit-preview">
-                        {{platform}}
-                        </span>
-                        <span class="inline-edit-form">
-                          <input type="text" class="form-control inline-platform" value="{{platform}}" placeholder="Platform" />
-                        </span>
-                        <i class="glyphicon glyphicon-edit"></i>
-                        </div>                    
-                    </td>
-                    <!--/Editable Platform-->
-
-                    <!--Editable Type-->
-                    <td>
-                        <div class="inline-edit" style="display:inline-block">
-                        <span class="inline-edit-preview">
-                        {{type}}
-                        </span>
-                        <span class="inline-edit-form">
-                          <input type="text" class="form-control inline-type" value="{{type}}" placeholder="Type" />
-                        </span>
-                        <i class="glyphicon glyphicon-edit"></i>
-                        </div>       
-                    </td>
-                    <!--/Editable Type-->
-
-                    <!--Editable Status-->
-                    <td>
-                        <div class="inline-edit" style="display:inline-block">
-                        <span class="inline-edit-preview">
-                        {{status}}
-                        </span>
-                        <span class="inline-edit-form">
-                          <select type="text" class="form-control inline-status" value="{{status}}" placeholder="status">
-                            <option value="In Progress">In Progress</option>
-                            <option value="Not Scheduled">Not Scheduled</option>
-                            <option value="On Hold">On Hold</option>
-                            <option value="Done">Done</option>
-                        </select>                        
-                    </span>
-                        <i class="glyphicon glyphicon-edit"></i>
-                        </div>                      
-                    </td>
-
-                    <td>
-                        <div class="inline-edit" style="display:inline-block">
-                        <span class="inline-edit-preview">
-                        {{priority}}
-                        </span>
-                        <span class="inline-edit-form">
-                          <select type="text" class="form-control inline-priority" value="{{priority}}" placeholder="Priority">
-                            <option value="High Priority">High Priority</option>
-                            <option value="Medium Priority">Medium Priority</option>
-                            <option value="Low Priority">Low Priority</option>
-                        </select>
-                        </span>
-                        <i class="glyphicon glyphicon-edit"></i>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="inline-edit">
-                          <span class="inline-edit-preview">{{date}}</span>
-                          <span class="inline-edit-form">
-                          <input class="datepicker inline-date">
-                          </span>
-                          <i class="glyphicon glyphicon-edit glyphicon-visible"></i>
-                        </div>
-                    </td>
-                    <!--/Editable-->
-
-                </tr>
-                        <tr style="display: none;" class ="details">
-                        <td colspan="10">
-                        <table>
-                        <tr>
-                        <td valign="top">
-                            <label for="notes">Notes: </label>
-                        <div class="inline-edit" style="display:inline-block">
-                            <span class="inline-edit-preview">
-                            {{notes}}
-                            </span>
-                            <span class="inline-edit-form">
-                              <textarea type="textarea" class="form-control inline-notes notes-input" value="{{notes}}" placeholder="Notes" ></textarea>
-                            </span>
-                            <i class="glyphicon glyphicon-edit"></i>
-                        </div>
-                            <br>
-                            {{#if url}}
-                            {{#if screenshotEnabled}}
-                            <label>Screenshot Tracking: </label><input type="checkbox" class="screenshotToggle" checked>
-                            {{else}}
-                            <label>Screenshot Tracking: </label><input type="checkbox" class="screenshotToggle">
-                            {{/if}}
-                            {{/if}}<br>
-                            {{>tags}}
-
-                        </td>
-                        <td>
-                        {{#if screenshotEnabled}}
-                        {{#each imagePath this._id}}
-                        <div STYLE="height:480px; width: 640px; font-size: 12px; overflow: auto; float:right;">
-                            <img href="{{this.url}}" src= "{{this.url}}" class="screenshot-wrapper" align="left"><br />
-                        </div>
-                        {{/each}}
-                        {{/if}}
-                        </td>
-                    </tr>
-                    </table>
-                            <a class="btn btn-danger btn-sm pull-center deleteProject"><i class="icon-white icon-trash"></i> Delete Project</a><br/><br/>
-                        </td>
-                    </tr>
-    <td>
-
+  <tr class="parent">
+    <td class="inline-edit-preview hoverable" >
+      <div class="inline-edit" style="display:inline-block">
+        <span class="inline-edit-preview">
+        <strong>{{name}}</strong>
+        </span>
+        <span class="inline-edit-form">
+        <input type="text" class="form-control inline-name" value="{{name}}" placeholder="Name" />
+        </span>
+        <i class="glyphicon glyphicon-edit"></i>
+      </div>
+      {{#if screenshotEnabled}}
+      <div style="height:44px;width:31px">
+        {{#each thumbnailPath this._id}}
+        <img href="{{this.url}}" src= "{{this.url}}" align="left">
+        {{/each}}
+      </div>
+      {{/if}}
     </td>
+    <!--Editable Owner-->
+    <td class="inline-edit-preview hoverable">
+      <div class="inline-edit" style="display:inline-block">
+        <span class="inline-edit-preview">
+        {{owner}}
+        </span>
+        <span class="inline-edit-form">
+        <input type="text" class="form-control inline-owner" value="{{owner}}" placeholder="Owner" />
+        </span>
+        <i class="glyphicon glyphicon-edit"></i>
+      </div>
+    </td>
+    <!--/Editable Owner-->
+    <!--Editable URL-->
+    <td class="inline-edit-preview hoverable" >
+      <div class="inline-edit" style="display:inline-block">
+        <span class="inline-edit-preview">
+        <a href="{{url}}" target="_blank">{{url}}</a>
+        </span>
+        <span class="inline-edit-form">
+        <input type="text" class="form-control inline-url" value="{{url}}" placeholder="URL" />
+        </span>
+        <i class="glyphicon glyphicon-edit"></i>
+      </div>
+    </td>
+    <!--/Editable-->
+    <!--Editable Platform-->
+    <td class="hoverable">
+      <div class="inline-edit" style="display:inline-block">
+        <span class="inline-edit-preview">
+        {{platform}}
+        </span>
+        <span class="inline-edit-form">
+        <input type="text" class="form-control inline-platform" value="{{platform}}" placeholder="Platform" />
+        </span>
+        <i class="glyphicon glyphicon-edit"></i>
+      </div>
+    </td>
+    <!--/Editable Platform-->
+    <!--Editable Type-->
+    <td class="hoverable">
+      <div class="inline-edit" style="display:inline-block">
+        <span class="inline-edit-preview">
+        {{type}}
+        </span>
+        <span class="inline-edit-form">
+        <input type="text" class="form-control inline-type" value="{{type}}" placeholder="Type" />
+        </span>
+        <i class="glyphicon glyphicon-edit"></i>
+      </div>
+    </td>
+    <!--/Editable Type-->
+    <!--Editable Status-->
+    <td class="hoverable">
+      <div class="inline-edit" style="display:inline-block">
+        <span class="inline-edit-preview">
+        {{status}}
+        </span>
+        <span class="inline-edit-form">
+          <select type="text" class="form-control inline-status" value="{{status}}" placeholder="status">
+            <option value="In Progress">In Progress</option>
+            <option value="Not Scheduled">Not Scheduled</option>
+            <option value="On Hold">On Hold</option>
+            <option value="Done">Done</option>
+          </select>
+        </span>
+        <i class="glyphicon glyphicon-edit"></i>
+      </div>
+    </td>
+    <td class="hoverable">
+      <div class="inline-edit" style="display:inline-block">
+        <span class="inline-edit-preview">
+        {{priority}}
+        </span>
+        <span class="inline-edit-form">
+          <select type="text" class="form-control inline-priority" value="{{priority}}" placeholder="Priority">
+            <option value="High Priority">High Priority</option>
+            <option value="Medium Priority">Medium Priority</option>
+            <option value="Low Priority">Low Priority</option>
+          </select>
+        </span>
+        <i class="glyphicon glyphicon-edit"></i>
+      </div>
+    </td>
+    <td class="hoverable">
+      <div class="inline-edit">
+        <span class="inline-edit-preview">{{date}}</span>
+        <span class="inline-edit-form">
+        <input class="datepicker inline-date">
+        </span>
+        <i class="glyphicon glyphicon-edit glyphicon-visible"></i>
+      </div>
+    </td>
+    <!--/Editable-->
+  </tr>
+  <tr style="display: none;" class ="details">
+    <td colspan='8'>
+      <div class="row">
+        <div class="col-md-5">
+          <table>
+            <tr>
+              <td class="hoverable">
+                <div class="inline-edit">
+                  <span class="inline-edit-preview">
+                  {{#if description}}{{description}}{{else}}Enter a Description{{/if}}
+                  </span>
+                  <span class="inline-edit-form">
+                  <textarea type="textarea" class="form-control inline-description description-input" value="{{description}}" placeholder="Description" ></textarea>
+                  </span>
+                  <i class="glyphicon glyphicon-edit"></i>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td valign="top" class="hoverable">
+                <label for="notes">Notes: </label><br/>
+                <div class="inline-edit" style="display:inline-block">
+                  <span class="inline-edit-preview">
+                  {{notes}}
+                  </span>
+                  <span class="inline-edit-form">
+                  <textarea type="textarea" class="form-control inline-notes notes-input" value="{{notes}}" placeholder="Notes" ></textarea>
+                  </span>
+                  <i class="glyphicon glyphicon-edit"></i>
+                </div>
+              </td >
+            </tr>
+            <tr>
+              <td class="hoverable">
+                {{#if url}}
+                {{#if screenshotEnabled}}
+                <label>Screenshot Tracking: </label><input type="checkbox" class="screenshotToggle" checked>
+                {{else}}
+                <label>Screenshot Tracking: </label><input type="checkbox" class="screenshotToggle">
+                {{/if}}
+                {{/if}}
+              </td>
+            </tr>
+            <tr>
+              <td class="hoverable">
+                {{>tags}}
+              </td>
+            </tr>
+            <tr>
+              <td class="hoverable">
+                <a class="btn btn-danger btn-sm pull-center deleteProject"><i class="icon-white icon-trash"></i> Delete Project</a><br/><br/>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-md-7 pull-right">
+          <span class="glyphicon glyphicon-refresh refreshScreenshot pull-right"></span>
+          {{#if screenshotEnabled}}
+          {{#each imagePath this._id}}
+          <div STYLE="height:480px; width: 640px; font-size: 12px; overflow: auto; float:right;">
+            <img href="{{this.url}}" src= "{{this.url}}" class="screenshot-wrapper" align="left"><br />
+          </div>
+          {{/each}}
+          {{/if}}
+        </div>
+      </div>
+    </td>
+  </tr>
 </template>
-
 <template name="imageList">
-{{#each images}}
-<li><p>{{this.metadata.projectId}}</p>
-<img src="{{this.url}}"></li>
-{{/each}}
+  {{#each images}}
+  <li>
+    <p>{{this.metadata.projectId}}</p>
+    <img src="{{this.url}}">
+  </li>
+  {{/each}}
 </template>

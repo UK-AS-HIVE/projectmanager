@@ -1,17 +1,17 @@
 <template name="login">
-    <div class="container">
+  <div class="container">
     {{#if currentUser}}
-      {{> home}}
+    {{> home}}
     {{else}}
-      <div id="linkblue-login center-block">
-        <div id="please-login">
-          <h3>Welcome to A&S Projects!</h3>
-          <p>Please login with your <a target="_blank" href="http://www.uky.edu/UKHome/subpages/linkblue.html">LinkBlue</a> credentials to begin.</p>
-        </div>
-        <div id="login-form">
-          {{ > linkblueLogin }}
-        </div>
+    <div id="linkblue-login center-block">
+      <div id="please-login">
+        <h3>Welcome to A&S Projects!</h3>
+        <p>Please login with your <a target="_blank" href="http://www.uky.edu/UKHome/subpages/linkblue.html">LinkBlue</a> credentials to begin.</p>
       </div>
-    {{/if}}
+      <div id="login-form">
+        {{ > linkblueLogin }}
+      </div>
     </div>
+    {{/if}}
+  </div>
 </template>

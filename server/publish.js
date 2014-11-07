@@ -89,3 +89,8 @@ Meteor.users.allow({
 	update: function (userId) { 
 		return isAdmin(userId); }
 });
+
+
+Meteor.publish('tags', function(){
+	return Tags.find();
+})

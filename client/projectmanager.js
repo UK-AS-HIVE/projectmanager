@@ -5,7 +5,7 @@ if (Meteor.isClient) {
   Meteor.subscribe("smallScreenshots");
 	Meteor.subscribe("admins");
   Meteor.subscribe("userData");
-
+  Meteor.subscribe("tags");
 
 
 }

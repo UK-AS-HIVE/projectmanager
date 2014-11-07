@@ -51,11 +51,11 @@ Template.imageList.images = function(){
 
 
 Template.projectRow.events({
-    'mouseenter td' : function(e, tmpl){
+    'mouseenter .hoverable' : function(e, tmpl){
         var glyphicons = $(e.target).find(".glyphicon-edit");
         $(glyphicons).css("visibility","visible");
     },
-    'mouseleave td' : function(e, tmpl){
+    'mouseleave .hoverable' : function(e, tmpl){
         var glyphicons = $(e.target).find(".glyphicon-edit");
         $(glyphicons).css("visibility","hidden");
     },
@@ -83,10 +83,8 @@ Template.projectRow.events({
     {
         var e = tmpl.find(".screenshotToggle");
         var enabled = e.checked;
-        console.log(enabled);
         Projects.update(this._id, {$set:{screenshotEnabled: enabled}});
         var path = this.screenshotPath;
-        console.log(path);
         if (path == undefined)
         {
             Meteor.call("getScreenshot", this.url, this._id)
@@ -106,7 +104,6 @@ Template.projectRow.events({
         Meteor.call("getScreenshot", this.url,this._id);
     },
     'click .inline-edit .glyphicon-edit': function(e){
-        console.log('toggle edit');
         toggleEdit(e);
 
     },
