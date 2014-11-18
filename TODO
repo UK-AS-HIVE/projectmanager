@@ -1,8 +1,8 @@
-- Search functionality
-- Move description to details row
-- Move refresh icon to details row
-- Hover over cell
-- Github Repository
-- Changelog
-- Users assosciated
-- "Tags" -> "Waggle Tags"
+- Search functionality. WIP
+- Move description to details row. Done
+- Move refresh icon to details row. Done
+- Hover over cell. Almost
+- Github Repository. Done
+- Changelog. WIP
+- Users assosciated. WIP
+- "Tags" -> "Waggle Tags". Done

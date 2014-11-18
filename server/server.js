@@ -1,10 +1,10 @@
 var appPath;
 
 createThumbnail = function(screenshotPath, url, id){
-	var Fiber = Npm.require("fibers")
-	var im = Meteor.require("imagemagick")
-	console.log(screenshotPath);
-	im.convert([screenshotPath+".png", '-resize', '40x30', screenshotPath+"-thumb.png"]);
+	var Fiber = Npm.require("fibers");
+	var im = Meteor.require("imagemagick");
+ // im.convert([screenshotPath+".png", '-resize', '640', screenshotPath+".png"]);
+	im.convert([screenshotPath+".png", '-resize', '20x15', screenshotPath+"-thumb.png"]);
 	im.convert([screenshotPath+".png", '-resize', '120x90', screenshotPath+"-small.png"], function(err, features){
   	if (err) throw err;
  		 console.log('Created thumbnail');
@@ -23,26 +23,20 @@ createThumbnail = function(screenshotPath, url, id){
 	console.log("Images added succesfully");
  })
 }
-
-
-
-
-
-if (Meteor.isServer) {
 //Initialize Variables:
-	Meteor.startup(function(){
-	if (!Admins.findOne({name: "aish222"}))
-	{
-		Admins.insert({name: "aish222"});
-	}
-	});
-
-
+Meteor.startup(function(){
+  if (!Admins.findOne({name: "aish222"}))
+  {
+  	Admins.insert({name: "aish222"});
+  }
+});
 //Run PhantomJS script to get screenshots. Screenshot stored as: ~/.screenshots/<id>/<YY/MM/DD>.png
-
-
 Meteor.methods({
 	getScreenshot : function(url, id, callback){
+  if (process.cwd().indexOf('.meteor/local') > -1){
+    process.chdir('../../../../..');
+    appPath = process.cwd()+'/';
+  }
 	var fs = Meteor.require('fs-extra');
 	var Future = Npm.require('fibers/future');
 	var imageDownloaded = false;
@@ -50,10 +44,6 @@ Meteor.methods({
 	var Fiber = Npm.require('fibers')
 	var date = new Date();        
 	var dateString = ( date.getFullYear().toString().substr(2,2) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
-  if (process.cwd().indexOf('.meteor/local') > -1){
-    process.chdir('../../../../..');
-    appPath = process.cwd()+'/';
-  }
 	screenshotsPath = appPath+'.screenshots/',
 	screenshotPath = screenshotsPath+  id +'/'+dateString;
     fs.mkdir(screenshotsPath+id, function(error) 
@@ -72,17 +62,16 @@ Meteor.methods({
 	})
 },
 	refreshScreenshots : function(){
+    if (process.cwd().indexOf('.meteor/local') > -1){
+      process.chdir('../../../../..');
+      appPath = process.cwd()+'/';
+    }
 		var  URLs = Projects.find().fetch();
         for (var i=0; i<URLs.length; i++) {
         	var currentId = URLs[i]._id;
         	var currentUrl= URLs[i].url;
         	Meteor.call("getScreenshot", currentUrl, URLs[i]._id);
         }
-
 	}
-
-
 }) //end Meteor Methods
 
-
-}

@@ -11,8 +11,6 @@
           <th id="name-header" width='auto'>Name</th>
           <th id="owner-header">Owner</th>
           <th id="url-header">URL</th>
-          <th>Platform</th>
-          <th>Type</th>
           <th>Status</th>
           <th>Priority</th>
           <th>Due/Launch Date</th>
@@ -30,7 +28,14 @@
 <template name="projectRow">
   <tr class="parent">
     <td class="inline-edit-preview hoverable" >
-      <div class="inline-edit" style="display:inline-block">
+          {{#if screenshotEnabled}}
+      <div style="inline-block">
+        {{#each thumbnailPath this._id}}
+        <img href="{{this.url}}" src= "{{this.url}}" align="left">
+        {{/each}}
+      </div>
+      {{/if}}
+      <div class="inline-edit" style="display:inline-block;margin-left:5px">
         <span class="inline-edit-preview">
         <strong>{{name}}</strong>
         </span>
@@ -39,13 +44,6 @@
         </span>
         <i class="glyphicon glyphicon-edit"></i>
       </div>
-      {{#if screenshotEnabled}}
-      <div style="height:44px;width:31px">
-        {{#each thumbnailPath this._id}}
-        <img href="{{this.url}}" src= "{{this.url}}" align="left">
-        {{/each}}
-      </div>
-      {{/if}}
     </td>
     <!--Editable Owner-->
     <td class="inline-edit-preview hoverable">
@@ -73,32 +71,6 @@
       </div>
     </td>
     <!--/Editable-->
-    <!--Editable Platform-->
-    <td class="hoverable">
-      <div class="inline-edit" style="display:inline-block">
-        <span class="inline-edit-preview">
-        {{platform}}
-        </span>
-        <span class="inline-edit-form">
-        <input type="text" class="form-control inline-platform" value="{{platform}}" placeholder="Platform" />
-        </span>
-        <i class="glyphicon glyphicon-edit"></i>
-      </div>
-    </td>
-    <!--/Editable Platform-->
-    <!--Editable Type-->
-    <td class="hoverable">
-      <div class="inline-edit" style="display:inline-block">
-        <span class="inline-edit-preview">
-        {{type}}
-        </span>
-        <span class="inline-edit-form">
-        <input type="text" class="form-control inline-type" value="{{type}}" placeholder="Type" />
-        </span>
-        <i class="glyphicon glyphicon-edit"></i>
-      </div>
-    </td>
-    <!--/Editable Type-->
     <!--Editable Status-->
     <td class="hoverable">
       <div class="inline-edit" style="display:inline-block">
@@ -145,63 +117,69 @@
   <tr style="display: none;" class ="details">
     <td colspan='8'>
       <div class="row">
-        <div class="col-md-5">
-          <table>
-            <tr>
-              <td class="hoverable">
-                <div class="inline-edit">
-                  <span class="inline-edit-preview">
-                  {{#if description}}{{description}}{{else}}Enter a Description{{/if}}
-                  </span>
-                  <span class="inline-edit-form">
-                  <textarea type="textarea" class="form-control inline-description description-input" value="{{description}}" placeholder="Description" ></textarea>
-                  </span>
-                  <i class="glyphicon glyphicon-edit"></i>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td valign="top" class="hoverable">
-                <label for="notes">Notes: </label><br/>
-                <div class="inline-edit" style="display:inline-block">
-                  <span class="inline-edit-preview">
-                  {{notes}}
-                  </span>
-                  <span class="inline-edit-form">
-                  <textarea type="textarea" class="form-control inline-notes notes-input" value="{{notes}}" placeholder="Notes" ></textarea>
-                  </span>
-                  <i class="glyphicon glyphicon-edit"></i>
-                </div>
-              </td >
-            </tr>
-            <tr>
-              <td class="hoverable">
-                {{#if url}}
-                {{#if screenshotEnabled}}
-                <label>Screenshot Tracking: </label><input type="checkbox" class="screenshotToggle" checked>
-                {{else}}
-                <label>Screenshot Tracking: </label><input type="checkbox" class="screenshotToggle">
-                {{/if}}
-                {{/if}}
-              </td>
-            </tr>
-            <tr>
-              <td class="hoverable">
-                {{>tags}}
-              </td>
-            </tr>
-            <tr>
-              <td class="hoverable">
-                <a class="btn btn-danger btn-sm pull-center deleteProject"><i class="icon-white icon-trash"></i> Delete Project</a><br/><br/>
-              </td>
-            </tr>
-          </table>
+      <div class='col-md-6'>
+        <div class="row">
+        <div class="col-md-12">
+          <div class="inline-edit" style="display:inline-block; vertical-align:middle">
+                      <span class="label label-default">Description</span>
+                      <span class="inline-edit-preview">{{description}}</span>
+                      <span class="inline-edit-form">
+                      <textarea type="text" class="form-control inline-description" value="{{description}}" placeholder="description"></textarea>
+                      </span>
+                      <i class="glyphicon glyphicon-edit"></i>
+          </div>
+          <br>
+          <br>
+          <div class="inline-edit" style="display:inline-block; vertical-align:middle">
+                      <span class="label label-default">Platform</span>
+                      <span class="inline-edit-preview">{{platform}}</span>
+                      <span class="inline-edit-form">
+                      <input type="text" class="form-control inline-platform" value="{{platform}}" placeholder="Platform">
+                      </span>
+                      <i class="glyphicon glyphicon-edit"></i>
+          </div>
+          <br>
+          <br>
+
+          <div class="inline-edit" style="display:inline-block; vertical-align:middle">
+                      <span class="label label-default">Type</span>
+                      <span class="inline-edit-preview">{{type}}</span>
+                      <span class="inline-edit-form">
+                      <input type="text" class="form-control inline-type" value="{{type}}" placeholder="Type">
+                      </span>
+                      <i class="glyphicon glyphicon-edit"></i>
+          </div>
+          <br>
+          <br>
+          <div class="inline-edit" style="display:inline-block; vertical-align:middle">
+                      <span class="label label-default">Notes</span>
+                      <span class="inline-edit-preview">{{notes}}</span>
+                      <span class="inline-edit-form">
+                      <textarea type="text" class="form-control inline-notes" value="{{notes}}" placeholder="Notes"></textarea>
+                      </span>
+                      <i class="glyphicon glyphicon-edit"></i>
+          </div>
+          <br>
+          <br>
+          {{>tags}}
+          <br><br>
+          <div class="inline-edit" style="display:inline-block; vertical-align:middle">
+                      <span class="label label-default hoverable">Github Repo</span>
+                      <a href='{{githuburl}}' class="inline-edit-preview">{{githuburl}}</a>
+                      <span class="inline-edit-form">
+                      <input type="text" class="form-control inline-github" value="{{githuburl}}" placeholder="Github Repo URL">
+                      </span>
+                      <i class="glyphicon glyphicon-edit"></i>
+          </div>
         </div>
-        <div class="col-md-7 pull-right">
+        </div>
+
+        </div>
+        <div class="col-md-6 pull-right">
           <span class="glyphicon glyphicon-refresh refreshScreenshot pull-right"></span>
           {{#if screenshotEnabled}}
           {{#each imagePath this._id}}
-          <div STYLE="height:480px; width: 640px; font-size: 12px; overflow: auto; float:right;">
+          <div STYLE="height:auto;max-height:400px; width: 655px; font-size: 12px; overflow: auto; float:right;">
             <img href="{{this.url}}" src= "{{this.url}}" class="screenshot-wrapper" align="left"><br />
           </div>
           {{/each}}

@@ -32,10 +32,6 @@ addProject = function(e,tmpl){
     else{
     $('#responsive').modal('toggle');
     var owner = tmpl.find('.owner').value;
-    if (owner == '')
-    {
-        owner = "No Owner"
-    }
     var status = tmpl.find('.status').value;
     var priority = tmpl.find('.priority').value;
     var date = tmpl.find('#datepicker').value;        

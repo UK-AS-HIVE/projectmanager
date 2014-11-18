@@ -31,6 +31,7 @@ Template.tags.events({
         return doc.tag
       })
       //containerCssClass: 'tag-container'
-    }).select2('open');
+    }).select2('open')
+
   }
 })

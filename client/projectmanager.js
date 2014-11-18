@@ -6,6 +6,4 @@ if (Meteor.isClient) {
 	Meteor.subscribe("admins");
   Meteor.subscribe("userData");
   Meteor.subscribe("tags");
-
-
 }

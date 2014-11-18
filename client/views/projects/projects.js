@@ -140,6 +140,9 @@ Template.projectRow.events({
     'change .inline-notes' : function(e){
         Projects.update(this._id, {$set:{notes: e.target.value}});        
     },
+    'change .inline-github' : function(e){
+        Projects.update(this._id, {$set:{githuburl: e.target.value}});        
+    },
     'focus .datepicker' : function(e){
         $(e.target).datepicker({
             autoclose : true
@@ -153,8 +156,8 @@ Template.projectRow.thumbnailPath = function(id){
 }
 
 Template.projectRow.imagePath = function(id){
-
     var newImage = [Screenshots.findOne({"metadata.projectId": id})];
+    console.log(newImage)
     return newImage;
 
 
@@ -225,6 +228,13 @@ Template.projects.rendered = function(){
     scrollToTop();
 }
 
+
+Template.projects.isSelected = function(option){
+        if(this.status == option){
+            return 'selected';
+        }
+        return null;
+}
 
 var scrollToTop = function(){
     $(document).ready(function() {

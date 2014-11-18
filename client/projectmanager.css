@@ -1,3 +1,7 @@
+.container{
+  width:78%;
+}
+
 .panel-footer .tag-footer{
   min-height:30px;
 }
@@ -25,18 +29,24 @@ ul.select2-choices{
 .screenshot-wrapper .img img{
     width: auto !important;
     max-width: 640px !important;
-    min-width: 600px !important;
+    min-width: 550px !important;
     height: auto !important; 
     margin: 0 auto;
     display: block;
+}
+
+
+.screenshotToggle{
+  margin-left: 5px !important;
+  vertical-align: middle;
 }
 
 .datepicker {
   z-index:1050 !important;
 }
 
-.description-input{
-  width: 500px;
+.inline-description, .inline-notes{
+  width:600px;
 }
 
 
