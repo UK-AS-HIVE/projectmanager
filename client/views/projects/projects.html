@@ -171,6 +171,15 @@
                       </span>
                       <i class="glyphicon glyphicon-edit"></i>
           </div>
+          <br><br>
+          {{#if url}}
+          {{#if screenshotEnabled}}
+          <span class="label label-default">Screenshot Tracking: </span><input type="checkbox" class="screenshotToggle" checked>
+          {{else}}
+          <span class="label label-default">Screenshot Tracking: </span><input type="checkbox" class="screenshotToggle">
+          {{/if}}
+          {{/if}}<br>
+
         </div>
         </div>
 
